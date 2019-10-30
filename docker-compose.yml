@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432"
+  backend:
+    build:
+      context: studently-backend
+      args:
+        UID: ${UID:-1000}
+    volumes:
+      - ./studently-backend:/usr/src/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    user: rails
+  frontend:
+    build:
+      context: studently-frontend
+      args:
+        UID: ${UID:-1001}
+    volumes:
+      - ./studently-frontend:/usr/src/app
+    ports:
+      - "3000:3000"
+    user: frontend
