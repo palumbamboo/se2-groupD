@@ -1,4 +1,4 @@
-# USE CASE NARRATIVE
+# STORY 3 - USE CASE NARRATIVE
 
 <b>Use case</b>: Enable access to parents.  
 
