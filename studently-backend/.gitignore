@@ -23,3 +23,6 @@
 
 # Ignore bundle
 /vendor/bundle
+
+# Ignore idea
+/.idea/
