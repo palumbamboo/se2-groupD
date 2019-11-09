@@ -20,7 +20,7 @@
 
 **Precondition**:
 
-* The maximum number of students enrolled should be greater than the actual one
+* The maximum number of enrollable students should be greater than the currently enrolled one
 
 **Minimum guarantees**:  /
 
@@ -35,8 +35,7 @@
    - validates information
    - asks for confirmation
 3. The administrative officer confirms
-4. System saves information for the student
-5. The system confirms that the student has been enrolled
+4. The system confirms that the student has been enrolled
 
 The use case terminates with success.  
 
@@ -49,6 +48,6 @@ The use case terminates with success.
 
 **3a.** The administrative officer cancels : the use case continues at step 1
 
-**4a.** The system is not able to store information
+**4a.** The system is not able to store information :
 ​		**4a.1** The system shows an error message suggesting to try again later
 ​		**4a.2** The use case ends in failure
