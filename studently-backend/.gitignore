@@ -25,4 +25,5 @@
 /vendor/bundle
 
 # Ignore idea
+/.idea
 /.idea/
