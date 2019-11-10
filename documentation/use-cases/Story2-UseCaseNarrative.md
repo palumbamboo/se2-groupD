@@ -19,7 +19,7 @@
 
 <b>Precondition</b>: 
 
-* There should be an authorized teacher in a valid open lecture
+* The teacher should have logged in and he should be in a valid open lecture
 
 <b>Minimum guarantees</b>:  /  
 
@@ -34,16 +34,14 @@
 3. The teacher compiles the field
 4. The system shows the preview and asks for confirmation
 5. The teacher confirms
-6. The system updates lecture with data about topics
-7. The system shows update confirmation
+6. The system shows update confirmation
 
 The use case terminates with success.  
 
 <b>Extensions</b>:  
 
 &nbsp;&nbsp; <b>1a.</b> The teacher cancels: the use case ends in failure  
-&nbsp;&nbsp; <b>3b.</b> The teacher compiles the text field with not valid data: the system shows a warning message  
+&nbsp;&nbsp; <b>3b.</b> The teacher compiles the text field with not valid data: the system shows a warning message. Use case continues from point 3.  
 &nbsp;&nbsp; <b>5a.</b> The teacher cancels: the use case ends in failure  
-&nbsp;&nbsp; <b>6a.</b> The system fails in updating data: the use case ends in failure
    
 
