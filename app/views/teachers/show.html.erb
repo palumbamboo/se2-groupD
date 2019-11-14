@@ -1,0 +1,10 @@
+<h1>Teacher <%= @teacher.to_s %></h1>
+<% if session[:current_lecture] %>
+  <%= button_to "Current lecture", lecture_path, method: :get, id: session[:current_lecture][:id] %>
+<% end %>
+<p>
+  <strong>bella pe te</strong>
+</p>
+<%= button_to "New lecture", new_lecture_path, method: :get, params: { teacher_id: @teacher.id } %>
+
+<%= link_to 'Back', teachers_path %>

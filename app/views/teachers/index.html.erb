@@ -1,0 +1,16 @@
+<h1>All teachers!</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Subjects</th>
+    <th></th>
+  </tr>
+
+  <% @teachers.each do |teacher| %>
+    <tr>
+      <td><%= teacher.to_s %></td>
+      <td><%= teacher.subjects.map(&:to_s).join(', ') %></td>
+      <td><%= link_to '<button>Show</button>'.html_safe, teacher_path(teacher) %></td>
+    </tr>
+  <% end %>
+</table>

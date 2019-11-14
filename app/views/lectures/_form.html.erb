@@ -1,0 +1,25 @@
+<%= form_with model: @lecture do |f| %>
+  <div>
+    <%= f.label "Teacher: #{@teacher.to_s}" %>
+  </div>
+  <div>
+    <%= f.label "Lecture name"%>
+    <%= f.text_field :name %>
+  </div>
+  <br />
+  <div>
+    <%= f.label "Subject" %>
+    <%= f.select :subject, @teacher.subjects %>
+  </div>
+  <br />
+  <div>
+    <%= f.label :school_class %>
+    <%= f.select :school_class_id, @teacher.school_classes.map{ |c| [c.class_to_s, c.id]} %>
+  </div>
+  <br />
+  <br /><br />
+  <%= f.hidden_field :teacher_id, value: @teacher.id %>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

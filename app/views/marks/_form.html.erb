@@ -1,0 +1,35 @@
+<%= form_for @mark do |f| %>
+<div>
+    <%= f.label :teacher %>
+    <%= f.select(:teacher_id, Teacher.all.collect {|p| [ p.surname, p.id ] })%>
+</div>
+<br />
+<div>
+    <%= f.label :mark %>
+    <%= f.text_field :mark %>
+</div>
+<br />
+<div>
+    <%= f.label :subject %>
+    <%= f.text_field :subject %>
+</div>
+<br />
+<div>
+    <%= f.label :student %>
+    <%= f.select(:student_id, Student.all.collect {|p| [ p.surname, p.id ] })%>
+</div>
+<br />
+<div>
+    <%= f.label :date %>
+    <%= f.date_select :date, start_year: Date.today.year - 1, end_year: Date.today.year %>
+</div>
+<br />
+<div>
+    <%= f.label :notes %>
+    <%= f.text_area :notes %>
+</div>
+<br /><br />
+<div>
+    <%= f.submit %>
+</div>
+<% end %>
