@@ -1,0 +1,30 @@
+<%= form_for @student do |f| %>
+<div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+</div>
+<br />
+<div>
+    <%= f.label :surname %>
+    <%= f.text_field :surname %>
+</div>
+<br />
+<div>
+    <%= f.label :fiscal_code %>
+    <%= f.text_field :fiscal_code %>
+</div>
+<br />
+<div>
+    <%= f.label :birth_date %>
+    <%= f.date_select :birth_date, start_year: (Date.today - 20.years).year, end_year: Date.today.year %>
+</div>
+<br />
+<div>
+    <%= f.label :enrollment_date %>
+    <%= f.date_select :enrollment_date, start_year: (Date.today - 10.years).year, end_year: Date.today.year %>
+</div>
+<br /><br />
+<div>
+    <%= f.submit %>
+</div>
+<% end %>

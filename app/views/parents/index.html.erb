@@ -1,0 +1,21 @@
+<div>
+    <h1>
+        Parents
+    </h1>
+</div>
+<div>
+<table>
+<th>Name</th>
+<th>Surname</th>
+<th>E-mail</th>
+<th></th>
+<% @parents.each do |parent| %>
+    <tr>
+        <td><%= parent.name %></td>
+        <td><%= parent.surname %></td>
+        <td><%= parent.email %></td>
+        <td><%= button_to "Edit", edit_parent_path(parent) %></td>
+    </tr>
+<% end %>
+</table>
+</div>

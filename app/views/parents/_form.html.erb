@@ -1,0 +1,21 @@
+<%= form_for @parent do |f| %>
+<div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+</div>
+<br />
+<div>
+    <%= f.label :surname %>
+    <%= f.text_field :surname %>
+</div>
+<br />
+<div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+</div>
+<br /><br />
+<div>
+    <%= f.submit %>
+</div>
+<% end %>
+
