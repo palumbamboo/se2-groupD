@@ -4,6 +4,7 @@ class Lecture < ApplicationRecord
   attribute :end_time, type: Date
   attribute :topics
   attribute :subject
+  attribute :duration, type: Integer
 
   belongs_to :teacher
   belongs_to :school_class

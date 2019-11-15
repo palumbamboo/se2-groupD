@@ -16,8 +16,8 @@
         <td><%= student.name %></td>
         <td><%= student.surname %></td>
         <td><%= student.fiscal_code %></td>
-        <td><%= student.birth_date.strftime("%d/%m/%Y") %>
-        <td><%= student.enrollment_date.strftime("%d/%m/%Y") %>
+        <td><%= student.birth_date&.strftime("%d/%m/%Y") %>
+        <td><%= student.enrollment_date&.strftime("%d/%m/%Y") %>
         <td><%= button_to "Edit", edit_student_path(student) %></td>
     </tr>
 <% end %>
