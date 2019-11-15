@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   resources :lectures
   resources :marks
 
+  get 'parents/:id/show_marks' => 'parents#show_marks'
+
 end
+
+
