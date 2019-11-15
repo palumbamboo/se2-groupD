@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_085930) do
+ActiveRecord::Schema.define(version: 2019_11_15_150101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "lectures", force: :cascade do |t|
-    t.date "start_time"
-    t.date "end_time"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.string "topics"
     t.bigint "teacher_id"
     t.bigint "school_class_id"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2019_11_15_085930) do
     t.string "surname"
     t.string "fiscal_code"
     t.date "birth_date"
-    t.string "enrollment_date"
+    t.date "enrollment_date"
     t.bigint "school_class_id"
     t.index ["school_class_id"], name: "index_students_on_school_class_id"
   end

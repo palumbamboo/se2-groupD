@@ -11,4 +11,12 @@ class Student < ApplicationRecord
   def to_s
       "#{name.capitalize} #{surname.capitalize}"
   end
+
+  def birth_date
+    super.is_a?(String) ? super.to_date : super
+  end
+
+    def enrollment_date
+      super.is_a?(String) ? super.to_date : super
+    end
 end
