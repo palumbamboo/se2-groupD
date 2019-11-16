@@ -12,16 +12,12 @@
   <% end %>
 
   <div style="margin-left: 30px">
-    <h5>Add a new lecture</h5>
+    <h3>Add a new lecture</h3>
     <div>
     <% for subject in  @teacher.subjects %>
       <%= button_to subject, new_lecture_path(@teacher), :class => 'btn btn-primary' %>
     <% end %>
     </div>
-
-    <hr>
-
-    <%= link_to 'Back', teachers_path, :class => 'btn btn-default' %>
   </div>
 </div>
 
