@@ -1,6 +1,9 @@
 <div class="sidebar">
   <%= link_to "Home", root_path, :class => 'active' %>
   <%= link_to "Courses", school_class_path %>
+  <% for school_class in @teacher.school_classes %>
+    <%= link_to school_class.number.to_s + school_class.section.to_s, school_class_path(school_class) %>
+  <% end %>
   <%= link_to "Classes", school_class_path %>
   <%= link_to "Today's lectures", lecture_path %>
 </div>
@@ -11,6 +14,7 @@
     <%= button_to "Current lecture", lecture_path, method: :get, id: session[:current_lecture][:id] %>
   <% end %>
 
+  <!-- TO BE COPIED IN THE SCHOOL CLASS PAGE RELATIVE TO THIS TEACHER
   <div style="margin-left: 30px">
     <h3>Add a new lecture</h3>
     <div>
@@ -19,6 +23,7 @@
     <% end %>
     </div>
   </div>
+  -->
 </div>
 
 <style>
