@@ -9,8 +9,8 @@
 </div>
 </div>
 <div class="main">
-<%= form_with do |f| %>
+<%= form_tag('./show_marks/switch_child', :method => :post, :remote => true) do %>
 <%= label_tag(:student, "Select your child")%>
-<%= f.select(:student_id, Student.all.collect {|p| [ p.surname, p.id ] })%>
+<%= select_tag(:student_id, Student.all.collect {|p| [ p.surname, p.id ] }, :onchange => "this.form.submit();")%> <!--- must change to: only children of that parent -->
 <% end %>
 </div>

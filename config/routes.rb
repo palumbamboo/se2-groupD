@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :marks
 
   get 'parents/:id/show_marks' => 'parents#show_marks'
+  post 'parents/:id/show_marks/switch_child' => 'parents#switch_child'
 
 end
 

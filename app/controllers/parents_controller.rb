@@ -14,7 +14,9 @@ class ParentsController < ApplicationController
 
     def show_marks
         set_parent
-        
+    end
+
+    def switch_child
     end
 
     def create
