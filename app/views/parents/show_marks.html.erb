@@ -11,6 +11,6 @@
 <div class="main">
 <%= form_tag('./show_marks/switch_child', :method => :post, :remote => true) do %>
 <%= label_tag(:student, "Select your child")%>
-<%= select_tag(:student_id, Student.all.collect {|p| [ p.surname, p.id ] }, :onchange => "this.form.submit();")%> <!--- must change to: only children of that parent -->
+<%= select_tag(:student_id, Parent.find(params[:id]).students {|p| [ p.surname, p.id ] }, :onchange => "this.form.submit();")%>
 <% end %>
 </div>
