@@ -12,6 +12,13 @@ class ParentsController < ApplicationController
         @parent = Parent.new
     end
 
+    def show_marks
+        set_parent
+    end
+
+    def switch_child
+    end
+
     def create
         @parent = Parent.new(parent_params)
         if @parent.save
