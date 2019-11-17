@@ -1,25 +1,26 @@
 <div>
-    <h1>
-        Students
-    </h1>
+  <h1>
+    Students
+  </h1>
 </div>
 <div>
-<table>
-<th>Name</th>
-<th>Surname</th>
-<th>Fiscal Code</th>
-<th>Birth date</th>
-<th>Enrollment date</th>
-<th></th>
-<% @students.each do |student| %>
-    <tr>
+  <table>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Fiscal Code</th>
+    <th>Birth date</th>
+    <th>Enrollment date</th>
+    <th></th>
+    <% @students.each do |student| %>
+      <tr>
         <td><%= student.name %></td>
         <td><%= student.surname %></td>
         <td><%= student.fiscal_code %></td>
-        <td><%= student.birth_date.strftime("%d/%m/%Y") %>
-        <td><%= student.enrollment_date.strftime("%d/%m/%Y") %>
+        <td><%= student.birth_date&.strftime("%d/%m/%Y") %>
+        <td><%= student.enrollment_date&.strftime("%d/%m/%Y") %>
+        <td><%= button_to 'Show', student_path(student), method: :get %></td>
         <td><%= button_to "Edit", edit_student_path(student) %></td>
-    </tr>
-<% end %>
-</table>
+      </tr>
+    <% end %>
+  </table>
 </div>

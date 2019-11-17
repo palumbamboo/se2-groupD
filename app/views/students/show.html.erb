@@ -11,9 +11,9 @@
 </div>
 <br />
 <div>
-    Birth date: <%= @student.birth_date.strftime("%d/%m/%Y") %>
+    Birth date: <%= @student.birth_date&.strftime("%d/%m/%Y") %>
 </div>
 <br />
 <div>
-    Enrollment date: <%= @student.enrollment_date.strftime("%d/%m/%Y") %>
+    Enrollment date: <%= @student.enrollment_date&.strftime("%d/%m/%Y") %>
 </div>
