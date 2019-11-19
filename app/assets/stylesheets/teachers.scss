@@ -1,3 +1,134 @@
 // Place all the styles related to the Teachers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+body {
+  font-family: "Lato", sans-serif;
+  color: #3b8070;
+  text-align: center;
+  background-color: rgb(230, 235, 236);
+}
+
+input[type=submit], button {
+  display: inline-block;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-left: 22px;
+  margin-right: 22px;
+  color: #3b8070;
+  background-color: white;
+  border: 2px solid #3b8070;
+  border-radius: 10px;
+  border-top-style: hidden;
+  width: 180px;
+  height: 45px;
+  transition: all 0.3s;
+}
+
+input[type=submit]:hover, button:hover {
+  color: white;
+  border: 2px solid rgb(170, 177, 187);
+  background-color: #3b8070;
+  cursor: pointer;
+}
+
+input, select {
+  border: none;
+  border-radius: 4px;
+  outline: 0;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background: #e8eeef;
+  color:#8a97a0;
+  -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin: 0 0 30px;
+}
+
+input:focus {
+  background: #d2d9dd;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+form {
+  max-width: 500px;
+  background: #f4f7f8;
+  margin: 10px auto;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 220px;
+  position: fixed;
+  left: 0;
+  z-index: 0;
+  background-color: #3b8070;
+  overflow-x: hidden;
+  top: 0;
+  -webkit-box-shadow: 24px -10px 32px -36px rgba(0,0,0,0.75);
+  -moz-box-shadow: 24px -10px 32px -36px rgba(0,0,0,0.75);
+  box-shadow: 24px -10px 32px -36px rgba(0,0,0,0.75);
+}
+
+.hellouser {
+  padding : 20px;
+  text-align: left;
+  font-weight: lighter;
+  color: white;
+  border-bottom-style: double;
+  border-bottom-color: white;
+}
+
+.navcontent {
+  top: 150px;
+  position: fixed;
+  width: 220px; /* same as sidenav */
+}
+
+.navcontent a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  text-decoration: none;
+  text-align: left;
+  color: white;
+  display: block;
+  border-radius: 8px;
+  -webkit-box-shadow: 24px -10px 32px -36px rgba(0,0,0,0.75);
+  -moz-box-shadow: 24px -10px 32px -36px rgba(0,0,0,0.75);
+  box-shadow: 24px -10px 32px -36px rgba(0,0,0,0.75);
+
+}
+
+.navcontent a:hover {
+  color: #f1f1f1;
+  background-color: #61bba673;
+}
+
+.navcontent a.active {
+  color: #f1f1f1;
+  background-color: #61bba6bb;
+}
+
+.main {
+  margin-left: 220px; /* same of sidenav */
+  color: #3b8070;
+  text-align: center;
+  /*height: 100%;*/
+  top: 0;
+}
+
+table {
+  border: 3px solid #3b8070;
+}
