@@ -1,0 +1,33 @@
+<div>
+  <h1>
+    All School Classes
+  </h1>
+</div>
+<div>
+  <table>
+    <th>Class</th>
+    <th>Teachers</th>
+    <th>Students</th>
+    <th></th>
+    <% @school_classes.each do |sc| %>
+      <tr>
+        <td><%= sc.class_to_s %></td>
+        <td>
+          <ul class="list-group">
+            <% sc.teachers.each do |t| %>
+              <li><%= t.to_s %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td>
+          <ul class="list-group">
+            <% sc.students.each do |s| %>
+              <li><%= s.to_s %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td><%= button_to "Edit", edit_school_class_path(sc), :method => "get" %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
