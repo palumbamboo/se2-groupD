@@ -11,9 +11,9 @@ We committed to 4 stories: we implemented only 1 of them and we started working 
 |  | Total | Committed | Implemented | Work in progress |
 | --- | --- | --- | --- | --- |
 | Stories | 30 | 4 | 1 | 2 |
-| Points | 151 | 20* | 5 | 4 |
+| Points | 151 | 20 | 5 | 4 |
 
-**Note**: not counting effort for learning
+**Note**: We are not counting effort for learning.
 
 ### Tasks and hours
 
@@ -21,27 +21,27 @@ The total number of tasks were 43.
 
 |   |  Average  |
 |---|---|
-| Actual hours per task  | ?*  |
+| Actual hours per task  | 0.56  |
 | Tasks per story | 10.75  |
 
 |   |  Hours estimated  | Actual hours |
 |---|---|---|
-| Per task  | ?/43=  | ??/43= |
-| Overall | ? | ?? |
+| Per task  | 24.5/43=0.57  | 24/43=0.56 |
+| Overall | 24.5 | 24 |
 
-The total task estimation error ratio, given by the division between actual and estimated time is: ??/?=
+The total task estimation error ratio, given by the division between actual and estimated time is: 24/24.5=0.98.
 
-**Note**: for those statistics, we are taking into account also tasks implemented of the unfinished stories 
+**Note**: for those statistics, we are taking into account also implemented tasks of the unfinished stories.
 
 ## Stories comparison
 
-For this part of the retrospective, since we implemented only 1 stories completely, it's not possible to evaluate ratios among stories with different estimated points.
+For this part of the retrospective, since we completed only 1 stories, it's not possible to evaluate ratios among stories with different estimated points.
 
 ### Estimated time
 
 | Story points | Average of estimated time(hours)
 | --- | --- |
-| 5 | ? |
+| 5 | 10.5 |
 
 **Ratio of averages**: NA
 
@@ -49,7 +49,7 @@ For this part of the retrospective, since we implemented only 1 stories complete
 
 | Story points | Average of actual time(hours)
 | --- | --- |
-| 5 | 5.8 |
+| 5 | 12 |
 
 **Ratio of averages**: NA
 
@@ -57,7 +57,7 @@ For this part of the retrospective, since we implemented only 1 stories complete
 
 We noticed that:
 
-* Story #1, the one we implemented, was ???
+* Estimation of story #1, the one we implemented, was quite correct. 
 
 ## What caused errors in estimation
 
@@ -65,10 +65,10 @@ There were not big errors in story estimation. The principal estimation error wa
 
 ## Definition of Done
 
-* _Unit test_: rails test
-* _Code review_: at the end of each story (exploiting also pull requests)
-* _Code on VCS_: (GitHub)
-* _Performed E2E test_: ??
+* **Unit test**: rails test;
+* **Code review**: at the end of each story (exploiting also pull requests);
+* **Code on VCS**: git on GitHub;
+* **Performed E2E test**: not done.
 
 ## Lessons learned
 
@@ -78,18 +78,16 @@ Positive:
 
 Negative:
 
-* Trying to challenge ourselves in using 2 completely new technologies could be dangerous.
-* If someone does not agree totally on team choices it is better to tell the others as soon as possible.
-* If the infrastructure must be changed, it should be done as soon as possible during the sprint.
+* Trying to challenge ourselves in using 2 completely new technologies can be dangerous.
+* If someone does not agree on team choices it is better to tell the others as soon as possible.
+* If the infrastructure need to be changed, it should be done as soon as possible during the sprint.
 
 ## Possible improvements
 
-* Trying to work all together, at least at the beginning, in order to share knowledge
-* Don't take for granted the individual capability of learning a lot of new things in a short time
+* Trying to work all together, at least at the beginning, in order to share knowledge.
+* Don't take for granted the individual capability of learning a lot of new things in a short time.
 
 ## Proud of
 
-* Backend infrastructure
-
-* Database management system
+* Backend infrastructure: well structured and ready to support future stories.
 
