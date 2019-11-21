@@ -41,6 +41,17 @@ class StudentsController < ApplicationController
         
     end
 
+    def add_parent
+        set_student
+        if params[:parent_name].present? && params[:parent_surname].present? && params[:parent_mail].present?
+            @parent = Parent.new(:name => params[:parent_name], :surname => params[:parent_surname], :email => params[:parent_mail])
+            @parent.students << @student
+            if parent.save
+                redirect_to welcome_index_path, notice: "Parent associated to student"
+            end 
+        end
+    end
+
     def destroy
         set_student
         @student.destroy

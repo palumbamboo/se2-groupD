@@ -72,8 +72,6 @@ ActiveRecord::Schema.define(version: 2019_11_24_104056) do
     t.string "fiscal_code"
     t.date "birth_date"
     t.date "enrollment_date"
-    t.bigint "school_class_id"
-    t.index ["school_class_id"], name: "index_students_on_school_class_id"
   end
 
   create_table "teachers", force: :cascade do |t|
