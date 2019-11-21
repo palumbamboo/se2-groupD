@@ -1,11 +1,13 @@
 <div>
-  Name: <%= @lecture.name %>
-</div>
-<br />
-<div>
+  Current lecture: <%= @lecture.name %>
+  Teacher: <%= @lecture.teacher.to_s %>
   Class: <%= @lecture.school_class.class_to_s %>
 </div>
-<br />
 <div>
   Subject: <%= @lecture.subject %>
 </div>
+
+<div id="new-mark">
+  <%= link_to "Add mark", new_mark_path(params: { school_class_id: @lecture.school_class, teacher_id: @lecture.teacher }), remote: true %>
+</div>
+

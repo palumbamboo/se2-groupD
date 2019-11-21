@@ -1,0 +1,7 @@
+<tr id="edit-lecture_<%= lecture.id %>">
+  <td><%= lecture.name %></td>
+  <td><%= lecture.subject %></td>
+  <td><%= lecture.school_class.class_to_s %></td>
+  <td><%= lecture.topics %></td>
+  <td><%= link_to 'Edit', edit_lecture_path(lecture), class: 'btn btn-primary', remote: true %></td>
+</tr>

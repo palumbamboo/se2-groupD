@@ -12,8 +12,18 @@ class ParentsController < ApplicationController
         @parent = Parent.new
     end
 
+    def students
+        set_parent
+        @students = @parent.students
+    end
+
     def show_marks
         set_parent
+        @marks = @parent.students.first.marks
+        respond_to do |format|
+            format.js
+            format.html { redirect_to @parent, notice: "Student marks loaded" }
+        end
     end
 
     def switch_child

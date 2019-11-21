@@ -4,16 +4,16 @@
   <% if user_signed_in? %>
     Logged in as <strong><%= current_user.email %></strong>.
     <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+    <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => 'navbar-link'  %>
   <% else %>
     <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
     <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
   <% end %>
 </p>
 
-<p>Who you are?</p>
-<%= button_to "Teachers", teachers_url, method: :get %>
-<%= button_to "Parents", parents_url, method: :get %>
+<p>Who are you?</p>
+<%= button_to "Teacher", teachers_url, method: :get %>
+<%= button_to "Parent", parents_url, method: :get %>
 <p>What are you looking for?</p>
 <%= button_to "Lectures", lectures_url, method: :get %>
 <%= button_to "Marks", marks_url, method: :get %>

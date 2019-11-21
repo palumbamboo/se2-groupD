@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   resources :lectures
   resources :marks
 
-  get 'parents/:id/show_marks' => 'parents#show_marks'
+  get 'teachers/:id/lectures', to: 'teachers#lectures', as: 'teacher_lectures'
+  get 'teachers/:id/marks', to: 'teachers#marks', as: 'teacher_marks'
+
+  get 'parents/:id/show_marks' => 'parents#students'
   post 'parents/:id/show_marks/switch_child' => 'parents#switch_child'
 
 end
