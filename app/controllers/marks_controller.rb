@@ -17,7 +17,7 @@ class MarksController < ApplicationController
 
     def create
         @mark = Mark.new(mark_params)
-        # @mark.date = Date.civil(params[:mark]["date(1i)"].to_i,params[:mark]["date(2i)"].to_i,params[:mark]["date(3i)"].to_i)
+        @mark.date = @mark.date.to_date
         respond_to do |format|
             if @mark.save
                 format.js
