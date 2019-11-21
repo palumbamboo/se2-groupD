@@ -1,4 +1,4 @@
-<%= form_with model: @lecture do |f| %>
+<%= form_with(model: @lecture) do |f| %>
   <div>
     <%= f.label "Teacher: #{@teacher.to_s}" %>
   </div>
@@ -10,6 +10,11 @@
   <div>
     <%= f.label "Subject" %>
     <%= f.select :subject, @teacher.subjects %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label "Lecture topic"%>
+    <%= f.text_field :topics %>
   </div>
   <br />
   <div>

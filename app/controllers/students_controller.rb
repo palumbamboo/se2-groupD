@@ -12,6 +12,11 @@ class StudentsController < ApplicationController
         @student = Student.new
     end
 
+    def marks
+        set_student
+        @student.marks.to_json
+    end
+
     def create
         @student = Student.new(student_params)
         @student.birth_date = Date.civil(params[:student]["birth_date(1i)"].to_i,params[:student]["birth_date(2i)"].to_i,params[:student]["birth_date(3i)"].to_i)

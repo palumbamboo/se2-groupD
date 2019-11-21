@@ -12,11 +12,17 @@ class LecturesController < ApplicationController
   end
 
   def create
-    @lecture = Lecture.new(lecture_params.merge(start_time: Date.today))
+    @lecture = Lecture.new(lecture_params.merge(start_time: Time.now))
 
-    if @lecture.save
-      session[:current_lecture] = @lecture
-      redirect_to teacher_url(@lecture.teacher)
+    respond_to do |format|
+      if @lecture.save
+        format.js
+        format.html { redirect_to @lecture, notice: "Lecture created" }
+        format.json { render :show, status: :created, location: @lecture }
+      else
+        format.html { render :new }
+        format.json { render json: @lecture.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -31,8 +37,16 @@ class LecturesController < ApplicationController
 
   def update
     set_lecture
-    if @lecture.update_attributes(lecture_params)
-      redirect_to lectures_url, notice: 'Lecture updated'
+
+    respond_to do |format|
+      if @lecture.update_attributes(lecture_params)
+        format.js
+        format.html { redirect_to @lecture, notice: "Lecture updated" }
+        format.json { render :show, status: :created, location: @lecture }
+      else
+        format.html { render :new }
+        format.json { render json: @lecture.errors, status: :unprocessable_entity }
+      end
     end
   end
 

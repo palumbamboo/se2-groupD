@@ -3,6 +3,7 @@
   <tr>
     <th>Name</th>
     <th>Subjects</th>
+    <th>Classes</th>
     <th></th>
   </tr>
 
@@ -10,6 +11,7 @@
     <tr>
       <td><%= teacher.to_s %></td>
       <td><%= teacher.subjects.map(&:to_s).join(', ') %></td>
+      <td><%= teacher.school_classes.map(&:class_to_s).join(', ') %></td>
       <td><%= link_to '<button>Show</button>'.html_safe, teacher_path(teacher) %></td>
     </tr>
   <% end %>
