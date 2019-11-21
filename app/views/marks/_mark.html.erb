@@ -1,0 +1,6 @@
+<tr id="edit-mark_<%= mark.id %>">
+  <td><%= mark.mark %></td>
+  <td><%= mark.subject %></td>
+  <td><%= mark.notes %></td>
+  <td><%= link_to 'Edit', edit_mark_path(mark), class: 'btn btn-primary', remote: true %></td>
+</tr>

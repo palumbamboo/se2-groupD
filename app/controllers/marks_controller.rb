@@ -17,7 +17,7 @@ class MarksController < ApplicationController
 
     def create
         @mark = Mark.new(mark_params)
-        @mark.date = Date.civil(params[:mark]["date(1i)"].to_i,params[:mark]["date(2i)"].to_i,params[:mark]["date(3i)"].to_i)
+        # @mark.date = Date.civil(params[:mark]["date(1i)"].to_i,params[:mark]["date(2i)"].to_i,params[:mark]["date(3i)"].to_i)
         respond_to do |format|
             if @mark.save
                 format.js
@@ -32,6 +32,7 @@ class MarksController < ApplicationController
 
     def edit
         set_mark
+        @teacher = @mark.teacher
     end
 
     def update
@@ -54,6 +55,6 @@ class MarksController < ApplicationController
     end
 
     def mark_params
-        params.require(:mark).permit(:id, :mark, :subject, :student_id, :teacher_id, :notes)
+        params.require(:mark).permit(:id, :mark, :subject, :student_id, :teacher_id, :notes, :date)
     end
 end
