@@ -1,0 +1,2 @@
+document.getElementById('edit-lecture_<%= @lecture.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @lecture.id %>'><td colspan=6><%= j render 'form', lecture: @lecture %></td></tr>")
+$('#edit-lecture_<%= @lecture.id %> a').parent().html("<%= j link_to("Undo", teacher_lectures_url(@teacher), class: "btn btn-warning") %>")

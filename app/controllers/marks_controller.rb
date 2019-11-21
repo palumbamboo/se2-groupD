@@ -9,14 +9,24 @@ class MarksController < ApplicationController
     end
 
     def new
+        if params[:teacher_id]
+            @teacher = Teacher.find(params[:teacher_id])
+        end
         @mark = Mark.new
     end
 
     def create
         @mark = Mark.new(mark_params)
         @mark.date = Date.civil(params[:mark]["date(1i)"].to_i,params[:mark]["date(2i)"].to_i,params[:mark]["date(3i)"].to_i)
-        if @mark.save
-            redirect_to marks_url, notice: 'Mark created'
+        respond_to do |format|
+            if @mark.save
+                format.js
+                format.html { redirect_to @mark, notice: "Mark created" }
+                format.json { render :show, status: :created, location: @mark }
+            else
+                format.html { render :new }
+                format.json { render json: @mark.errors, status: :unprocessable_entity }
+            end
         end
     end
 

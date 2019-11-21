@@ -1,10 +1,22 @@
-<h1>Teacher <%= @teacher.to_s %></h1>
-<% if session[:current_lecture] %>
-  <%= button_to "Current lecture", lecture_path, method: :get, id: session[:current_lecture][:id] %>
-<% end %>
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
+<div class="sidenav">
+  <h2 class="hellouser">
+    Hello, <%= @teacher.to_s %>!
+  </h2>
+  <div class="navcontent">
+    <%= link_to "<span class = 'mdi mdi-view-dashboard'> Home</span>".html_safe, teacher_path(@teacher), class: "active" %>
+    <%= link_to "<span class = 'mdi mdi-teach'> Lectures</span>".html_safe, teacher_lectures_url %>
+    <%= link_to "<span class = 'mdi mdi-bookmark'> Marks</span>".html_safe, teacher_marks_url %>
+  </div>
+</div>
+
 <p>
-  <strong>bella pe te</strong>
+  <strong>Teacher view, add content</strong>
 </p>
 <%= button_to "New lecture", new_lecture_path, method: :get, params: { teacher_id: @teacher.id } %>
+
+<div id="new-mark">
+  <%= link_to "Add mark", new_mark_path(params: { teacher_id: @teacher.id }), remote: true %>
+</div>
 
 <%= link_to 'Back', teachers_path %>

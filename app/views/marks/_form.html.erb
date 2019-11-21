@@ -1,35 +1,43 @@
-<%= form_for @mark do |f| %>
-<div>
+<%= form_with(model: @mark) do |f| %>
+  <div>
     <%= f.label :teacher %>
-    <%= f.select(:teacher_id, Teacher.all.collect {|p| [ p.surname, p.id ] })%>
-</div>
-<br />
-<div>
+    <% if @teacher %>
+     <%= f.select(:teacher_id, [[@teacher.to_s, @teacher.id]]) %>
+    <% else %>
+      <%= f.select(:teacher_id, Teacher.all.collect {|p| [ p.surname, p.id ] })%>
+    <% end %>
+  </div>
+  <br/>
+  <div>
     <%= f.label :mark %>
     <%= f.text_field :mark %>
-</div>
-<br />
-<div>
+  </div>
+  <br/>
+  <div>
     <%= f.label :subject %>
-    <%= f.text_field :subject %>
-</div>
-<br />
-<div>
+    <% if @teacher %>
+      <%= f.select(:subject, @teacher.subjects) %>
+    <% else %>
+      <%= f.text_field :subject %>
+  <% end %>
+  </div>
+  <br/>
+  <div>
     <%= f.label :student %>
     <%= f.select(:student_id, Student.all.collect {|p| [ p.surname, p.id ] })%>
-</div>
-<br />
-<div>
+  </div>
+  <br/>
+  <div>
     <%= f.label :date %>
-    <%= f.date_select :date, start_year: Date.today.year - 1, end_year: Date.today.year %>
-</div>
-<br />
-<div>
+    <%= f.date_select(:dob,:start_year => 1950) %>
+  </div>
+  <br />
+  <div>
     <%= f.label :notes %>
     <%= f.text_area :notes %>
-</div>
-<br /><br />
-<div>
+  </div>
+  <br /><br />
+  <div>
     <%= f.submit %>
-</div>
+  </div>
 <% end %>
