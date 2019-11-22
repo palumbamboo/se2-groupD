@@ -5,6 +5,7 @@ class Teacher < ApplicationRecord
 
   has_and_belongs_to_many :school_classes, class_name: 'SchoolClass'
   has_many :lectures
+  has_many :marks
 
   def to_s
     "#{name&.capitalize} #{surname&.capitalize}"

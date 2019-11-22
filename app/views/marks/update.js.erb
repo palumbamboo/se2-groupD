@@ -1,0 +1,3 @@
+document.getElementById('edit-form_<%= @mark.id %>').remove()
+$('#edit-mark<%= @mark.id %> a').parent().html("<%= j link_to("Edit", edit_mark_path(@lecture), class: "btn btn-primary", remote:true) %>")
+$('#edit-mark<%= @mark.id %>').replaceWith("<%= j render @mark %>")

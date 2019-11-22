@@ -20,6 +20,7 @@ class TeachersController < ApplicationController
 
   def marks
     set_teacher
+    @marks = @teacher.marks
   end
 
   private
