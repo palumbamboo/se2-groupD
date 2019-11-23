@@ -52,8 +52,17 @@ class LecturesController < ApplicationController
 
   def destroy
     set_lecture
-    @lecture.destroy
-    redirect_to lectures_url, notice: 'Lecture deleted'
+
+    respond_to do |format|
+      if @lecture.destroy
+        format.js
+        format.html { redirect_to @lecture, notice: "Lecture deleted" }
+        format.json { render :show, status: :created, location: @lecture }
+      else
+        format.html { render :new }
+        format.json { render json: @lecture.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

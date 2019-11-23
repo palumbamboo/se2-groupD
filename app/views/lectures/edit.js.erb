@@ -1,2 +1,4 @@
-document.getElementById('edit-lecture_<%= @lecture.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @lecture.id %>'><td colspan=6><%= j render 'form', lecture: @lecture %></td></tr>")
-$('#edit-lecture_<%= @lecture.id %> a').parent().html("<%= j link_to("Undo", teacher_lectures_url(@teacher), class: "btn btn-warning") %>")
+document.getElementById('lecture-row_<%= @lecture.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @lecture.id %>'><td colspan=6><%= j render 'form', lecture: @lecture %></td></tr>")
+$('#lecture-edit_<%= @lecture.id %>').replaceWith("<%= j link_to("Undo", teacher_lectures_url(@teacher), id: "lecture-undo_#{@lecture.id}", class: "btn btn-warning") %>")
+$('a:not(#lecture-undo_<%= @lecture.id %>)').addClass("disabled")
+$('tr:not(#edit-form_<%= @lecture.id %>,#lecture-row_<%= @lecture.id %>)').addClass('blur-filter')

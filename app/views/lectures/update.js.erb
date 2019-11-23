@@ -1,3 +1,4 @@
 document.getElementById('edit-form_<%= @lecture.id %>').remove()
-$('#edit-lecture_<%= @lecture.id %> a').parent().html("<%= j link_to("Edit", edit_lecture_path(@lecture), class: "btn btn-primary", remote:true) %>")
-$('#edit-lecture_<%= @lecture.id %>').replaceWith("<%= j render @lecture %>")
+$('#lecture-row_<%= @lecture.id %>').replaceWith("<%= j render @lecture %>")
+$('a').removeClass("disabled")
+$('.blur-filter').removeClass('blur-filter')

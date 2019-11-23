@@ -13,10 +13,5 @@
 <p>
   <strong>Teacher view, add content</strong>
 </p>
-<%= button_to "New lecture", new_lecture_path, method: :get, params: { teacher_id: @teacher.id } %>
-
-<div id="new-mark">
-  <%= link_to "Add mark", new_mark_path(params: { teacher_id: @teacher.id }), remote: true %>
-</div>
 
 <%= link_to 'Back', teachers_path %>
