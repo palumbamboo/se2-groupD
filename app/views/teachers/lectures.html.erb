@@ -27,5 +27,5 @@
 </table>
 
 <div id="new-lecture">
-  <%= link_to "Create lecture", new_lecture_path(params: { teacher_id: @teacher.id }), remote: true %>
+  <%= link_to " Create lecture", new_lecture_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", remote: true %>
 </div>
