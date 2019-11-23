@@ -11,13 +11,15 @@
 </div>
 
 <div class="main">
-  <table id="lectures">
+  <table id="lectures" class="table">
     <thead>
     <tr>
-      <th>Lecture</th>
-      <th>Subject</th>
-      <th>Class</th>
-      <th>Topics</th>
+      <th scope="col">Lecture</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Class</th>
+      <th scope="col">Topics</th>
+      <th scope="col">Date</th>
+      <th colspan="3"></th>
       <th colspan="3"></th>
     </tr>
     </thead>
@@ -27,7 +29,6 @@
   </table>
 
   <div id="new-lecture">
-    <%= link_to "Create lecture", new_lecture_path(params: { teacher_id: @teacher.id }), remote: true %>
+    <%= link_to " Create lecture", new_lecture_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", remote: true %>
   </div>
 </div>
-
