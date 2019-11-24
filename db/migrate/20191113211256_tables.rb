@@ -3,8 +3,11 @@ class Tables < ActiveRecord::Migration[6.0]
     create_table :teachers do |t|
       t.string :name
       t.string :surname
-      t.text :subjects, :string, Array
+
+      t.belongs_to :user
     end
+
+    add_column :teachers, :subjects, :string, array: true, default: []
 
     create_table :school_classes do |c|
       c.string :number
@@ -32,6 +35,8 @@ class Tables < ActiveRecord::Migration[6.0]
       p.string :name
       p.string :surname
       p.string :email
+
+      p.belongs_to :user
     end
 
     create_table :students do |s|

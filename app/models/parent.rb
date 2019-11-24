@@ -3,5 +3,6 @@ class Parent < ApplicationRecord
     attribute :surname
     attribute :email
 
+    belongs_to :user
     has_and_belongs_to_many :students
 end
