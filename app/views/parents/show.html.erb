@@ -4,7 +4,7 @@
   Hello, <%= @parent.name %> <%= @parent.surname %>!
   </h2>
 <div class="navcontent">
-  <a href="/parents/<%= @parent.id %>" class="active"><span class = "mdi mdi-view-dashboard"> Dashboard</span></a>
-  <a href="/parents/<%= @parent.id %>/show_marks"><span class = 'mdi mdi-school'> Marks</span></a>
+  <%= link_to "<span class = 'mdi mdi-view-dashboard'> Home</span>".html_safe, parent_path(@parent), class: "active" %>
+  <%= link_to "<span class = 'mdi mdi-school'> Marks</span>".html_safe, parent_marks_url %>
 </div>
 </div>

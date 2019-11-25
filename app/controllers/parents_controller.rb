@@ -31,6 +31,11 @@ class ParentsController < ApplicationController
     end
 
     def switch_child
+        set_parent
+        @student = @parent.students.find(params[:stud])
+        respond_to do |format|
+            format.js
+        end
     end
 
     def create
