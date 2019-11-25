@@ -24,6 +24,13 @@
     <%= f.date_field(:enrollment_date, start_year: (Date.today - 10.years).year, end_year: Date.today.year) %>
 </div>
 <br />
+<% if action_name == "edit" %>
+    <div>
+        <%= f.label "Select a classroom" %>
+        <%= f.select :school_class_id, SchoolClass.available_classes.map{ |c| [c.class_to_s, c.id]} %>
+    </div>
+    <br /><br />
+<% end %>
 <h6>Parent 1</h6>
 <div>
     <%= f.label "Name" %>
@@ -53,13 +60,6 @@
     <%= text_field_tag :second_parent_email, @student.second_parent_email %>
 </div>
 <br /><br />
-<% if action_name == "edit" %>
-    <div>
-        <%= f.label "Select a classroom" %>
-        <%= f.select :school_class_id, SchoolClass.available_classes.map{ |c| [c.class_to_s, c.id]} %>
-    </div>
-    <br /><br />
-<% end %>
 <div>
     <%= f.submit %>
 </div>
