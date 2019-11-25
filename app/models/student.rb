@@ -22,26 +22,26 @@ class Student < ApplicationRecord
   end
 
   def first_parent_name
-    parents.present? ? parents.first.name : nil
+    (parents.present? && parents.first.present?) ? parents.first.name : nil
   end
 
   def first_parent_surname
-    parents.present? ? parents.first.surname : nil
+    (parents.present? && parents.first.present?) ? parents.first.surname : nil
   end
 
   def first_parent_email
-    parents.present? ? parents.first.user.email : nil
+    (parents.present? && parents.first.present?) ? parents.first.user.email : nil
   end
 
   def second_parent_name
-    parents.present? ? parents.second.name : nil
+    (parents.present? && parents.second.present?) ? parents.second.name : nil
   end
 
   def second_parent_surname
-    parents.present? ? parents.second.name : nil
+    (parents.present? && parents.second.present?) ? parents.second.name : nil
   end
 
   def second_parent_email
-    parents.present? ? parents.second.user.email : nil
+    (parents.present? && parents.second.present?) ? parents.second.user.email : nil
   end
 end

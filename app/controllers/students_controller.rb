@@ -52,6 +52,30 @@ class StudentsController < ApplicationController
 
     def update
         set_student
+        if params["first_parent_name"].present? && params["first_parent_surname"].present? && params["first_parent_email"].present?
+            first_parent = @student.parents.first
+            current_name = first_parent.name
+            current_surname = first_parent.surname
+            if current_name != params["first_parent_name"] && current_surname != params["first_parent_surname"]
+                first_parent.update(name: params["first_parent_name"], surname: params["first_parent_surname"])
+            elsif current_name != params["first_parent_name"] && current_surname == params["first_parent_surname"]
+                first_parent.update(name: params["first_parent_name"])
+            elsif current_name == params["first_parent_name"] && current_surname != params["first_parent_surname"] 
+                first_parent.update(surname: params["first_parent_surname"])
+            end  
+        end
+        if params["second_parent_name"].present? && params["second_parent_surname"].present? && params["second_parent_email"].present?
+            second_parent = @student.parents.second
+            current_name = second_parent.name
+            current_surname = second_parent.surname
+            if current_name != params["second_parent_name"] && current_surname != params["second_parent_surname"]
+                second_parent.update(name: params["second_parent_name"], surname: params["second_parent_surname"])
+            elsif current_name != params["second_parent_name"] && current_surname == params["second_parent_surname"]
+                second_parent.update(name: params["second_parent_name"])
+            elsif current_name == params["second_parent_name"] && current_surname != params["second_parent_surname"] 
+                second_parent.update(surname: params["second_parent_surname"])
+            end  
+        end
         @student.update(student_params)
         if @student.save
             redirect_to students_url, notice: 'Student updated'
@@ -72,7 +96,7 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-        params.require(:student).permit(:name, :surname, :fiscal_code, :enrollment_date, :birth_date, :school_class_id, :first_parent_name, :first_parent_surname, :first_parent_email, :second_parent_name, :second_parent_surname, :second_parent_email)
+        params.require(:student).permit(:name, :surname, :fiscal_code, :enrollment_date, :birth_date, :school_class_id)
     end
 
 end
