@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
+<div class="sidenav">
+  <h2 class="hellouser">
+    Hello, <%= @parent.name %> <%= @parent.surname %>!
+  </h2>
+  <div class="navcontent">
+  <%= link_to "<span class = 'mdi mdi-view-dashboard'> Home</span>".html_safe, parent_path(@parent) %>
+  <%= link_to "<span class = 'mdi mdi-school'> Marks</span>".html_safe, parent_marks_url, class: "active" %>
+</div>
+</div>
+<div class="main">
+    <script type="text/javascript">
+    $(document).ready( function() {
+      document.getElementById("student_select").onchange = function(){
+        $.ajax({
+            type: 'POST',
+            url: "students/" + document.getElementById("student_select").value, 
+            contentType: "text/javascript",
+        }).done(function(response){ 
+            //console.log('hello?', response);
+          });
+      }
+    });
+    </script>
+    <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), prompt: "Select a student  ", class: "switch-child"%>
+  <br/><br>
+  <table id="marks" class="table">
+    <thead>
+    <tr>
+      <th>Teacher</th>
+      <th>Mark</th>
+      <th>Subject</th>
+      <th>Student</th>
+      <th>Mark date</th>
+      <th>Notes</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+    <tbody id="marks-body">
+    </tbody>
+  </table>
+</div>
