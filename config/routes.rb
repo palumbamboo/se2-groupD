@@ -13,9 +13,7 @@ Rails.application.routes.draw do
   get 'teachers/:id/lectures', to: 'teachers#lectures', as: 'teacher_lectures'
   get 'teachers/:id/marks', to: 'teachers#marks', as: 'teacher_marks'
 
-  get 'parents/:id/show_marks' => 'parents#students'
-  post 'parents/:id/show_marks/switch_child' => 'parents#switch_child'
+  get 'parents/:id/students', to: 'parents#students', as: 'parent_marks'
+  post 'parents/:id/students/:stud', to: 'parents#switch_child'
 
 end
-
-

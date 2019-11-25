@@ -44,6 +44,11 @@ input, select {
     margin: 0 0 30px;
 }
 
+select {
+    margin-top: 5%;
+    width: 50%;
+}
+
 input:focus {
     background: #d2d9dd;
 }
@@ -87,7 +92,6 @@ form {
 }
 
 .navcontent {
-    top: 150px;
     position: fixed;
     width: 220px; /* same as sidenav */
 }
