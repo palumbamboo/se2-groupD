@@ -17,21 +17,19 @@ class ParentsController < ApplicationController
         @students = @parent.students
     end
 
-    def show_marks
-        set_parent
-        @marks = @parent.students.first.marks
-        respond_to do |format|
-            format.js
-            format.html { redirect_to @parent, notice: "Student marks loaded" }
-        end
-    end
-
     def switch_child
         set_parent
         @student = @parent.students.find(params[:stud])
+        @subjects = Mark.where(student_id: params[:stud]).select(:subject).distinct
         respond_to do |format|
-            format.js
+            format.js 
         end
+    end
+
+    def marks_per_subject
+        set_parent
+        @subject = params[:sub]
+        @marks = Mark.where(student_id: params[:stud]).where(subject: params[:sub])
     end
 
     def create
