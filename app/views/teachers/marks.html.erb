@@ -7,15 +7,8 @@
     <p>Teacher page</p>
     <li><%= link_to " Home", teacher_path(@teacher), class: 'mdi mdi-view-dashboard' %></li>
     <li><%= link_to " Lectures", teacher_lectures_url, class:'mdi mdi-teach' %></li>
-    <li class="active"><%= link_to " Marks", teacher_marks_url, class: 'mdi mdi-bookmark' %></li>  </ul>
-  <% if user_signed_in? %>
-    <ul class="list-unstyled components">
-      <li><%= button_to destroy_user_session_path, method: :delete, id: 'logout-button', :form => { :id => "logout-form" } do %>
-          <i class="mdi mdi-logout"></i> Logout
-        <% end %>
-      </li>
-    </ul>
-  <% end %>
+    <li class="active"><%= link_to " Marks", teacher_marks_url, class: 'mdi mdi-bookmark' %></li>
+  </ul>
 <% end %>
 
 <div class="main">
