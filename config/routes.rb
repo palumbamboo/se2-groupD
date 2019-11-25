@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   get 'parents/:id/students', to: 'parents#students', as: 'parent_marks'
   post 'parents/:id/students/:stud', to: 'parents#switch_child'
+  post 'parents/:id/students/:stud/subjects/:sub', to: 'parents#marks_per_subject'
 
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 

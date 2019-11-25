@@ -1,1 +1,2 @@
-$('table#marks tbody').html("<%= j render partial: 'mark', collection: Mark.where(student_id: @student.id).group(:id, :subject).sort_by(&:mark) %>");
+$("#subjects_tabs").html("<%= j render partial: 'subject', collection: @subjects %>");
+$("#subjects_tabs_content").html("<%= j render partial: 'tab_marks', collection: @subjects %>");
