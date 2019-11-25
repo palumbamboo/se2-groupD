@@ -19,10 +19,14 @@ class StudentsController < ApplicationController
 
     def create
         @student = Student.new(student_params)
-        @student.birth_date = Date.civil(params[:student]["birth_date(1i)"].to_i,params[:student]["birth_date(2i)"].to_i,params[:student]["birth_date(3i)"].to_i)
-        @student.enrollment_date = Date.civil(params[:student]["enrollment_date(1i)"].to_i,params[:student]["enrollment_date(2i)"].to_i,params[:student]["enrollment_date(3i)"].to_i)
+        @student.school_class = SchoolClass.first
+        @student.enrollment_date = Date.civil(params[:student]["enrollment_date(1i)"].to_i,params[:student]["enrollment_date(2i)"].to_i,params[:student]["enrollment_date(3i)"].to_i).to_date
+        @student.birth_date = Date.civil(params[:student]["birth_date(1i)"].to_i,params[:student]["birth_date(2i)"].to_i,params[:student]["birth_date(3i)"].to_i).to_date
         if @student.save
             redirect_to students_url, notice: 'Student created'
+        else
+            puts @student.errors.full_messages
+            render :new 
         end
     end
 
@@ -32,8 +36,6 @@ class StudentsController < ApplicationController
 
     def update
         set_student
-        @student.birth_date = Date.civil(params[:student]["birth_date(1i)"].to_i,params[:student]["birth_date(2i)"].to_i,params[:student]["birth_date(3i)"].to_i)
-        @student.enrollment_date = Date.civil(params[:student]["enrollment_date(1i)"].to_i,params[:student]["enrollment_date(2i)"].to_i,params[:student]["enrollment_date(3i)"].to_i)
         @student.update_attributes(student_params)
         if @student.save
             redirect_to students_url, notice: 'Student updated'
@@ -65,7 +67,7 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-        params.require(:student).permit(:name, :surname, :fiscal_code)
+        params.require(:student).permit(:name, :surname, :fiscal_code, :enrollment_date, :birth_date)
     end
 
 end

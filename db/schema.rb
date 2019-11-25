@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_11_24_104056) do
     t.string "fiscal_code"
     t.date "birth_date"
     t.date "enrollment_date"
+    t.integer "school_class_id"
   end
 
   create_table "teachers", force: :cascade do |t|
