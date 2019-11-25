@@ -1,3 +1,5 @@
 $('#new-mark form').remove();
-$('#new-mark a').show();
+//$('#new-mark a').show();
 $('table#marks tbody').append("<%= j render @mark %>")
+$('.blur-filter').removeClass('blur-filter')
+$('a').removeClass('disabled')
