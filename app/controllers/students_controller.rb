@@ -19,13 +19,29 @@ class StudentsController < ApplicationController
 
     def create
         @student = Student.new(student_params)
-        @student.school_class = SchoolClass.first
-        @student.enrollment_date = Date.civil(params[:student]["enrollment_date(1i)"].to_i,params[:student]["enrollment_date(2i)"].to_i,params[:student]["enrollment_date(3i)"].to_i).to_date
-        @student.birth_date = Date.civil(params[:student]["birth_date(1i)"].to_i,params[:student]["birth_date(2i)"].to_i,params[:student]["birth_date(3i)"].to_i).to_date
+        if params["first_parent_name"].present? && params["first_parent_surname"].present? && params["first_parent_email"].present?
+            first_parent_user = User.create(email: params["first_parent_email"], password: "Prova123") #Basic password just for debug
+            first_parent = Parent.new(name: params["first_parent_name"].to_s, surname: params["first_parent_surname"])
+            first_parent.user = first_parent_user
+            first_parent.students << @student # Attach the parent to the current student and viceversa
+            if first_parent.save
+            else   
+                puts first_parent.errors.full_messages #For debugging purposes    
+            end
+        end
+        if params["second_parent_name"].present? && params["second_parent_surname"].present? && params["second_parent_email"].present?
+            second_parent_user = User.create(email: params["second_parent_email"], password: "Prova123") #Basic password just for debug
+            second_parent = Parent.new(name: params["second_parent_name"].to_s, surname: params["second_parent_surname"])
+            second_parent.user = second_parent_user
+            second_parent.students << @student
+            if second_parent.save
+            else   
+                puts second_parent.errors.full_messages #For debugging purposes    
+            end
+        end
         if @student.save
             redirect_to students_url, notice: 'Student created'
         else
-            puts @student.errors.full_messages
             render :new 
         end
     end
@@ -36,22 +52,11 @@ class StudentsController < ApplicationController
 
     def update
         set_student
-        @student.update_attributes(student_params)
+        @student.update(student_params)
         if @student.save
             redirect_to students_url, notice: 'Student updated'
         end
         
-    end
-
-    def add_parent
-        set_student
-        if params[:parent_name].present? && params[:parent_surname].present? && params[:parent_mail].present?
-            @parent = Parent.new(:name => params[:parent_name], :surname => params[:parent_surname], :email => params[:parent_mail])
-            @parent.students << @student
-            if parent.save
-                redirect_to welcome_index_path, notice: "Parent associated to student"
-            end 
-        end
     end
 
     def destroy
@@ -67,7 +72,7 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-        params.require(:student).permit(:name, :surname, :fiscal_code, :enrollment_date, :birth_date)
+        params.require(:student).permit(:name, :surname, :fiscal_code, :enrollment_date, :birth_date, :school_class_id, :first_parent_name, :first_parent_surname, :first_parent_email, :second_parent_name, :second_parent_surname, :second_parent_email)
     end
 
 end

@@ -11,6 +11,7 @@
     <th>Birth date</th>
     <th>Enrollment date</th>
     <th></th>
+    <th></th>
     <% @students.each do |student| %>
       <tr>
         <td><%= student.name %></td>
@@ -19,8 +20,7 @@
         <td><%= student.birth_date&.strftime("%d/%m/%Y") %>
         <td><%= student.enrollment_date&.strftime("%d/%m/%Y") %>
         <td><%= button_to 'Show', student_path(student), method: :get %></td>
-        <td><%= button_to 'Add Parent', add_parent_student_path(student), method: :post %></td>
-        <td><%= button_to "Edit", edit_student_path(student) %></td>
+        <td><%= button_to "Edit", edit_student_path(student), method: :get %></td>
       </tr>
     <% end %>
   </table>
