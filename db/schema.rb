@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_150101) do
+ActiveRecord::Schema.define(version: 2019_11_24_104056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 2019_11_15_150101) do
     t.string "name"
     t.string "surname"
     t.string "email"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_parents_on_user_id"
   end
 
   create_table "parents_students", id: false, force: :cascade do |t|
@@ -77,9 +79,9 @@ ActiveRecord::Schema.define(version: 2019_11_15_150101) do
   create_table "teachers", force: :cascade do |t|
     t.string "name"
     t.string "surname"
-    t.text "subjects"
-    t.text "string"
-    t.text "Array"
+    t.bigint "user_id"
+    t.string "subjects", default: [], array: true
+    t.index ["user_id"], name: "index_teachers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

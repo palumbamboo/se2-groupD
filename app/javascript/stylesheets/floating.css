@@ -1,0 +1,17 @@
+.float {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    top: 20px;
+    width: 65%;
+    z-index: 99;
+    margin: 0;
+}
+
+.alert-danger {
+    box-shadow: #c9aaad 0 0 15px 2px
+}
+
+.alert-success {
+    box-shadow: #a0b7a5 0 0 15px 2px
+}

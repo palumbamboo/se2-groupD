@@ -11,6 +11,10 @@
   </ul>
 <% end %>
 
+<% content_for :navbar do %>
+    <%= link_to " Create lecture", new_lecture_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", id: "lecture-new",remote: true %>
+<% end %>
+
 <table id="lectures">
   <thead>
   <tr>
@@ -27,5 +31,4 @@
 </table>
 
 <div id="new-lecture">
-  <%= link_to " Create lecture", new_lecture_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", remote: true %>
 </div>

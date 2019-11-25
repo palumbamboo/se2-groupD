@@ -1,5 +1,9 @@
 class ParentsController < ApplicationController
 
+    before_action :authenticate_user!
+    before_action :parent_permission
+    before_action :parent_auth, except: [:index]
+
     def index
         @parents = Parent.all
     end
@@ -61,6 +65,16 @@ class ParentsController < ApplicationController
 
     def parent_params
         params.require(:parent).permit(:id, :name, :surname, :email)
+    end
+
+    def parent_permission
+        return true if current_user.parent?
+        redirect_to welcome_index_path, alert: 'Missing require permissions'
+    end
+
+    def parent_auth
+        return true if current_user.parent.id == params[:id].to_i
+        redirect_to parent_path(current_user.parent.id), alert: "Permission denied"
     end
 
 end
