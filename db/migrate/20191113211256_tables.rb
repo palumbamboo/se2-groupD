@@ -3,8 +3,11 @@ class Tables < ActiveRecord::Migration[6.0]
     create_table :teachers do |t|
       t.string :name
       t.string :surname
-      t.text :subjects, :string, Array
+
+      t.belongs_to :user
     end
+
+    add_column :teachers, :subjects, :string, array: true, default: []
 
     create_table :school_classes do |c|
       c.string :number
@@ -13,8 +16,8 @@ class Tables < ActiveRecord::Migration[6.0]
 
     create_table :lectures do |l|
       l.string :name
-      l.date :start_time
-      l.date :end_time
+      l.datetime :start_time
+      l.datetime :end_time
       l.string :topics
       l.string :subject
       l.integer :duration
@@ -32,6 +35,8 @@ class Tables < ActiveRecord::Migration[6.0]
       p.string :name
       p.string :surname
       p.string :email
+
+      p.belongs_to :user
     end
 
     create_table :students do |s|
@@ -39,7 +44,7 @@ class Tables < ActiveRecord::Migration[6.0]
       s.string :surname
       s.string :fiscal_code
       s.date :birth_date
-      s.string :enrollment_date
+      s.date :enrollment_date
 
       s.belongs_to :school_class
     end

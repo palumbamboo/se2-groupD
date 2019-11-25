@@ -1,33 +1,34 @@
-<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
-<div class="sidenav">
-  <h2 class="hellouser">
-    Hello, <%= @teacher.to_s %>!
-  </h2>
-  <div class="navcontent">
-    <%= link_to "<span class = 'mdi mdi-view-dashboard'> Home</span>".html_safe, teacher_path(@teacher) %>
-    <%= link_to "<span class = 'mdi mdi-teach'> Lectures</span>".html_safe, teacher_lectures_url, class: "active" %>
-    <%= link_to "<span class = 'mdi mdi-bookmark'> Marks</span>".html_safe, teacher_marks_url %>
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @teacher.to_s %>!</h3>
   </div>
+
+  <ul class="list-unstyled components">
+    <p>Teacher page</p>
+    <li><%= link_to " Home", teacher_path(@teacher), class: 'mdi mdi-view-dashboard' %></li>
+    <li class="active"><%= link_to " Lectures", teacher_lectures_url, class:'mdi mdi-teach' %></li>
+    <li><%= link_to " Marks", teacher_marks_url, class: 'mdi mdi-bookmark' %></li>
+  </ul>
+<% end %>
+
+<% content_for :navbar do %>
+    <%= link_to " Create lecture", new_lecture_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", id: "lecture-new",remote: true %>
+<% end %>
+
+<table id="lectures">
+  <thead>
+  <tr>
+    <th>Lecture</th>
+    <th>Subject</th>
+    <th>Class</th>
+    <th>Topics</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+  <tbody id="lectures-body">
+  <%= render partial: 'lecture', collection: @lectures.sort_by(&:start_time) %>
+  </tbody>
+</table>
+
+<div id="new-lecture">
 </div>
-
-<div class="main">
-  <table id="lectures">
-    <thead>
-    <tr>
-      <th>Lecture</th>
-      <th>Subject</th>
-      <th>Class</th>
-      <th>Topics</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-    <tbody id="lectures-body">
-    <%= render partial: 'lecture', collection: @lectures.sort_by(&:start_time) %>
-    </tbody>
-  </table>
-
-  <div id="new-lecture">
-    <%= link_to "Create lecture", new_lecture_path(params: { teacher_id: @teacher.id }), remote: true %>
-  </div>
-</div>
-

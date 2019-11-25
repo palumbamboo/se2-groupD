@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_150101) do
+ActiveRecord::Schema.define(version: 2019_11_24_104056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "lectures", force: :cascade do |t|
+    t.string "name"
     t.datetime "start_time"
     t.datetime "end_time"
     t.string "topics"
+    t.string "subject"
+    t.integer "duration"
     t.bigint "teacher_id"
     t.bigint "school_class_id"
-    t.string "name"
-    t.string "subject"
     t.index ["school_class_id"], name: "index_lectures_on_school_class_id"
     t.index ["teacher_id"], name: "index_lectures_on_teacher_id"
   end
@@ -42,6 +43,8 @@ ActiveRecord::Schema.define(version: 2019_11_15_150101) do
     t.string "name"
     t.string "surname"
     t.string "email"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_parents_on_user_id"
   end
 
   create_table "parents_students", id: false, force: :cascade do |t|
@@ -54,8 +57,6 @@ ActiveRecord::Schema.define(version: 2019_11_15_150101) do
   create_table "school_classes", force: :cascade do |t|
     t.string "number"
     t.string "section"
-    t.bigint "teachers_id"
-    t.index ["teachers_id"], name: "index_school_classes_on_teachers_id"
   end
 
   create_table "school_classes_teachers", id: false, force: :cascade do |t|
@@ -78,11 +79,9 @@ ActiveRecord::Schema.define(version: 2019_11_15_150101) do
   create_table "teachers", force: :cascade do |t|
     t.string "name"
     t.string "surname"
-    t.text "subjects"
-    t.text "string"
-    t.text "Array"
-    t.bigint "school_classes_id"
-    t.index ["school_classes_id"], name: "index_teachers_on_school_classes_id"
+    t.bigint "user_id"
+    t.string "subjects", default: [], array: true
+    t.index ["user_id"], name: "index_teachers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

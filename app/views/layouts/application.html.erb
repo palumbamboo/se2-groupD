@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SchoolApp</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>SchoolApp</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
+</head>
 
-  <body>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
+<body>
+<div class="wrapper">
+  <!-- Sidebar -->
+  <nav id="sidebar">
+    <%= yield :sidebar %>
+    <% if user_signed_in? %>
+      <ul class="list-unstyled components">
+        <li><%= button_to destroy_user_session_path, method: :delete, id: 'logout-button', :form => { :id => "logout-form" } do %>
+            <i class="mdi mdi-logout"></i> Logout
+          <% end %>
+        </li>
+      </ul>
     <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-    <%= yield %>
-  </body>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="card">
+      <% if notice %>
+        <div class="alert alert-success float" id="message"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger float" id="message"><%= alert %></div>
+      <% end %>
+
+      <nav id="navbar" class="navbar shadow-sm p-3 mb-5 bg-white rounded">
+        <%= yield :navbar %>
+      </nav>
+
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        setTimeout(function(){
+            $('#message').fadeOut(150);
+        }, 1000);
+    })
+</script>
+</body>
 </html>

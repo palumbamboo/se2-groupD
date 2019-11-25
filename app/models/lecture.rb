@@ -8,4 +8,8 @@ class Lecture < ApplicationRecord
 
   belongs_to :teacher
   belongs_to :school_class
+
+  def date
+    start_time.to_date.strftime("%d/%m/%Y")
+  end
 end
