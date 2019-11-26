@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
     return root_path if resource.roles.size > 1
     return teacher_path(resource.teacher.id) if resource.teacher?
     return parent_path(resource.parent.id) if resource.parent?
+    return officer_path(resource.officer.id) if resource.officer?
     super
   end
 

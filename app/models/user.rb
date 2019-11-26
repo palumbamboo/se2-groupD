@@ -9,9 +9,10 @@ class User < ApplicationRecord
 
   has_one :teacher
   has_one :parent
+  has_one :officer
 
   def roles
-    [:teacher, :parent].map{ |r| r if send(r) }.compact
+    [:teacher, :parent, :officer].map{ |r| r if send(r) }.compact
   end
 
   def teacher?
@@ -20,5 +21,9 @@ class User < ApplicationRecord
 
   def parent?
     parent.present?
+  end
+
+  def officer?
+    officer.present?
   end
 end
