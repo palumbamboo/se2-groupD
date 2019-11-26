@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :school_classes
   resources :lectures
   resources :marks
+  resources :administrators
 
   get 'teachers/:id/lectures', to: 'teachers#lectures', as: 'teacher_lectures'
   get 'teachers/:id/marks', to: 'teachers#marks', as: 'teacher_marks'
