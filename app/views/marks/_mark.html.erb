@@ -6,7 +6,7 @@
   <td><%= mark.date %></td>
   <td><%= mark.notes %></td>
   <td><%= link_to 'Edit', edit_mark_path(mark), class: 'btn btn-primary', id: "mark-edit_#{mark.id}", remote: true %></td>
-  <% if mark.date > (Time.now - 1.day) %>
+  <% if mark.created_at > (Time.now - 1.day) %>
     <td><%= link_to 'Delete', mark_path(mark), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "mark-delete_#{mark.id}", remote: true %></td>
   <% end %>
 </tr>
