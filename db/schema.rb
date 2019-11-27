@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_24_104056) do
+ActiveRecord::Schema.define(version: 2019_11_26_231910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 2019_11_24_104056) do
     t.string "notes"
     t.bigint "student_id"
     t.bigint "teacher_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_marks_on_student_id"
     t.index ["teacher_id"], name: "index_marks_on_teacher_id"
   end

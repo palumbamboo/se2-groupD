@@ -37,15 +37,32 @@ class MarksController < ApplicationController
 
     def update
         set_mark
-        if @mark.update_attributes(mark_params)
-            redirect_to marks_url, notice: 'Mark updated'
+
+        respond_to do |format|
+            if @mark.update_attributes(mark_params)
+                format.js
+                format.html { redirect_to @mark, notice: "Mark updated" }
+                format.json { render :show, status: :created, location: @mark }
+            else
+                format.html { render :new }
+                format.json { render json: @mark.errors, status: :unprocessable_entity }
+            end
         end
     end
 
     def destroy
         set_mark
-        @mark.destroy
-        redirect_to marks_url, notice: 'Mark deleted'
+
+        respond_to do |format|
+            if @mark.destroy
+                format.js
+                format.html { redirect_to @mark, notice: "Mark deleted" }
+                format.json { render :show, status: :created, location: @mark }
+            else
+                format.html { render :new }
+                format.json { render json: @mark.errors, status: :unprocessable_entity }
+            end
+        end
     end
 
     private

@@ -11,26 +11,27 @@
   </ul>
 <% end %>
 
-<div class="main">
-  <table id="marks">
-    <thead>
-    <tr>
-      <th>Teacher</th>
-      <th>Mark</th>
-      <th>Subject</th>
-      <th>Student</th>
-      <th>Mark date</th>
-      <th>Notes</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
-    <tbody id="marks-body">
-    <%= render partial: 'mark', collection: @marks.sort_by(&:mark) %>
-    </tbody>
-  </table>
+<% content_for :navbar do %>
+  <%= link_to " Create mark", new_mark_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", id: "mark-new",remote: true %>
+<% end %>
 
-  <div id="new-mark">
-    <%= link_to "Create mark", new_mark_path(params: { teacher_id: @teacher.id }), remote: true %>
-  </div>
+<table id="marks">
+  <thead>
+  <tr>
+    <th>Teacher</th>
+    <th>Mark</th>
+    <th>Subject</th>
+    <th>Student</th>
+    <th>Mark date</th>
+    <th>Notes</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+  <tbody id="marks-body">
+  <%= render partial: 'mark', collection: @marks.sort_by(&:date) %>
+  </tbody>
+</table>
+
+<div id="new-mark">
 </div>
 
