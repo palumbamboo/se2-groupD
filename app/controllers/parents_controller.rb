@@ -33,7 +33,7 @@ class ParentsController < ApplicationController
     def marks_per_subject
         set_parent
         @subject = params[:sub]
-        @marks = Mark.where(student_id: params[:stud]).where(subject: params[:sub])
+        @marks = Mark.where(student_id: params[:stud], subject: params[:sub])
     end
 
     def create
