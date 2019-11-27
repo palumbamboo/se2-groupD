@@ -1,13 +1,14 @@
-<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
-<div class="sidenav">
-  <h2 class="hellouser">
-    Hello, <%= @parent.name %> <%= @parent.surname %>!
-  </h2>
-  <div class="navcontent">
-  <%= link_to "<span class = 'mdi mdi-view-dashboard'> Home</span>".html_safe, parent_path(@parent) %>
-  <%= link_to "<span class = 'mdi mdi-school'> Marks</span>".html_safe, parent_marks_url, class: "active"%>
-</div>
-</div>
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @parent.name %>!</h3>
+  </div>
+
+    <ul class="list-unstyled components">
+    <p>Parent page</p>
+    <li><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
 <div class="main">
     <script type="text/javascript">
     function loadMarks(){
@@ -23,7 +24,6 @@
     }
     $(document).ready(function() {
       loadMarks();
-      console.log("ciao");
       document.getElementById("student_select").onchange = loadMarks;
     });
     </script>

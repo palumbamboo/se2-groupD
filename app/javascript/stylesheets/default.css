@@ -29,7 +29,7 @@ input[type=submit]:hover, button:hover {
 }
 
 input, select {
-    border: none;
+    border: 1px solid;
     border-radius: 4px;
     outline: 0;
     padding: 10px;
@@ -37,8 +37,8 @@ input, select {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    background: #e8eeef;
-    color:#8a97a0;
+    background: #ffff;
+    color:#3b8070;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     margin: 0 0 30px;
@@ -50,7 +50,7 @@ select {
 }
 
 input:focus {
-    background: #d2d9dd;
+    background: #ecedee;
 }
 
 label {
@@ -116,7 +116,6 @@ form {
 }
 
 .main {
-    margin-left: 220px; /* same of sidenav */
     color: #3b8070;
     text-align: center;
     /*height: 100%;*/
