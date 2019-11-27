@@ -1,32 +1,36 @@
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
-<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
 <div class="sidenav">
   <h2 class="hellouser">
     Hello, <%= @parent.name %> <%= @parent.surname %>!
   </h2>
   <div class="navcontent">
   <%= link_to "<span class = 'mdi mdi-view-dashboard'> Home</span>".html_safe, parent_path(@parent) %>
-  <%= link_to "<span class = 'mdi mdi-school'> Marks</span>".html_safe, parent_marks_url, class: "active" %>
+  <%= link_to "<span class = 'mdi mdi-school'> Marks</span>".html_safe, parent_marks_url, class: "active"%>
 </div>
 </div>
 <div class="main">
     <script type="text/javascript">
-    $(document).ready( function() {
-      document.getElementById("student_select").onchange = function(){
+    function loadMarks(){
         $.ajax({
             type: 'POST',
             url: "students/" + document.getElementById("student_select").value, 
             contentType: "text/javascript",
         }).done(function(response){
-            //console.log('hello?', response);
+            document.getElementById("subjects-tabs").firstChild.firstElementChild.classList.add("active");
+            document.getElementById("subjects-tabs-content").children[1].classList.add("show");
+            document.getElementById("subjects-tabs-content").children[1].classList.add("active");
           });
-      }
+    }
+    $(document).ready(function() {
+      loadMarks();
+      console.log("ciao");
+      document.getElementById("student_select").onchange = loadMarks;
     });
     </script>
-    <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), prompt: "Select a student  ", class: "switch-child"%>
+    <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "switch-child"%>
   <br/><br>
-  <ul class="nav nav-tabs" id="subjects_tabs" role="tablist">
+  <ul class="nav nav-tabs" id="subjects-tabs" role="tablist">
   </ul>
-  <div class="tab-content" id="subjects_tabs_content">
+  <div class="tab-content" id="subjects-tabs-content">
   </div>
 </div>
