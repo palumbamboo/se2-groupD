@@ -1,0 +1,17 @@
+<%= form_with(model: officer, local: true) do |form| %>
+  <% if officer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(officer.errors.count, "error") %> prohibited this officer from being saved:</h2>
+
+      <ul>
+        <% officer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

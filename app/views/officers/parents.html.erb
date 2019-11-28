@@ -1,0 +1,18 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @officer.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Officer page</p>
+    <li><%= link_to " Home", officer_path(@officer), class: 'mdi mdi-view-dashboard' %></li>
+    <li class="active"><%= link_to " Parents", officer_parents_url(@officer), class: 'mdi mdi-human-male-girl' %></li>
+  </ul>
+<% end %>
+
+<script type="text/javascript">
+
+</script>
+
+<%= link_to 'Edit', edit_officer_path(@officer) %> |
+<%= link_to 'Back', officers_path %>
