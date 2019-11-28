@@ -7,7 +7,7 @@ class Student < ApplicationRecord
 
   has_and_belongs_to_many :parents
   has_many :marks
-  belongs_to :school_class, default: -> { SchoolClass.find_by(section: '0', number: 0) }
+  belongs_to :school_class, default: -> { SchoolClass.find_or_create_by(section: '0', number: 0) }
 
   def to_s
     "#{name.capitalize} #{surname.capitalize}"
