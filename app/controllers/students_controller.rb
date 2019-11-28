@@ -20,7 +20,8 @@ class StudentsController < ApplicationController
     def create
         @student = Student.new(student_params)
         if params["first_parent_name"].present? && params["first_parent_surname"].present? && params["first_parent_email"].present?
-            first_parent_user = User.create(email: params["first_parent_email"], password: "Prova123") #Basic password just for debug
+            otp = Devise.friendly_token(20) #Generate a one-time password that will be used for creating the user
+            first_parent_user = User.create(email: params["first_parent_email"], password: otp) #Basic password just for debug
             first_parent = Parent.new(name: params["first_parent_name"].to_s, surname: params["first_parent_surname"])
             first_parent.user = first_parent_user
             first_parent.students << @student # Attach the parent to the current student and viceversa
@@ -30,7 +31,8 @@ class StudentsController < ApplicationController
             end
         end
         if params["second_parent_name"].present? && params["second_parent_surname"].present? && params["second_parent_email"].present?
-            second_parent_user = User.create(email: params["second_parent_email"], password: "Prova123") #Basic password just for debug
+            otp = Devise.friendly_token(20) #Generate a one-time password that will be used for creating the user
+            second_parent_user = User.create(email: params["second_parent_email"], password: otp) #Basic password just for debug
             second_parent = Parent.new(name: params["second_parent_name"].to_s, surname: params["second_parent_surname"])
             second_parent.user = second_parent_user
             second_parent.students << @student
