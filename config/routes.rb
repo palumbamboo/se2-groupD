@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   resources :lectures
   resources :marks
   resources :officers
+  resources :passwords
 
   get 'teachers/:id/lectures(/:school_class_id)', to: 'teachers#lectures', as: 'teacher_lectures'
+  put 'users/:id', to: 'application#direct_user', as: 'user'
   get 'teachers/:id/marks', to: 'teachers#marks', as: 'teacher_marks'
 
   get 'parents/:id/students(/:stud)', to: 'parents#students', as: 'parent_marks'
