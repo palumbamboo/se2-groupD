@@ -9,4 +9,8 @@ class SchoolClass < ApplicationRecord
     "#{number}#{section.upcase}"
   end
 
+  def self.available_classes
+    SchoolClass.all - [SchoolClass.find_by(section: '0', number: 0)]
+  end
+
 end
