@@ -9,28 +9,39 @@
     <li class="active"><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
-<div class="main">
-    <script type="text/javascript">
-    function loadMarks(){
-        $.ajax({
-            type: 'POST',
-            url: "students/" + document.getElementById("student_select").value, 
-            contentType: "text/javascript",
-        }).done(function(response){
-            document.getElementById("subjects-tabs").firstChild.firstElementChild.classList.add("active");
-            document.getElementById("subjects-tabs-content").children[1].classList.add("show");
-            document.getElementById("subjects-tabs-content").children[1].classList.add("active");
-          });
-    }
-    $(document).ready(function() {
-      loadMarks();
-      document.getElementById("student_select").onchange = loadMarks;
-    });
-    </script>
-    <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "switch-child"%>
-  <br/><br>
-  <ul class="nav nav-tabs" id="subjects-tabs" role="tablist">
-  </ul>
-  <div class="tab-content" id="subjects-tabs-content">
-  </div>
+<script type="text/javascript">
+function loadMarks(student_id){
+    $.ajax({
+        type: 'GET',
+        url: "/parents/<%= @parent.id%>/students/" + student_id, 
+        contentType: "text/javascript",
+    }).done(function(response){
+        document.getElementById("subjects-tabs").firstChild.firstElementChild.classList.add("active");
+        document.getElementById("subjects-tabs-content").children[1].classList.add("show");
+        document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+      });
+}
+$(document).ready(function() {
+  document.getElementById("subjects-tabs").children[0].children[0].classList.add("active");
+  document.getElementById("subjects-tabs-content").children[1].classList.add("show");
+  document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+  document.getElementById("student_select").value = "<%= @student.id%>"
+  document.getElementById("student_select").onchange = function(){
+    loadMarks(document.getElementById("student_select").value);
+  };
+});
+</script>
+<% content_for :navbar do %>
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "custom-select", remote: true%>
+    </li>
+</ul>
+<% end %>
+<br/><br>
+<ul class="nav nav-tabs" id="subjects-tabs" role="tablist">
+  <%= render partial: 'subject', collection: @subjects %>
+</ul>
+<div class="tab-content" id="subjects-tabs-content">
+  <%= render partial: 'tab_marks', collection: @subjects %>
 </div>

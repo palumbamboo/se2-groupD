@@ -2,12 +2,9 @@
 $(document).ready( function() {
     $.ajax({
               type: 'POST',
-              url: "students/" + "<%= @student.id %>" + "/subjects/" + "<%= tab_marks.subject %>", 
+              url: "/parents/<%=@parent.id%>/students/" + "<%= @student.id %>" + "/subjects/" + "<%= tab_marks.subject %>", 
               contentType: "text/javascript",
           }).done(function(response){
-              //console.log(document.getElementById("subjects-tabs-content"));
-              //document.getElementById("subjects-tabs-content").children[1].classList.add("show");
-              //document.getElementById("subjects-tabs-content").children[1].classList.add("active");
             });
 });
 </script>
@@ -26,4 +23,6 @@ $(document).ready( function() {
       <tbody id="marks-body-<%= tab_marks.subject %>">
       </tbody>
   </table>
+  <br>
+  <p style="text-align: left" id="avg-<%= tab_marks.subject %>"></p>
 </div>
