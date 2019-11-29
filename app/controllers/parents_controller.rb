@@ -10,6 +10,7 @@ class ParentsController < ApplicationController
 
     def show
         set_parent
+        @students = @parent.students
     end
 
     def new
@@ -19,14 +20,16 @@ class ParentsController < ApplicationController
     def students
         set_parent
         @students = @parent.students
-    end
-
-    def switch_child
-        set_parent
-        @student = @parent.students.find(params[:stud])
-        @subjects = Mark.where(student_id: params[:stud]).select(:subject).distinct
+        if params[:stud]
+            @student = @parent.students.find(params[:stud])
+            @subjects = Mark.where(student_id: params[:stud]).select(:subject).distinct
+        else
+            @student = @parent.students.first
+            @subjects = Mark.where(student_id: @student.id).select(:subject).distinct
+        end
         respond_to do |format|
             format.js 
+            format.html
         end
     end
 
