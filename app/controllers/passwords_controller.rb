@@ -1,9 +1,12 @@
 class PasswordsController < ApplicationController
   def edit
+    puts 'ciao'
   end
 
   def update
     if current_user.update_attributes(user_params)
+      current_user.password_changed = true
+      current_user.save
       bypass_sign_in(current_user)
       redirect_to direct_user(current_user), notice: 'Password updated'
     else

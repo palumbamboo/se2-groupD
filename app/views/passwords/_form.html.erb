@@ -1,4 +1,4 @@
-<%= form_with(model: current_user, url: passwords_update_path) do |f| %>
+<%= form_with(model: current_user, url: edit_password_path) do |f| %>
   <%= f.label "New password" %>
   <%= f.password_field :password %>
   <%= f.label "Confirm your password" %>
