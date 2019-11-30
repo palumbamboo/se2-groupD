@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'parents/:id/show_marks' => 'parents#students'
   post 'parents/:id/show_marks/switch_child' => 'parents#switch_child'
 
+  get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 
 end

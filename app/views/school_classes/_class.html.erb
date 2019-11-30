@@ -1,0 +1,14 @@
+<table id="marks" data-sortable="true" class="table table-striped table-sm" style="table-layout: fixed;">
+<thead>
+<tr>
+<th>Name</th>
+<th>Surname</th>
+<th>SSN</th>
+<th>Date of birth</th>
+<th>Enrollment date</th>
+</tr>
+</thead>
+<tbody id="class_view-<%= @class.id %>">
+<%= render partial: 'students/student', collection: @students %>
+</tbody>
+</table>

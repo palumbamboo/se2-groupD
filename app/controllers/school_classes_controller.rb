@@ -10,6 +10,11 @@ class SchoolClassesController < ApplicationController
 
   def edit
     set_school_class
+    @students = @school_class.students
+    @students_available = Student.where(school_class_number: 0, school_class_section: 0)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

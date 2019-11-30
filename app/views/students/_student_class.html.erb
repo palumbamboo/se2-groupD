@@ -1,0 +1,12 @@
+<tr id="student-row_<%= student_class.id %>">
+<td>
+<div class="form-check">
+    <input type="checkbox" class="form-check-input position-static" style="margin-bottom: 0" id="check-<%= student_class.id %>" <%= checked %>>
+</div>
+</td>
+  <td><%= student_class.name %></td>
+  <td><%= student_class.surname %></td>
+  <td><%= student_class.fiscal_code %></td>
+  <td><%= student_class.birth_date %></td>
+  <td><%= student_class.enrollment_date %></td>
+</tr>
