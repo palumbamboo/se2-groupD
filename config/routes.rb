@@ -19,6 +19,6 @@ Rails.application.routes.draw do
 
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 
+  post 'officers/:id/parents/:parent/enable', to: 'officers#enable'
+
 end
-
-
