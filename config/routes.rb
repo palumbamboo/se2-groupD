@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :marks
   resources :officers
 
-  get 'teachers/:id/lectures', to: 'teachers#lectures', as: 'teacher_lectures'
+  get 'teachers/:id/lectures(/:school_class_id)', to: 'teachers#lectures', as: 'teacher_lectures'
   get 'teachers/:id/marks', to: 'teachers#marks', as: 'teacher_marks'
 
   get 'parents/:id/students(/:stud)', to: 'parents#students', as: 'parent_marks'

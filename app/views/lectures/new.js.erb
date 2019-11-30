@@ -1,3 +1,13 @@
 $('a').addClass('disabled')
-$('#new-lecture').html("<%= j render 'form', lecture: @lecture %>");
+$('#lecture-new').replaceWith("<a class='btn btn-warning' id='undo-new-lecture'>Undo</a>")
+$('#new-lecture').html("<div id='new-lecture-form'><%= j render 'form', lecture: @lecture %></div>");
 $('table#lectures').addClass('blur-filter')
+
+$('#undo-new-lecture').click(function(e) {
+    e.preventDefault();
+    $('a').removeClass("disabled");
+    $('.blur-filter').removeClass('blur-filter');
+    document.getElementById('new-lecture-form').remove()
+    $('#undo-new-lecture').replaceWith('<%= j link_to " Create lecture", new_lecture_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", id: "lecture-new",remote: true %>\n')
+    return false;
+});

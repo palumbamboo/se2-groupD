@@ -19,7 +19,16 @@ class TeachersController < ApplicationController
 
   def lectures
     set_teacher
-    @lectures = @teacher.lectures
+    if params[:school_class_id]
+      @school_class = @teacher.school_classes.find(params[:school_class_id])
+    else
+      @school_class = @teacher.school_classes.first
+    end
+    @lectures = @teacher.lectures.where(school_class_id: @school_class.id)
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def marks

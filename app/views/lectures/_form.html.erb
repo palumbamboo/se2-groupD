@@ -18,8 +18,12 @@
   </div>
   <br />
   <div>
-    <%= f.label :school_class %>
-    <%= f.select :school_class_id, @teacher.school_classes.map{ |c| [c.class_to_s, c.id]} %>
+    <% if @lecture.school_class %>
+      <%= f.label "School class: #{@lecture.school_class.class_to_s}" %>
+    <% else %>
+      <%= f.label :school_class %>
+      <%= f.select :school_class_id, @teacher.school_classes.map{ |c| [c.class_to_s, c.id]} %>
+    <% end %>
   </div>
   <br />
   <br /><br />
