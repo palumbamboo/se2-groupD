@@ -1,4 +1,13 @@
 document.getElementById('lecture-row_<%= @lecture.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @lecture.id %>'><td colspan=6><%= j render 'form', lecture: @lecture %></td></tr>")
-$('#lecture-edit_<%= @lecture.id %>').replaceWith("<%= j link_to("Undo", teacher_lectures_url(@teacher), id: "lecture-undo_#{@lecture.id}", class: "btn btn-warning") %>")
-$('a:not(#lecture-undo_<%= @lecture.id %>)').addClass("disabled")
+$('a').addClass("disabled")
+$('#lecture-edit_<%= @lecture.id %>').replaceWith("<a class='btn btn-warning' id='undo-edit-lecture_<%= @lecture.id %>'>Undo</a>")
 $('tr:not(#edit-form_<%= @lecture.id %>,#lecture-row_<%= @lecture.id %>)').addClass('blur-filter')
+
+$('#undo-edit-lecture_<%= @lecture.id %>').click(function(e) {
+    e.preventDefault();
+    $('a').removeClass("disabled");
+    $('.blur-filter').removeClass('blur-filter');
+    document.getElementById('edit-form_<%= @lecture.id %>').remove()
+    $('#lecture-row_<%= @lecture.id %>').replaceWith("<%= j render @lecture %>")
+    return false;
+});

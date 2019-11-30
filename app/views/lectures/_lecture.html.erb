@@ -4,7 +4,8 @@
   <td><%= lecture.school_class.class_to_s %></td>
   <td><%= lecture.topics %></td>
   <td><%= lecture.date %></td>
-  <td><%= link_to 'Edit', edit_lecture_path(lecture), class: 'btn btn-primary', id: "lecture-edit_#{lecture.id}", remote: true %></td>
+  <td><%= link_to 'Show', lecture_path(lecture), class: 'btn btn-primary' %></td>
+  <td><%= link_to 'Edit', edit_lecture_path(lecture), class: 'btn btn-secondary', id: "lecture-edit_#{lecture.id}", remote: true %></td>
   <% if lecture.start_time > (Time.now - 1.day) %>
     <td><%= link_to 'Delete', lecture_path(lecture), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "lecture-delete_#{lecture.id}", remote: true %></td>
   <% end %>
