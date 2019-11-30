@@ -68,7 +68,6 @@ form {
     filter: blur(2px);
 }
 
-<<<<<<< HEAD
 .custom-select {
     color: #3b8070;
 }
@@ -86,8 +85,8 @@ form {
 
 .input-group-text {
     color: #3b8070;
-=======
+}
+
 td,th {
     padding: .5em 1em;
->>>>>>> Add lecture view by teacher page
 }
