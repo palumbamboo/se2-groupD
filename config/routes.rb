@@ -19,4 +19,5 @@ Rails.application.routes.draw do
 
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 
+
 end
