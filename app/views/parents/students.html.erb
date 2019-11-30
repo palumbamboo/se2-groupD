@@ -34,7 +34,12 @@ $(document).ready(function() {
 <% content_for :navbar do %>
 <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "custom-select", remote: true%>
+    <div class="input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text"><span class="mdi mdi-account-switch"></span></span>
+      </div>
+    <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "custom-select", remote: true%>  
+    </div>
     </li>
 </ul>
 <% end %>

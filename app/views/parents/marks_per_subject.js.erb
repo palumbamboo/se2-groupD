@@ -1,2 +1,2 @@
 $('#marks-body-<%= @subject %>').html("<%= j render partial: 'mark', collection: @marks %>");
-$('#avg-<%= @subject %>').html("Average: <%= @marks.average(:mark) %>");
+$('#avg-<%= @subject %>').html("Average: <%= number_with_precision(@marks.average(:mark), precision: 2) %>");
