@@ -1,10 +1,31 @@
-<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
-<div class="sidenav">
-  <h2 class="hellouser">
-  Hello, <%= @parent.name %> <%= @parent.surname %>!
-  </h2>
-<div class="navcontent">
-  <a href="/parents/<%= @parent.id %>" class="active"><span class = "mdi mdi-view-dashboard"> Dashboard</span></a>
-  <a href="/parents/<%= @parent.id %>/show_marks"><span class = 'mdi mdi-school'> Marks</span></a>
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @parent.name %>!</h3>
+  </div>
+    <ul class="list-unstyled components" data-no-turbolink>
+    <p>Parent page</p>
+    <li class="active"><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+<script>
+$(document).ready(function(){
+    document.getElementById("confirm_child").onclick = function(){
+      window.open("/parents/<%= @parent.id %>/students/" + document.getElementById("student_select").value, "_self");
+    };
+});
+</script>
+<div class="row">
+  <div class="col-md-4"></div>
+    <div class="col-md-4">
+    <label>Select your child:</label>
+      <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "custom-select", selected: :student_select%>
+    </div>
 </div>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <button class="btn btn-primary" id="confirm_child" style="margin-top: 10%"><span class='mdi mdi-school'> View marks</span></button>
+  </div>
+  <br>
 </div>
