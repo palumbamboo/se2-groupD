@@ -22,11 +22,11 @@ RSpec.describe MarksController, type: :controller do
     student = Student.new(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
     student.school_class = sc
     student.save!
-    teacher = Teacher.create(:name => "Paolo", :surname => "Garza", :subjects => "Math")
+    teacher = Teacher.create(:name => "Paolo", :surname => "Garza", :subjects => ["Math"])
     teacher.user = user
     teacher.school_classes = [sc]
     teacher.save!
-    mark = Mark.create(:mark => 10, :subject => "Math", :date => "11/12/2018")
+    mark = Mark.create(:mark => 10, :subject => "Math", :date => "2018-11-12")
     mark.student = student
     mark.teacher = teacher
     mark.save!
@@ -55,13 +55,14 @@ RSpec.describe MarksController, type: :controller do
             mark: {
                 :mark => 7,
                 :subject => "Math",
-                :date => "10/9/2017",
+                :date => Date.today,
                 :student => student,
                 :teacher => teacher
             }
         }
         assert_response :success
         # credo che questa cosa non inserisca il record
+        # probabilmente da errore e fa il render new
         # infatti viene fuori 10 invece di 7 il mark
         expect(Mark.last.mark).to eq(7)
       end
@@ -88,7 +89,6 @@ RSpec.describe MarksController, type: :controller do
       end
 
       it "should destroy a mark" do
-        # perche expect raise error?
         m = Mark.first
         m.destroy
         # perche success e non redirect?
