@@ -1,7 +1,7 @@
 class SchoolClassesController < ApplicationController
 
   def index
-    @school_classes = SchoolClass.all
+    @school_classes = SchoolClass.available_classes
   end
 
   def show
@@ -15,6 +15,19 @@ class SchoolClassesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def update
+    set_school_class
+    @previous_students = @school_class.students
+    Student.where(id: params[:students_to_add]).each do |student| # setting school class id for each student selected
+      student.school_class_id = @school_class.id
+      student.save
+    end
+    @previous_students.where.not(id: params[:students_to_add]).each do |student|            # if some of the previous students is
+      student.school_class_id = SchoolClass.where(number: 0, section: 0).first.id           # deselected, 'zero' class is assigned
+      student.save                                                                          # to him/her -> the student doesn't have
+    end                                                                                     # a class anymore                                                        
   end
 
   private

@@ -56,7 +56,7 @@ class OfficersController < ApplicationController
 
   def class_composition
     set_officer
-    @classes = SchoolClass.where.not(number: 0, section: 0)
+    @classes = SchoolClass.available_classes
     if params[:class]
       @class = SchoolClass.find(params[:class])
     else
