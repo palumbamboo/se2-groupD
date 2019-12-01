@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 
+  post 'school_classes/update/:id', to: 'school_classes#update'
+
 end
 
 
