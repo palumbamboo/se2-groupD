@@ -10,14 +10,11 @@ RSpec.describe MarksController, type: :controller do
     User.all.delete_all
     SchoolClass.delete_all
     Student.all.delete_all
+    Teacher.all.delete_all
     Mark.all.delete_all
     ################
 
-    # Sta roba sopra e sotto viene eseguita prima di ogni test?
-    # O in ordine?
-
     # Create user-teacher and log in with him #
-    # cosa cambia tra new e create?
     user = User.create(:email => "prova@email.com", :password => "Prova123")
     sc = SchoolClass.create(:number => 0, :section => "0")
     student = Student.create(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
@@ -48,7 +45,6 @@ RSpec.describe MarksController, type: :controller do
       end
 
       it "should get new" do
-        # TODO: if da controllare?
         get :new
         assert_response :success
       end
@@ -59,14 +55,11 @@ RSpec.describe MarksController, type: :controller do
                 :mark => 7,
                 :subject => "Math",
                 :date => Date.today,
-                :student => student,
-                :teacher => teacher
+                :student_id => student.id,
+                :teacher_id => teacher.id
             }
         }
-        assert_redirected_to :marks_url
-        # credo che questa cosa non inserisca il record
-        # probabilmente da errore e fa il render new
-        # infatti viene fuori 10 invece di 7 il mark
+        assert_response :redirect
         expect(Mark.last.mark).to eq(7)
       end
 
@@ -75,31 +68,26 @@ RSpec.describe MarksController, type: :controller do
         assert_response :success
       end
 
-      # non credo si faccia cosi
       it "should update a mark" do
         put :update, params: {
+            id: Mark.last.id,
             mark: {
                 :mark => 8,
                 :subject => "Math",
                 :date => Date.today,
-                :student => student,
-                :teacher => teacher
+                :student_id => student.id,
+                :teacher_id => teacher.id
             }
         }
-        assert_redirected_to :marks_url
-
-        # come valuto che il record è cambiato?
+        assert_response :redirect
         expect(Mark.last.mark).to eq(8)
       end
 
       it "should destroy a mark" do
-        m = Mark.first
-        m.destroy
-        # perche success e non redirect?
-        # mark o marks?
-        # marks o mark_url o marks_url?
-        # non dovrei controllare che non esiste piu?
-        assert_redirected_to :marks_url
+        m = Mark.last
+        delete :destroy, params: {id: m.id}
+        assert_response :redirect
+        expect {m.reload}.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
@@ -125,11 +113,32 @@ RSpec.describe MarksController, type: :controller do
                 :mark => 7,
                 :subject => "Math",
                 :date => Date.today,
-                :student => student,
-                :teacher => teacher
+                :student_id => student.id,
+                :teacher_id => teacher.id
             }
         }
         assert_redirected_to :new_user_session
+      end
+
+      it "should not update" do
+        put :update, params: {
+          id: Mark.last.id,
+          mark: {
+              :mark => 8,
+              :subject => "Math",
+              :date => Date.today,
+              :student_id => student.id,
+              :teacher_id => teacher.id
+          }
+      }
+        assert_redirected_to :new_user_session
+      end
+
+      it "should not delete" do
+        m = Mark.last
+        delete :destroy, params: {id: m.id}
+        assert_response :redirect
+        expect {m.reload}.not_to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
