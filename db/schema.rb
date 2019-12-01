@@ -15,6 +15,13 @@ ActiveRecord::Schema.define(version: 2019_11_28_112019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "administrators", force: :cascade do |t|
+    t.string "name"
+    t.string "surname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "lectures", force: :cascade do |t|
     t.string "name"
     t.datetime "start_time"
@@ -53,6 +60,7 @@ ActiveRecord::Schema.define(version: 2019_11_28_112019) do
     t.string "surname"
     t.string "email"
     t.bigint "user_id"
+    t.boolean "access_enabled", default: false
     t.index ["user_id"], name: "index_parents_on_user_id"
   end
 

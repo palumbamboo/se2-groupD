@@ -40,6 +40,14 @@ class OfficersController < ApplicationController
     end
   end
 
+  def enable
+    Parent.where("user_id = ?", params[:parent].to_i).first.update(:access_enabled => true)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # PATCH/PUT /officers/1
   # PATCH/PUT /officers/1.json
   def update
@@ -55,7 +63,7 @@ class OfficersController < ApplicationController
   end
 
   def parents
-    @parents = Parent.all
+    @parents = Parent.all.order(access_enabled: :asc)
   end
 
   # DELETE /officers/1

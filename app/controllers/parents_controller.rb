@@ -70,7 +70,7 @@ class ParentsController < ApplicationController
     end
 
     def parent_params
-        params.require(:parent).permit(:id, :name, :surname, :email)
+        params.require(:parent).permit(:id, :name, :surname, :email, :access_enabled)
     end
 
     def parent_permission
