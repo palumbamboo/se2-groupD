@@ -12,7 +12,11 @@
 <% end %>
 
 <% content_for :navbar do %>
-  <%= link_to " Create mark", new_mark_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", id: "mark-new",remote: true %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= link_to " Create mark", new_mark_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", id: "mark-new",remote: true %>
+    </li>
+  </ul>
 <% end %>
 
 <table id="marks">
