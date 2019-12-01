@@ -17,14 +17,17 @@ RSpec.describe MarksController, type: :controller do
     # O in ordine?
 
     # Create user-teacher and log in with him #
+    # cosa cambia tra new e create?
     user = User.create(:email => "prova@email.com", :password => "Prova123")
     sc = SchoolClass.create(:number => 0, :section => "0")
-    student = Student.new(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
+    student = Student.create(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
     student.school_class = sc
     student.save!
     teacher = Teacher.create(:name => "Paolo", :surname => "Garza", :subjects => ["Math"])
     teacher.user = user
     teacher.school_classes = [sc]
+    user.roles
+    user.save!
     teacher.save!
     mark = Mark.create(:mark => 10, :subject => "Math", :date => "2018-11-12")
     mark.student = student
@@ -60,7 +63,7 @@ RSpec.describe MarksController, type: :controller do
                 :teacher => teacher
             }
         }
-        assert_response :success
+        assert_redirected_to :marks_url
         # credo che questa cosa non inserisca il record
         # probabilmente da errore e fa il render new
         # infatti viene fuori 10 invece di 7 il mark
@@ -83,7 +86,8 @@ RSpec.describe MarksController, type: :controller do
                 :teacher => teacher
             }
         }
-        assert_response :success
+        assert_redirected_to :marks_url
+
         # come valuto che il record è cambiato?
         expect(Mark.last.mark).to eq(8)
       end
@@ -92,7 +96,10 @@ RSpec.describe MarksController, type: :controller do
         m = Mark.first
         m.destroy
         # perche success e non redirect?
-        assert_redirected_to :marks
+        # mark o marks?
+        # marks o mark_url o marks_url?
+        # non dovrei controllare che non esiste piu?
+        assert_redirected_to :marks_url
       end
     end
 
