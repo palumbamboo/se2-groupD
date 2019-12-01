@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 
   post 'school_classes/update/:id', to: 'school_classes#update'
-
+  post 'school_classes/:id/file', to: 'school_classes#file_import'
 end
 
 

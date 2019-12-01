@@ -29,14 +29,20 @@
 
         });
   };
+  function updateClassWithFile(id_class){
+    $('#editclass').html("<%= j render partial: 'file', locals: {class: @class} %>");
+  }
   $(document).ready(function() {
     document.getElementById("class_select").value = "<%= @class.id %>";
     document.getElementById("class_select").onchange = function(){
       loadClasses(document.getElementById("class_select").value);
     };
-    document.getElementById("edit_class").onclick = function(){
+    document.getElementById("manually_edit").onclick = function(){
       editClass(document.getElementById("class_select").value);
     };
+    document.getElementById("upload_file").onclick = function(){
+      updateClassWithFile(document.getElementById("class_select").value);
+    }
   });
 </script>
 <% content_for :navbar do %>
@@ -45,15 +51,22 @@
   <div class="input-group">
       <%= select_tag :class_select, options_for_select(@classes.map{|s| [s.class_to_s, s.id]}), class: "custom-select", remote: true%>  
       <div class="input-group-append">
-      <button class="btn btn-warning" type="button" id="edit_class">Edit</button>
+        <div class="dropdown">
+        <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button" id="edit_class">
+          Edit
+        </button>
+        <div class="dropdown-content" style="position: absolute; z-index: 2">
+          <div class="dropdown-menu" aria-labelledby="edit_class">
+            <a class="dropdown-item" id="upload_file" style="cursor: pointer">Upload an excel file</a>
+            <a class="dropdown-item" id="manually_edit" style="cursor: pointer">Enter students manually</a>
+          </div>
+        </div>
+        </div>
       </div>
   </div>
 </li>
 </ul>
 <% end %>
-<br>
-<h4 style="text-align: left">Students' list:</h2>
 <div id="editclass">
-<br>
   <%= render partial: 'school_classes/class', locals: {class: @class} %>
 </div>

@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-xs-12 col-md-6">
+    <%= form_with(url: {action: :file_import, controller: :school_classes}, multipart: true) do %>
+        <%= file_field_tag 'class_file' %>
+        <button type="submit" class="btn btn-success" id="file-confirm" disabled style="cursor: not-allowed"><span class="mdi mdi-check-bold"> Confirm</span></button>
+    <% end %>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    $('#class_file').change(function(){
+        $('#file-confirm').css("cursor", "pointer");
+        $('#file-confirm').attr("disabled", false);
+    })
+})
+</script>
