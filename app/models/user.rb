@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
   def officer?
     officer.present?
+  end
 
   def password_changed?
     password_changed
