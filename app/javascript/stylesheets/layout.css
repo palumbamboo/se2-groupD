@@ -11,8 +11,53 @@
     align-items: stretch;
 }
 
-.card {
+.main-layout {
     padding: 20px;
     background: white;
     border-radius: 5px;
+}
+
+.welcome-background {
+    padding-left: 50px;
+    padding-top: 50px;
+    min-width: 60%;
+    max-width: 60%;
+    min-height: 100vh;
+    background-image: url("images/armadietti.jpeg");
+    background-position: 0 50%;
+    background-size: 1267px 950px;
+}
+
+.welcome-text {
+    color: white;
+    font-weight: bolder;
+    text-align: left;
+}
+
+#welcome-text h1 {
+    font-size: 5rem !important;
+    line-height: 5.2rem !important;
+}
+
+#welcome-content {
+    text-align: center;
+    min-height: 100vh;
+    padding-top: 250px;
+}
+
+#welcome-content .list-group {
+    font-size: 1.3rem;
+    text-align: left;
+    display: inline-block;
+}
+
+#welcome-content .list-group-item {
+    border-radius: 5px;
+    border: 0;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+#welcome-content p {
+    font-size: 1.2rem;
 }

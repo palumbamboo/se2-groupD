@@ -1,0 +1,26 @@
+<p>
+  Select view
+</p>
+
+<div class="list-group">
+  <% @user.roles.each do |role| %>
+    <% @icon = case role
+               when :teacher then 'mdi-teach'
+               when :officer then 'mdi-monitor-dashboard'
+               when :parent then 'mdi-human-male-girl'
+    %>
+    <% end %>
+    <%= link_to " #{role.to_s.capitalize}", send("#{role}_path", @user), class: "list-group-item list-group-item-action mdi #{@icon} list-group-item-primary" %>
+  <% end %>
+</div>
+<br/>
+<br>
+
+<ul class="list-unstyled">
+  <li>
+    <%= link_to destroy_user_session_path, method: :delete, id: 'logout-button', :form => { :id => "logout-form" } do %>
+      <i class="mdi mdi-logout"></i> Logout
+    <% end %>
+  </li>
+</ul>
+</div>
