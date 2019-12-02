@@ -1,0 +1,63 @@
+<h4 style="text-align: left">Students' list:</h2>
+<br>
+<table id="class_table-<%= @school_class.id %>" data-sortable="true" class="table table-striped table-sm" style="table-layout: fixed;">
+<thead>
+<tr>
+<th>Select</th>
+<th>Surname</th>
+<th>Name</th>
+<th>SSN</th>
+<th>Date of birth</th>
+<th>Enrollment date</th>
+</tr>
+</thead>
+<tbody id="class_view-<%= @school_class.id %>">
+<%= render partial: 'students/student_class',  collection: @students, locals: {checked: 'checked'}%>
+<%= render partial: 'students/student_class',  collection: @students_available, locals: {checked: ''}%>
+</tbody>
+</table>
+<br>
+<button class="btn btn-success" id="confirmclass"><span class="mdi mdi-check-bold"> Confirm</span></button>
+
+<script>
+
+$(document).ready(function(){
+    $("#back").click(function(){
+        $.ajax({
+        type: 'GET',
+        url: "class_composition/" + "<%= @school_class.id %>", 
+        contentType: "text/javascript",
+        }).done(function(){
+            $("#back").css("display", "none");
+        })
+    });
+    $("#back").css("display", "block");
+    var students_selected = [];
+    function updateClass(){
+        $.ajax({
+            type: 'POST',
+            url: "/school_classes/update/<%= @school_class.id %>", 
+            data: {students_to_add: students_selected}
+        }).done(function(response){
+            $.ajax({
+                type: 'GET',
+                url: "class_composition/" + "<%= @school_class.id %>", 
+                contentType: "text/javascript",
+            }).done(function(response){
+                    $("#back").css("display", "none");
+                });
+         });
+    };
+    $('#confirmclass').click(function(){
+        console.log("click");
+        $("#class_table-<%= @school_class.id %> > tbody  > tr").each(function() {
+            let student_row = this.id.split('_')[1];    // student_row is the id of the student
+            if($("#check-" + student_row)[0].checked){  // if the student is selected
+                students_selected.push(student_row);    
+            }
+        });
+        updateClass();
+    });
+})
+
+</script>
