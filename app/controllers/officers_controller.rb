@@ -40,6 +40,21 @@ class OfficersController < ApplicationController
     end
   end
 
+  def enable
+    parent = Parent.where("user_id = ?", params[:parent].to_i).first 
+    # Mailer implementation
+    @user = parent.user
+    otp = Devise.friendly_token(20)
+    @user.update(password: otp)
+    OfficerMailer.with(user: @user, current_pass: otp).credential_mail.deliver_now
+    parent.update(:access_enabled => true)
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
   # PATCH/PUT /officers/1
   # PATCH/PUT /officers/1.json
   def update
@@ -70,7 +85,7 @@ class OfficersController < ApplicationController
   end
 
   def parents
-    @parents = Parent.all
+    @parents = Parent.all.order(access_enabled: :asc)
   end
 
   # DELETE /officers/1

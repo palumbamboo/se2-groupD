@@ -9,6 +9,7 @@ class LecturesController < ApplicationController
 
     @teacher = Teacher.find(params[:teacher_id])
     @lecture = Lecture.new
+    @lecture.school_class = SchoolClass.find(params[:school_class_id]) if params[:school_class_id]
   end
 
   def create

@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_231910) do
     t.string "surname"
     t.string "email"
     t.bigint "user_id"
+    t.boolean "access_enabled", default: false
     t.index ["user_id"], name: "index_parents_on_user_id"
   end
 

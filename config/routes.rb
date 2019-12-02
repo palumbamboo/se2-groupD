@@ -11,17 +11,18 @@ Rails.application.routes.draw do
   resources :marks
   resources :officers
 
-  get 'teachers/:id/lectures', to: 'teachers#lectures', as: 'teacher_lectures'
+  get 'teachers/:id/lectures(/:school_class_id)', to: 'teachers#lectures', as: 'teacher_lectures'
   get 'teachers/:id/marks', to: 'teachers#marks', as: 'teacher_marks'
 
-  get 'parents/:id/show_marks' => 'parents#students'
-  post 'parents/:id/show_marks/switch_child' => 'parents#switch_child'
+  get 'parents/:id/students(/:stud)', to: 'parents#students', as: 'parent_marks'
+  post 'parents/:id/students/:stud/subjects/:sub', to: 'parents#marks_per_subject'
 
   get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 
   post 'school_classes/update/:id', to: 'school_classes#update'
   post 'school_classes/:id/file', to: 'school_classes#file_import'
+
+  post 'officers/:id/parents/:parent/enable', to: 'officers#enable'
+
 end
-
-
