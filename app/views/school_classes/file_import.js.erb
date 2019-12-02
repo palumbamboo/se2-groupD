@@ -8,6 +8,8 @@ if("<%= @message %>" == "ok"){
                 type: 'GET',
                 url: "class_composition/" + "<%= @school_class.id %>", 
                 contentType: "text/javascript",
+                }).done(function(){
+                    $("#back").css("display", "none");
                 })
         }, 3000);
 }

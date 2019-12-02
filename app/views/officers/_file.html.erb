@@ -21,16 +21,16 @@
 </div>
 <script>
 $(document).ready(function(){
-    $("#undo").click(function(){
+    $("#back").click(function(){
         $.ajax({
         type: 'GET',
         url: "class_composition/" + "<%= @class.id %>", 
         contentType: "text/javascript",
         }).done(function(){
-            $("#undo").css("display", "none");
+            $("#back").css("display", "none");
         })
     });
-    $("#undo").css("display", "block");
+    $("#back").css("display", "block");
     $('#class_file').change(function(){
         $('#file-confirm').css("cursor", "pointer");
         $('#file-confirm').attr("disabled", false);
