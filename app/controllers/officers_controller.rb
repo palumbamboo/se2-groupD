@@ -69,6 +69,21 @@ class OfficersController < ApplicationController
     end
   end
 
+  def class_composition
+    set_officer
+    @classes = SchoolClass.available_classes
+    if params[:class]
+      @class = SchoolClass.find(params[:class])
+    else
+      @class = SchoolClass.first
+    end
+    @students = @class.students
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
   def parents
     @parents = Parent.all.order(access_enabled: :asc)
   end

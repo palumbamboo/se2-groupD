@@ -7,6 +7,7 @@ body {
 
 input[type=submit], button {
     display: inline-block;
+    font-weight: bold;
     color: #3b8070;
     background-color: white;
     border: 2px solid #3b8070;
@@ -67,6 +68,9 @@ form {
     -ms-filter: blur(2px);
     filter: blur(2px);
 }
+
+#class_select {
+    width: 100px;
 
 .custom-select {
     color: #3b8070;

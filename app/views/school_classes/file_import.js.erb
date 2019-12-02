@@ -1,0 +1,19 @@
+if("<%= @message %>" == "ok"){
+    $("#error_message").css("display", "none");
+    $("#success_message").html("Class successfully updated. The updated class will be shown in few seconds.");
+    $("#success_message").css("display", "block");
+    $("#file-confirm").attr("disabled", true);
+    setTimeout(function(){
+        $.ajax({
+                type: 'GET',
+                url: "class_composition/" + "<%= @school_class.id %>", 
+                contentType: "text/javascript",
+                }).done(function(){
+                    $("#back").css("display", "none");
+                })
+        }, 3000);
+}
+else{
+    $("#error_message").html("<%= @message %>");
+    $("#error_message").css("display", "block");
+}
