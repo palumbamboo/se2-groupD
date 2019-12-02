@@ -1,1 +1,1 @@
-$("#editclass").html("<br><%= j render partial: 'school_classes/class', locals: {class: @class, students: @students.sort_by(&:surname)} %>");
+$("#editclass").html("<%= j render partial: 'school_classes/class', locals: {class: @class, students: @students.sort_by(&:surname)} %>");

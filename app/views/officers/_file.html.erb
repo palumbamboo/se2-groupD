@@ -1,14 +1,36 @@
 <div class="row">
     <div class="col-md-3"></div>
-    <div class="col-xs-12 col-md-6">
-    <%= form_with(url: {action: :file_import, controller: :school_classes}, multipart: true) do %>
-        <%= file_field_tag 'class_file' %>
-        <button type="submit" class="btn btn-success" id="file-confirm" disabled style="cursor: not-allowed"><span class="mdi mdi-check-bold"> Confirm</span></button>
-    <% end %>
-    </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="alert alert-success" role="alert" style="display: none" id="success_message">
+            </div>
+            <div class="alert alert-danger" role="alert" style="display: none" id="error_message">
+            </div>
+        </div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+        <div class="col-xs-12 col-md-8">
+        <%= form_with(url: {action: :file_import, controller: :school_classes}, multipart: true, remote: true) do %>
+            <%= file_field_tag 'class_file', accept: ".xls,.xlsx" %>
+            <button type="submit" class="btn btn-success" id="file-confirm" disabled style="cursor: not-allowed"><span class="mdi mdi-check-bold"> Confirm</span></button>
+            <p><br>The file must be an excel file (extensions accepted: 'xls', 'xlsx').
+            The first row must match this format: "Surname | Name | SSN".
+            The following data rows must respect the above header.</p>
+        <% end %>
+        </div>
 </div>
 <script>
 $(document).ready(function(){
+    $("#undo").click(function(){
+        $.ajax({
+        type: 'GET',
+        url: "class_composition/" + "<%= @class.id %>", 
+        contentType: "text/javascript",
+        }).done(function(){
+            $("#undo").css("display", "none");
+        })
+    });
+    $("#undo").css("display", "block");
     $('#class_file').change(function(){
         $('#file-confirm').css("cursor", "pointer");
         $('#file-confirm').attr("disabled", false);

@@ -22,6 +22,16 @@
 <script>
 
 $(document).ready(function(){
+    $("#undo").click(function(){
+        $.ajax({
+        type: 'GET',
+        url: "class_composition/" + "<%= @school_class.id %>", 
+        contentType: "text/javascript",
+        }).done(function(){
+            $("#undo").css("display", "none");
+        })
+    });
+    $("#undo").css("display", "block");
     var students_selected = [];
     function updateClass(){
         $.ajax({

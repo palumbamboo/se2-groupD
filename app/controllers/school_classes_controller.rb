@@ -33,30 +33,46 @@ class SchoolClassesController < ApplicationController
   def file_import
     set_school_class
     @previous_students = @school_class.students
+    accepted_formats = [".xls", ".xlsx"]
     uploaded_file = params[:class_file]
     file_path = Rails.root.join('tmp', uploaded_file.original_filename)
-    File.open(file_path, 'wb') do |file|
-      file.write(uploaded_file.read)
-    end
-    wb = Roo::Excelx.new(file_path)
-    sheet = wb.sheet(0)
-    all_ssns = [""]
-    if(sheet.row(1) == ["Name", "Surname", "SSN"])    # check first header row
-      (2..sheet.last_row).map do |i|
-        if sheet.cell(i, 3)                   # check that the SSN isn't empty
-          all_ssns << sheet.cell(i, 3)
-        end
+    extension = File.extname(file_path)
+    if accepted_formats.include? extension    # if the file has the correct extension
+      File.open(file_path, 'wb') do |file|
+        file.write(uploaded_file.read)
       end
+      wb = Roo::Excelx.new(file_path)
+      sheet = wb.sheet(0)
+      all_ssns = [""]
+      @message = "ok"
+      if(sheet.row(1) == ["Surname", "Name", "SSN"])    # check first header row
+        (2..sheet.last_row).map do |i|
+          if sheet.cell(i, 3)                  # check that the SSN isn't empty
+            all_ssns << sheet.cell(i, 3) 
+          else 
+            @message = "Some SSNs are missing. Please check if every student has a SSN in the third column."
+            break
+          end
+        end
+        if @message == "ok"
+          Student.where(fiscal_code: all_ssns).each do |student|
+            student.school_class = @school_class
+            student.save
+          end
+          @previous_students.where.not(fiscal_code: all_ssns).each do |student|
+            student.school_class = SchoolClass.find_or_create_by(number: 0)
+            student.save
+          end
+        end
+      else
+        @message = "Wrong format of file. The file must have the first header row like this: \"Surname | Name | SSN\", and the following data rows must respect this order."
+      end
+      File.delete(file_path)
+    else
+      @message = "We're sorry, the file must have .xls or .xlsx extension."
     end
-    File.delete(file_path)
-    puts all_ssns
-    Student.where(fiscal_code: all_ssns).each do |student|
-      student.school_class = @school_class
-      student.save
-    end
-    @previous_students.where.not(fiscal_code: all_ssns).each do |student|
-      student.school_class = SchoolClass.find_or_create_by(number: 0)
-      student.save
+    respond_to do |format|
+       format.js
     end
   end
 
