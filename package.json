@@ -9,6 +9,7 @@
     "bootstrap": "4.3.1",
     "channels": "^0.0.4",
     "jquery": "^3.4.1",
+    "mdbootstrap": "^4.10.0",
     "popper.js": "^1.16.0",
     "turbolinks": "^5.2.0"
   },
