@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :registerable,
          :recoverable,
          :rememberable,
-         :validatable
+         :validatable,
+         :trackable
 
   has_one :teacher
   has_one :parent
@@ -25,5 +26,8 @@ class User < ApplicationRecord
 
   def officer?
     officer.present?
+
+  def password_changed?
+    password_changed
   end
 end

@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   resources :lectures
   resources :marks
   resources :officers
+  resources :passwords
+
+  patch 'passwords/:id/edit', to: 'passwords#update'
+  put 'users/:id', to: 'application#direct_user', as: 'user'
 
   get 'teachers/:id/lectures(/:school_class_id)', to: 'teachers#lectures', as: 'teacher_lectures'
   get 'teachers/:id/marks', to: 'teachers#marks', as: 'teacher_marks'
