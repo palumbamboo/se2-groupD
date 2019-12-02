@@ -120,3 +120,7 @@ pre {
     font-weight: 400;
     line-height: 19px;
 }
+
+#new_student {
+    max-width: 70%;
+}

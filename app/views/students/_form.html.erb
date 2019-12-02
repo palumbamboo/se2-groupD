@@ -1,27 +1,33 @@
 <%= form_for @student, :remote => true do |f| %>
-<div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+<h4 style="text-align: left">Student</h4>
+<br>
+<div class="row">
+    <div class="col">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="col">
+        <%= f.label :surname %>
+        <%= f.text_field :surname, class: 'form-control' %>
+    </div>
 </div>
 <br />
-<div>
-    <%= f.label :surname %>
-    <%= f.text_field :surname %>
+<div class="row">
+    <div class="col">
+        <%= f.label :birth_date %>
+        <%= f.date_field(:birth_date, start_year: (Date.today - 20.years).year, end_year: Date.today.year, class: 'form-control') %>
+    </div>
+    <div class="col">
+        <%= f.label :enrollment_date %>
+        <%= f.date_field(:enrollment_date, start_year: (Date.today - 10.years).year, end_year: Date.today.year, class: 'form-control') %>
+    </div>
 </div>
 <br />
-<div>
+<div class="row">
+<div class="col">
     <%= f.label :fiscal_code %>
-    <%= f.text_field :fiscal_code %>
+    <%= f.text_field :fiscal_code, class: 'form-control' %>
 </div>
-<br />
-<div>
-    <%= f.label :birth_date %>
-    <%= f.date_field(:birth_date, start_year: (Date.today - 20.years).year, end_year: Date.today.year) %>
-</div>
-<br />
-<div>
-    <%= f.label :enrollment_date %>
-    <%= f.date_field(:enrollment_date, start_year: (Date.today - 10.years).year, end_year: Date.today.year) %>
 </div>
 <br />
 <% if action_name == "edit" %>
@@ -31,36 +37,50 @@
     </div>
     <br /><br />
 <% end %>
-<h6>Parent 1</h6>
-<div>
-    <%= f.label "Name" %>
-    <%= text_field_tag :first_parent_name, @student.first_parent_name, :required => true %>
-</div>
-<div>
-    <%= f.label "Surname" %>
-    <%= text_field_tag :first_parent_surname, @student.first_parent_surname, :required => true %>
-</div>
-<br />
-<div>
-    <%= f.label "E-mail" %>
-    <%= text_field_tag :first_parent_email, @student.first_parent_email, :required => true %>
-</div>
-<h6>Parent 2</h6>
-<div>
-    <%= f.label "Name" %>
-    <%= text_field_tag :second_parent_name, @student.second_parent_name %>
-</div>
-<div>
-    <%= f.label "Surname" %>
-    <%= text_field_tag :second_parent_surname, @student.second_parent_surname %>
+<h5 style="text-align: left">Parent 1</h5>
+<br>
+<div class="row">
+    <div class="col">
+        <%= f.label "Name" %>
+        <%= text_field_tag :first_parent_name, @student.first_parent_name, :required => true, class: 'form-control' %>
+    </div>
+    <div class="col">
+        <%= f.label "Surname" %>
+        <%= text_field_tag :first_parent_surname, @student.first_parent_surname, :required => true, class: 'form-control' %>
+    </div>
 </div>
 <br />
 <div>
     <%= f.label "E-mail" %>
-    <%= text_field_tag :second_parent_email, @student.second_parent_email %>
+    <%= text_field_tag :first_parent_email, @student.first_parent_email, :required => true, class: 'form-control' %>
+</div>
+<br>
+<h5 style="text-align: left">Parent 2</h5>
+<br>
+<div class="row">
+    <div class="col">
+        <%= f.label "Name*" %>
+        <%= text_field_tag :second_parent_name, @student.second_parent_name, class: 'form-control' %>
+    </div>
+    <div class="col">
+        <%= f.label "Surname*" %>
+        <%= text_field_tag :second_parent_surname, @student.second_parent_surname, class: 'form-control' %>
+    </div>
+</div>
+<br />
+<div>
+    <%= f.label "E-mail*" %>
+    <%= text_field_tag :second_parent_email, @student.second_parent_email, class: 'form-control' %>
 </div>
 <br /><br />
+<div class="row">
+<div class="col-md-4"></div>
+    <div class="col-md-4">
+        <%= f.submit :class => 'btn btn-success' %>
+    </div>
+</div>
+<br>
 <div>
-    <%= f.submit %>
+<p style="text-align: left;">*optional fields.</p>
 </div>
 <% end %>
