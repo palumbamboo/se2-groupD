@@ -11,7 +11,7 @@ RSpec.describe SchoolClassesController, type: :controller do
     SchoolClass.delete_all
     ################
 
-    # Create user-teacher and log in with him #
+    # Create user and log in with him #
     user = User.create(:email => "prova@email.com", :password => "Prova123")
     sc = SchoolClass.create(:number => 0, :section => "0")
     ################

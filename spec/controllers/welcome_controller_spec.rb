@@ -10,7 +10,7 @@ RSpec.describe WelcomeController, type: :controller do
     User.all.delete_all
     ################
 
-    # Create user-teacher and log in with him #
+    # Create user and log in with him #
     user = User.create(:email => "prova@email.com", :password => "Prova123")
     ################
 

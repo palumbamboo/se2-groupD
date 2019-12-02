@@ -13,10 +13,6 @@ class TeachersController < ApplicationController
     @lectures = @teacher.lectures
   end
 
-  def add_mark
-
-  end
-
   def lectures
     set_teacher
     if params[:school_class_id]
