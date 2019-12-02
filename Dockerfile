@@ -13,6 +13,7 @@ WORKDIR /school-app
 COPY Gemfile /school-app/Gemfile
 COPY Gemfile.lock /school-app/Gemfile.lock
 COPY ./package.json /school-app/package.json
+COPY ./tmp/db /school-app/tmp/db
 RUN bundle install
 RUN npm install
 RUN yarn install
