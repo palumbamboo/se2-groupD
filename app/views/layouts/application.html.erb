@@ -2,6 +2,11 @@
 <html>
 <head>
   <title>Studently</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <title>SchoolApp</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
@@ -11,9 +16,21 @@
 </head>
 
 <body>
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav" style="width: 100%">
+        <i class="mdi mdi-menu mdi-24px"></i>
+      </button>
+
+    </div>
+  </div>
+</div>
+
 <div class="wrapper">
   <!-- Sidebar -->
-  <nav id="sidebar">
+  <div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas" id="sidebar">
     <%= yield :sidebar %>
     <% if current_user.roles.size > 1 %>
       <ul class="list-unstyled components">
@@ -31,7 +48,7 @@
         </li>
       </ul>
     <% end %>
-  </nav>
+  </div>
 
   <!-- Page Content -->
   <div class="container">
@@ -47,11 +64,64 @@
 </div>
 
 <script type="text/javascript">
+  var navbar = $('.navbar-fixed-top')[0];
+  var parent_navbar = $('.navbar-fixed-top')[0].parentElement;
+  var is_navbar_visible = true;
+
     $(document).ready(function(){
+        let screenWidth = document.getElementsByTagName("body")[0].clientWidth; // get starting screen width
+        let nav = $('.navbar-fixed-top')[0]; // get navbar on top of the page (hidden if screen size is greater than 960px)
+
+        if(screenWidth > 960) {
+            nav.setAttribute('hidden', ''); // hide navbar on top
+            is_navbar_visible = false; // update navbar visibility info
+        }
+
         setTimeout(function(){
             $('#message').fadeOut(150);
         }, 1000);
-    })
+
+        document.getElementById("page-content").addEventListener("click", function() { // when user clicks on body element
+            if( $('.sidebar-offcanvas')[0].classList.contains('active') ) { // if sidebar is active
+                $('.sidebar-offcanvas').toggleClass('active', 1000); // set sidebar inactive
+                parent_navbar.insertBefore(navbar, parent_navbar.firstChild); // re-establish navbar on top
+                is_navbar_visible = true; // update navbar visibility info
+            }
+        }, false);
+
+        $('[data-toggle=offcanvas]').click(function() { // when user clicks on button to open sidebar (you should see it on the navbar by the way)
+            $('.sidebar-offcanvas').toggleClass('active', 1000); // set sidebar active
+            $('.navbar-fixed-top')[0].remove(); // remove navbar on top in order to focus attention on sidebar
+            is_navbar_visible = false; // update navbar visibility info
+        });
+
+        document.getElementsByTagName("body")[0].onresize = function(event) {
+            let screenWidth = document.getElementsByTagName("body")[0].clientWidth; // get starting screen width
+
+            if(screenWidth > 960) { // if screen width is greater than 960 px
+                if( $('.navbar-fixed-top')[0] !== undefined ) { // if there is navbar on top
+                    // parent_navbar.insertBefore(navbar, parent_navbar.firstChild);
+                    $('.navbar-fixed-top')[0].setAttribute('hidden', ''); // hide the navbar
+                    is_navbar_visible = false; // update navbar visibility info
+                }
+                if( $('.sidebar-offcanvas')[0] !== undefined ) { // if there is no sidebar because it's inactive
+                    $('.sidebar-offcanvas').toggleClass('active', 1000); // set sidebar active
+                }
+            }
+            else { // if screen width is lower than 960px
+                if( $('.navbar-fixed-top')[0] !== undefined ) { // if there is navbar on top
+                    $('.navbar-fixed-top')[0].removeAttribute('hidden'); // show the navbar
+                    is_navbar_visible = true; // update navbar visibility info
+                }
+                else {
+                    parent_navbar.insertBefore(navbar, parent_navbar.firstChild);
+                }
+                if( $('.sidebar-offcanvas')[0].classList.contains('active') ) { // if sidebar is active
+                    $('.sidebar-offcanvas').toggleClass('active'); // set sidebar inactive
+                }
+            }
+        };
+    });
 </script>
 </body>
 </html>

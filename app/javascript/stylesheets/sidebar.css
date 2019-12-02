@@ -65,3 +65,66 @@
 .btn-link {
     color: white;
 }
+
+/* collapsed sidebar styles */
+@media screen and (max-width: 960px) {
+
+
+    .affix {position: static;}
+    #affix{width: 100%;}
+
+    .sidebar-offcanvas{-webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+
+        width:70%;
+        background-color: #3b8070;
+        z-index: 51;
+        margin: 0; padding: 0;
+        position: fixed;
+        top:50px;
+        left: -70%;
+    }
+
+    .sidebar-offcanvas ul li{margin:0}
+    .sidebar-offcanvas ul li a{color:#fff;padding: 15px 20px;margin:0;font-size: 15px;border-bottom: 1px solid #d6474d}
+    .sidebar-offcanvas ul li a:hover{background:#54303a;border:none; border-radius:0}
+
+    .nav{margin-top: 0px;}
+    .nav > li > a:hover,
+    .nav > li > a:focus{background-color: #ff625f}
+
+    .active {left: 0;}
+
+
+}
+
+/* top bar */
+.navbar {text-transform: uppercase;background-color: #306758;border: none}
+.navbar a  {color:#fff;font-weight: 300;text-decoration: none}
+.navbar-default .navbar-brand {color:#fff;font-weight: bold;margin:0;line-height: 50px;float:none; margin-left: auto; margin-right: auto; width: 60px; float: none; }
+
+.icon{margin-bottom: 8px;margin:0;padding: 15px 15px; float:right;}
+
+/* toggle button */
+.navbar-toggle{border: none;color:#fff;margin:0;padding: 18px 15px; border-radius: 0px;float:left;}
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {background-color: #306758;}
+.navbar-default .navbar-toggle .icon-bar {background-color: #fff;}
+
+
+/* Position where the element is fixed */
+.affix {top: 50px; width: 200px; }
+#affix {width: 200px;}
+
+.nav li a {border-bottom: 1px solid #ddd; color:#7b7a7e;}
+.nav li a i {margin-right:20px;}
+
+
+/* list */
+.ux-mood{font-size: 18px; font-weight: 300;margin-bottom: 40px}
+.ux-mood li{margin-bottom: 10px}
+.upper{text-transform: uppercase; font-weight: bold}
