@@ -50,6 +50,7 @@ class OfficersController < ApplicationController
     parent.update(:access_enabled => true)
 
     respond_to do |format|
+      format.html
       format.js
     end
 

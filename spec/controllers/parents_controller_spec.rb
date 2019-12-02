@@ -85,20 +85,6 @@ RSpec.describe ParentsController, type: :controller do
         assert_response :redirect
         expect {p.reload}.to raise_error ActiveRecord::RecordNotFound
       end
-
-    #it "should create parent" do
-    #  post :create, params: {
-    #     parent: {
-      #       :name => "Marianna",
-      #       :surname => "Bianchi",
-      #       :user_id => user_p2.id
-      #   }
-      # }
-    #
-    # assert_response :redirect
-    # Parent.all.reload
-    # expect(Parent.last.name).to eq("Marianna")
-    # end
     end
 
     context "Parent NOT logged" do

@@ -39,7 +39,6 @@ RSpec.describe TeachersController, type: :controller do
         assert_response :success
       end
 
-      # ha senso questo test?
       it "should return show" do
         get :show, params: {id: teacher.id}
         assert_response :success
