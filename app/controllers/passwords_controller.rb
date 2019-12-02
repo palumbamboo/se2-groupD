@@ -1,6 +1,9 @@
 class PasswordsController < ApplicationController
+  skip_before_action :user_changed_password?
+
+  layout 'welcome'
+
   def edit
-    puts 'ciao'
   end
 
   def update

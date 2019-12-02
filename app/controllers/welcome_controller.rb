@@ -3,6 +3,9 @@ class WelcomeController < ApplicationController
   helper_method :resource_name, :resource, :devise_mapping, :resource_class
 
   def index
+    if current_user
+      redirect_to direct_user(current_user)
+    end
   end
 
   def choose_role

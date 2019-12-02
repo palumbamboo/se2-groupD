@@ -51,6 +51,7 @@ form {
 
 #class_select {
     width: 100px;
+}
 
 .custom-select {
     color: #3b8070;
@@ -83,13 +84,15 @@ h1 {
     font-weight: 700;
     line-height: 26px;
 }
+
 h3 {
     font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-variant: normal;
     font-weight: 700;
-    line-height: 15px; }
+    line-height: 15px;
+}
 
 p {
     font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
