@@ -1,3 +1,14 @@
 $('a').addClass('disabled')
-$('#new-mark').html("<%= j render 'form', mark: @mark %>");
-$('table#marks').addClass('blur-filter')
+$('#new-mark').html("<div id='new-mark-form'><%= j render 'form', mark: @mark %></div>");
+$('table#marks').addClass('blur-filter');
+$('#mark-new').replaceWith("<a class='btn btn-warning' id='undo-new-mark'>Undo</a>")
+
+
+$('#undo-new-mark').click(function(e) {
+    e.preventDefault();
+    $('a').removeClass("disabled");
+    $('.blur-filter').removeClass('blur-filter');
+    document.getElementById("new-mark-form").remove();
+    $('#undo-new-mark').replaceWith('<%= j link_to " Create mark", new_mark_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", id: "mark-new",remote: true %>')
+    return false;
+});
