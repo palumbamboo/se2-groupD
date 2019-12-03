@@ -19,6 +19,9 @@
   </ul>
 <% end %>
 
+<div id="new-mark">
+</div>
+
 <table id="marks">
   <thead>
   <tr>
@@ -35,7 +38,4 @@
   <%= render partial: 'mark', collection: @marks.sort_by(&:date) %>
   </tbody>
 </table>
-
-<div id="new-mark">
-</div>
 

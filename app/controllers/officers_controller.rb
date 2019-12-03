@@ -89,6 +89,10 @@ class OfficersController < ApplicationController
     @parents = Parent.all.order(access_enabled: :asc)
   end
 
+  def students
+    set_officer
+  end
+
   # DELETE /officers/1
   # DELETE /officers/1.json
   def destroy

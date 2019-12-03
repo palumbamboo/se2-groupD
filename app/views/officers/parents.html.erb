@@ -6,6 +6,7 @@
   <ul class="list-unstyled components">
     <p>Officer page</p>
     <li><%= link_to " Home", officer_path(@officer), class: 'mdi mdi-view-dashboard' %></li>
+    <li><%= link_to " Students", officer_enrollment_url(@officer), class: 'mdi mdi-folder-account-outline' %></li>
     <li class="active"><%= link_to " Parents", officer_parents_url(@officer), class: 'mdi mdi-human-male-girl' %></li>
     <li><%= link_to " Class composition", officer_classes_url(@officer), class: 'mdi mdi-account-group' %></li>
   </ul>

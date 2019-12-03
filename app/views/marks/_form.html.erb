@@ -2,42 +2,46 @@
   <div>
     <%= f.label :teacher %>
     <% if @teacher %>
-     <%= f.select(:teacher_id, [[@teacher.to_s, @teacher.id]]) %>
+     <%= f.select(:teacher_id, [[@teacher.to_s, @teacher.id]], {}, {:class => 'custom-select'}) %>
     <% else %>
-      <%= f.select(:teacher_id, Teacher.all.collect {|p| [ p.surname, p.id ] })%>
+      <%= f.select(:teacher_id, Teacher.all.collect {|p| [ p.surname, p.id ]}, {}, {:class => 'custom-select'})%>
     <% end %>
-  </div>
-  <br/>
-  <div>
-    <%= f.label :mark %>
-    <%= f.text_field :mark %>
   </div>
   <br/>
   <div>
     <%= f.label :subject %>
     <% if @teacher %>
-      <%= f.select(:subject, @teacher.subjects) %>
+      <%= f.select(:subject, @teacher.subjects, {}, {:class => 'custom-select'}) %>
     <% else %>
-      <%= f.text_field :subject %>
+      <%= f.text_field :subject, class: 'form-control' %>
   <% end %>
   </div>
   <br/>
   <div>
     <%= f.label :student %>
-    <%= f.select(:student_id, Student.all.collect {|p| [ p.surname, p.id ] })%>
+    <%= f.select(:student_id, Student.all.collect {|p| [ p.to_s, p.id ] }, {}, {:class => 'custom-select'})%>
   </div>
   <br/>
-  <div>
-    <%= f.label :date %>
-    <%= f.date_field(:date,:start_year => 1950) %>
+  <div class="row">
+    <div class="col">
+      <%= f.label :mark %>
+      <%= f.text_field :mark, class: 'form-control' %>
+    </div>
+    <div class="col">
+      <%= f.label :date %>
+      <%= f.date_field(:date,:start_year => 1950, :class => 'form-control') %>
+    </div>
   </div>
   <br />
   <div>
     <%= f.label :notes %>
-    <%= f.text_area :notes %>
+    <%= f.text_area :notes, class: 'form-control' %>
   </div>
   <br /><br />
-  <div>
-    <%= f.submit %>
+  <div class="row">
+    <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <%= f.submit :class => 'btn btn-success' %>
+      </div>
   </div>
 <% end %>

@@ -29,5 +29,7 @@ Rails.application.routes.draw do
   post 'school_classes/:id/file', to: 'school_classes#file_import'
 
   post 'officers/:id/parents/:parent/enable', to: 'officers#enable'
+  post 'officers/:id/students/new', to: 'students#new'
+  get 'officers/:id/students', to: 'officers#students', as: 'officer_enrollment'
 
 end
