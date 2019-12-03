@@ -20,11 +20,11 @@
 </head>
 
 <body>
-<div class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
+<div class="navbar navbar-default navbar-fixed-top" style="height: 6vh">
+  <div class="container" style="height: 100%; padding: 0">
+    <div class="navbar-header" style="height: 100%">
 
-      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav" style="width: 100%">
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav" style="width: 100%; height: 100%; margin-left: 20%; padding-top: 0%">
         <i class="mdi mdi-menu mdi-24px"></i>
       </button>
 
@@ -34,7 +34,7 @@
 
 <div class="wrapper">
   <!-- Sidebar -->
-  <div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas" id="sidebar">
+  <div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas" id="sidebar"; style="height: 100%">
     <%= yield :sidebar %>
     <% if current_user.roles.size > 1 %>
       <ul class="list-unstyled components">
@@ -101,6 +101,12 @@
 
         document.getElementsByTagName("body")[0].onresize = function(event) {
             let screenWidth = document.getElementsByTagName("body")[0].clientWidth; // get starting screen width
+
+            let distance = screenWidth - 960; // get distance between screen width and given threshold
+            let percentage = (distance > 0) ? distance / 100 : -1 * distance / 100; // compute percentage
+
+            document.getElementsByClassName('sidebar-offcanvas')[0].setAttribute('style', "opacity:" + percentage); // update sidebar opacity in function of percentage distance
+            document.getElementsByClassName('navbar-fixed-top')[0].setAttribute('style', "opacity:" + percentage + "; height: 50px"); // update navbar opacity in function of percentage distance
 
             if(screenWidth > 960) { // if screen width is greater than 960 px
                 if( $('.navbar-fixed-top')[0] !== undefined ) { // if there is navbar on top

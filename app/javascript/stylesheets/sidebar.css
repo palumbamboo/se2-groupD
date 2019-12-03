@@ -85,7 +85,7 @@
         margin: 0; padding: 0;
         position: fixed;
         top:50px;
-        left: -70%;
+        left: -250%;
     }
 
     .sidebar-offcanvas ul li{margin:0}
