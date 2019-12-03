@@ -102,7 +102,7 @@
         document.getElementsByTagName("body")[0].onresize = function(event) {
             let screenWidth = document.getElementsByTagName("body")[0].clientWidth; // get starting screen width
 
-            let distance = screenWidth - 960; // get distance between screen width and given threshold
+            let distance = (screenWidth - 960) * 2.5; // get distance between screen width and given threshold
             let percentage = (distance > 0) ? distance / 100 : -1 * distance / 100; // compute percentage
 
             document.getElementsByClassName('sidebar-offcanvas')[0].setAttribute('style', "opacity:" + percentage); // update sidebar opacity in function of percentage distance
