@@ -32,6 +32,21 @@ RSpec.describe SchoolClassesController, type: :controller do
         get :edit, params: {id: sc.id}
         assert_response :success
       end
+
+      it "should update a parent" do
+        put :update, params: {
+            id: Officer.first.id,
+            officer: {
+                :number => 4,
+                :section => "A"
+            }
+        }
+        assert_response :redirect
+        expect(Officer.first.number).to eq(4)
+        expect(Officer.first.section).to eq("A")
+      end
+
+
     end
 
     context "User NOT logged" do
@@ -42,6 +57,17 @@ RSpec.describe SchoolClassesController, type: :controller do
 
       it "should not return show" do
         get :show, params: {id: sc.id}
+        assert_redirected_to :new_user_session
+      end
+
+      it "should not update" do
+        put :update, params: {
+            id: Officer.first.id,
+            officer: {
+                :number => 4,
+                :section => "A"
+            }
+        }
         assert_redirected_to :new_user_session
       end
 
