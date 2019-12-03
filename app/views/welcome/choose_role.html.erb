@@ -10,7 +10,7 @@
                when :parent then 'mdi-human-male-girl'
     %>
     <% end %>
-    <%= link_to " #{role.to_s.capitalize}", send("#{role}_path", @user), class: "list-group-item list-group-item-action mdi #{@icon} list-group-item-primary" %>
+    <%= link_to " #{role.to_s.capitalize}", send("#{role}_path", @user.send(role)), class: "list-group-item list-group-item-action mdi #{@icon} list-group-item-primary" %>
   <% end %>
 </div>
 <br/>

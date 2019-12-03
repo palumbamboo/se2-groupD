@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_changed_password?
+    return unless current_user
     unless current_user.password_changed?
       redirect_to edit_password_path(current_user), alert: 'Please update your password before continue'
     end

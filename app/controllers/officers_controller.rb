@@ -41,7 +41,7 @@ class OfficersController < ApplicationController
   end
 
   def enable
-    parent = Parent.where("user_id = ?", params[:parent].to_i).first 
+    parent = Parent.find(params[:parent].to_i)
     # Mailer implementation
     @user = parent.user
     otp = Devise.friendly_token(20)
@@ -50,8 +50,8 @@ class OfficersController < ApplicationController
     parent.update(:access_enabled => true)
 
     respond_to do |format|
-      format.html
       format.js
+      format.html
     end
 
   end
