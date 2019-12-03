@@ -27,7 +27,7 @@ class DefaultData
     result = []
     result << User.create(email: 'u1@p.it', password: 'user1pass')
     result << User.create(email: 'u2@p.it', password: 'user2pass')
-    result << User.create(email: 'u3@p.it', password: 'user3pass')
+    result << User.create(email: 'u3@p.it', password: 'user3pass', password_changed: true)
     result << User.create(email: 'u4@p.it', password: 'user4pass')
     result << User.create(email: 'u5@p.it', password: 'user5pass')
     result << User.create(email: 'u6@p.it', password: 'user6pass')

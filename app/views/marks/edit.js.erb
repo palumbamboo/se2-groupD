@@ -1,4 +1,4 @@
 document.getElementById('mark-row_<%= @mark.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @mark.id %>'><td colspan=6><%= j render 'form', mark: @mark %></td></tr>")
-$('#mark-edit_<%= @mark.id %>').replaceWith("<%= j link_to("Undo", teacher_marks_url(@mark), id: "mark-undo_#{@mark.id}", class: "btn btn-warning") %>")
+$('#mark-edit_<%= @mark.id %>').replaceWith("<%= j link_to("Undo", teacher_marks_path(@teacher), id: "mark-undo_#{@mark.id}", class: "btn btn-warning") %>")
 $('a:not(#mark-undo_<%= @mark.id %>)').addClass("disabled")
 $('tr:not(#edit-form_<%= @mark.id %>,#mark-row_<%= @mark.id %>)').addClass('blur-filter')
