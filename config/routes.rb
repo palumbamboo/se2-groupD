@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :attendances
   devise_for :users
   get 'welcome/index'
   get 'welcome/:id/choose_role', to: 'welcome#choose_role', as: 'welcome_role'
