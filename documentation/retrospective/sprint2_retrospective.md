@@ -6,7 +6,7 @@ Group D
 
 ### Stories and points
 
-We committed to 6 stories and we implemented all of them. Some of the stories committed where "work in progress" stories from last sprint.
+We committed to 5 stories and we implemented all of them. Some of the stories committed where "work in progress" stories from last sprint.
 
 |  | Total | Committed | Implemented |
 | --- | --- | --- | --- |
@@ -112,7 +112,7 @@ Positive:
 Negative:
 
 * Sometimes, when a template or an interface for a web page is not clearly defined in advance all together, it could take more time to implement that webpage since different people could think about different implementations.
-* For what concerns Docker, we ecountered some problems. That is because initially it was not clear what we shoud have done and for this reason we wasted a lot of time in trying to do not required operations.
+* For what concerns Docker, we encountered some problems. That is because initially it was not clear what we shoud have done and for this reason we wasted a lot of time in trying to do unrequired operations.
 
 ## Possible improvements
 
