@@ -14,7 +14,7 @@
 <% content_for :navbar do %>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <%= link_to " Create mark", new_mark_path(params: { teacher_id: @teacher.id }), class: "btn btn-success mdi mdi-plus-circle", id: "mark-new",remote: true %>
+      <%= link_to ' Create Mark', new_mark_path(params: { teacher_id: @teacher.id }), {remote: true, 'data-toggle' =>  "modal", 'data-target' => '#mark-modal', class: 'btn btn-success mdi mdi-plus-circle'}  %>
     </li>
   </ul>
 <% end %>
@@ -38,4 +38,6 @@
   <%= render partial: 'mark', collection: @marks.sort_by(&:date) %>
   </tbody>
 </table>
+
+<%= render partial: 'marks/modal_form' %>
 

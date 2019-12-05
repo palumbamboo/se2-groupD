@@ -2187,6 +2187,11 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
+custom@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/custom/-/custom-0.0.0.tgz#715437caaad693c20a02446cdbfa738e56c40d73"
+  integrity sha1-cVQ3yqrWk8IKAkRs2/pzjlbEDXM=
+
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
