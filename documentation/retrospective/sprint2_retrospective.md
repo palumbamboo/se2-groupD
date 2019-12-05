@@ -112,7 +112,7 @@ Positive:
 Negative:
 
 * Sometimes, when a template or an interface for a web page is not clearly defined in advance all together, it could take more time to implement that webpage since different people could think about different implementations.
-* For what concerns Docker, we encountered some problems. That is because initially it was not clear what we shoud have done and for this reason we wasted a lot of time in trying to do unrequired operations.
+* For what concerns Docker, we encountered some problems. That is because initially it was not clear what we should have done and for this reason we wasted a lot of time in trying to do unrequired operations.
 
 ## Possible improvements
 
