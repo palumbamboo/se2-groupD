@@ -1,5 +1,7 @@
 class LecturesController < ApplicationController
 
+  layout 'no_sidebar'
+
   def index
     @lectures = Lecture.all
   end

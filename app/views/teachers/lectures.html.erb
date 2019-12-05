@@ -14,7 +14,7 @@
 <% content_for :navbar do %>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <%= link_to " Create lecture", new_lecture_path(params: { teacher_id: @teacher.id, school_class_id: @school_class.id }), class: "btn btn-success mdi mdi-plus-circle", id: "lecture-new",remote: true %>
+      <%= link_to ' Create Lecture', new_lecture_path(params: { teacher_id: @teacher.id, school_class_id: @school_class.id }), {remote: true, id: "new-lecture", 'data-toggle' =>  "modal", 'data-target' => '#lecture-form-modal', class: 'btn btn-success mdi mdi-plus-circle'}  %>
     </li>
   </ul>
   <ul class="navbar-nav ml-auto navbar-right">
@@ -59,3 +59,5 @@
     });
 
 </script>
+
+<%= render partial: 'lectures/modal_form' %>
