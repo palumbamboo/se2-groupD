@@ -4,6 +4,7 @@ class Teacher < ApplicationRecord
   attribute :subjects, :string, array: true, default: []
 
   belongs_to :user
+  has_many :assignments
 
   has_and_belongs_to_many :school_classes, class_name: 'SchoolClass'
   has_many :lectures

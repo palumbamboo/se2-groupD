@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_05_221220) do
+ActiveRecord::Schema.define(version: 2019_12_05_232418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assignments", force: :cascade do |t|
+    t.string "name"
+    t.datetime "expiry_date"
+    t.string "file"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "school_class_id"
+    t.bigint "teacher_id"
+    t.bigint "lecture_id"
+  end
 
   create_table "attendances", force: :cascade do |t|
     t.date "date"
@@ -95,8 +106,7 @@ ActiveRecord::Schema.define(version: 2019_12_05_221220) do
     t.string "fiscal_code"
     t.date "birth_date"
     t.date "enrollment_date"
-    t.bigint "school_class_id"
-    t.index ["school_class_id"], name: "index_students_on_school_class_id"
+    t.integer "school_class_id"
   end
 
   create_table "teachers", force: :cascade do |t|
