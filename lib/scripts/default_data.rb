@@ -8,6 +8,8 @@ class DefaultData
     Student.delete_all
     Lecture.delete_all
     SchoolClass.delete_all
+    Attendance.delete_all
+    Mark.delete_all
     true
   end
 
@@ -20,6 +22,8 @@ class DefaultData
     result[:school_classes] = school_classes
     result[:lectures]       = lectures
     result[:students]       = students
+    result[:attendance]     = attendances
+    result[:mark]           = marks
     result
   end
 
@@ -102,4 +106,70 @@ class DefaultData
     result << Student.create(name: 'Angela', surname: 'Nebiolo', fiscal_code: 'RSSMSM01P03H501C', birth_date: Date.new(2001, 9, 3), enrollment_date: Date.new(2019, 9, 1), parents: [Parent.find_by(name: 'Francesca', surname: 'Gallo')], school_class: SchoolClass.find_by(number: 1, section: 'A'))
     result.all?
   end
+
+  def attendances
+    result = []
+    # Roberto Musso
+    result << Attendance.create(date: Date.new(2019, 10, 24), absence_type: 'Absent', student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))
+    result << Attendance.create(date: Date.new(2019, 10, 25), absence_type: 'Absent', student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))
+    result << Attendance.create(date: Date.new(2019, 10, 10), absence_type: 'Late', enters_at: DateTime.new(2019, 10, 10, 11), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))
+
+    # Luigi Gamba
+    result << Attendance.create(date: Date.new(2019, 10, 13), absence_type: 'Absent', student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A'))
+    result << Attendance.create(date: Date.new(2019, 10, 14), absence_type: 'Late', enters_at: DateTime.new(2019, 10, 14, 10), student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A'))
+    result << Attendance.create(date: Date.new(2019, 10, 29), absence_type: 'Earl', exits_at: DateTime.new(2019, 10, 29, 12, 35), student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A'))
+
+    # Stefano Gamba
+    result << Attendance.create(date: Date.new(2019, 10, 30), absence_type: 'Absent', student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A'))
+
+    # Chiara Saracco
+    # Angela Nebiolo
+
+    result.all?
+  end
+
+  def marks
+    result = []
+    # Roberto Musso
+    result << Mark.create(mark: 10, subject: 'Maths', date: Date.new(2019, 10, 24), notes: "Oral examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'))
+    result << Mark.create(mark: 8, subject: 'Geometry', date: Date.new(2019, 10, 22), notes: "Oral examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'))
+    result << Mark.create(mark: 7, subject: 'Science', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 8, subject: 'Science', date: Date.new(2019, 9, 10), notes: "Written examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 7, subject: 'Biology', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 5.5, subject: 'History', date: Date.new(2019, 11, 21), notes: "Written examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'))
+    result << Mark.create(mark: 6, subject: 'Geography', date: Date.new(2019, 11, 15), notes: "Oral examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'))
+
+    # Elena Musso
+    result << Mark.create(mark: 8.5, subject: 'Maths', date: Date.new(2019, 10, 23), notes: "Oral examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'))
+    result << Mark.create(mark: 7, subject: 'Geometry', date: Date.new(2019, 10, 21), notes: "Oral examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'))
+    result << Mark.create(mark: 7, subject: 'Science', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 10, subject: 'Science', date: Date.new(2019, 9, 15), notes: "Written examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 7, subject: 'Biology', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 9, subject: 'History', date: Date.new(2019, 11, 25), notes: "Written examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'))
+    result << Mark.create(mark: 4, subject: 'Geography', date: Date.new(2019, 11, 14), notes: "Oral examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'))
+
+    # Luigi Gamba
+    result << Mark.create(mark: 9, subject: 'Maths', date: Date.new(2019, 10, 11), notes: "Oral examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'))
+    result << Mark.create(mark: 9, subject: 'Geometry', date: Date.new(2019, 10, 12), notes: "Oral examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'))
+    result << Mark.create(mark: 6, subject: 'Science', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 6, subject: 'Science', date: Date.new(2019, 9, 10), notes: "Written examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 8, subject: 'Biology', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 7, subject: 'History', date: Date.new(2019, 11, 21), notes: "Written examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'))
+    result << Mark.create(mark: 6, subject: 'Geography', date: Date.new(2019, 11, 15), notes: "Oral examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'))
+
+    # Stefano Gamba
+    result << Mark.create(mark: 10, subject: 'Maths', date: Date.new(2019, 10, 15), notes: "Oral examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'))
+    result << Mark.create(mark: 8, subject: 'Geometry', date: Date.new(2019, 10, 17), notes: "Oral examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'))
+    result << Mark.create(mark: 6, subject: 'Science', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 6.5, subject: 'Biology', date: Date.new(2019, 9, 15), notes: "Written examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 7, subject: 'Biology', date: Date.new(2019, 9, 25), notes: "Written examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'))
+    result << Mark.create(mark: 4, subject: 'Geography', date: Date.new(2019, 11, 7), notes: "Written examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'))
+    result << Mark.create(mark: 5, subject: 'Geography', date: Date.new(2019, 11, 20), notes: "Oral examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'))
+
+    # Chiara Saracco
+    # Angela Nebiolo
+
+    result.all?
+  end
+
 end
