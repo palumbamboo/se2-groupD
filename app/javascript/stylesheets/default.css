@@ -124,3 +124,7 @@ pre {
 #new_student {
     max-width: 70%;
 }
+
+.toggle-handle {
+    background-color: white;
+}

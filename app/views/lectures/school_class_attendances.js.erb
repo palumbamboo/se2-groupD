@@ -1,0 +1,10 @@
+$('#submit-attendances').prop("disabled", true)
+<% if @updated %>
+  $('#js-notice').html("Class registry Updated").show(150)
+<% else %>
+  $('#js-alert').html("Something went wrong, please reload the page :(").show(150)
+<% end %>
+setTimeout(function() {
+    $('#js-notice').fadeOut(150);
+    $('#js-alert').fadeOut(150);
+}, 1000);

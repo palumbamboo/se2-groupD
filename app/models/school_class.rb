@@ -14,4 +14,15 @@ class SchoolClass < ApplicationRecord
     SchoolClass.all - [SchoolClass.find_by(section: '0', number: 0)]
   end
 
+  def attendances date=Date.today
+    absents = Attendance.where(school_class: self, date: date)
+    attendances = (students.to_a - absents.map(&:student)).map{ |s|
+      { student_id: s.id, student_name: s.to_s, attendance: true }
+    }
+    attendances.concat(absents.map(&:student).map{ |s|
+      { student_id: s.id, student_name: s.to_s, attendance: false }
+    })
+    attendances
+  end
+
 end

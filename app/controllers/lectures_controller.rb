@@ -43,6 +43,7 @@ class LecturesController < ApplicationController
 
     respond_to do |format|
       if @lecture.update_attributes(lecture_params)
+        @updated = true
         format.js
         format.html { redirect_to @lecture, notice: "Lecture updated" }
         format.json { render :show, status: :created, location: @lecture }
@@ -64,6 +65,22 @@ class LecturesController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @lecture.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def school_class_attendances
+    set_lecture
+    school_class = @lecture.school_class
+    absents      = params[:students_ids].dig(:absents)&.map{ |s| Attendance.find_or_initialize_by(student: Student.find(s), school_class: school_class, date: Date.today) } || []
+    presents     = Attendance.where(student: Student.where(id: params[:students_ids][:presents]), school_class: school_class, date: Date.today)
+    respond_to do |format|
+      if absents.all?(&:save) && presents.delete_all
+        @updated = true
+        format.js
+      else
+        @updated = false
+        format.js
       end
     end
   end

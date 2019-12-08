@@ -1,0 +1,11 @@
+<tr>
+  <td><%= attendance[:student_name] %></td>
+  <td>
+    <% if attendance[:attendance] %>
+      <input type="checkbox" class="toggle" checked data-toggle="toggle" data-on="Present" data-off="Absent" data-onstyle="success" data-offstyle="danger" data-width="100" id="<%= attendance[:student_id] %>">
+    <% else %>
+      <input type="checkbox" class="toggle" data-toggle="toggle" data-on="Present" data-off="Absent" data-onstyle="success" data-offstyle="danger" data-width="100" id="<%= attendance[:student_id] %>">
+    <% end %>
+  </td>
+  <td style="display:none;" id="student-id"> <%= attendance[:student_id] %> </td>
+</tr>

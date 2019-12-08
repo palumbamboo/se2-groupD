@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :officers
   resources :passwords
 
+  post 'lectures/:id/attendances', to: 'lectures#school_class_attendances'
+
   patch 'passwords/:id/edit', to: 'passwords#update'
   put 'users/:id', to: 'application#direct_user', as: 'user'
 
@@ -39,5 +41,4 @@ Rails.application.routes.draw do
   post 'officers/:id/parents/:parent/enable', to: 'officers#enable'
   post 'officers/:id/students/new', to: 'students#new'
   get 'officers/:id/students', to: 'officers#students', as: 'officer_enrollment'
-
 end

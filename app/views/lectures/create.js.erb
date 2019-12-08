@@ -1,4 +1,3 @@
-$('#new-lecture form').remove()
+$('#lecture-form-modal').hide();
+$('.modal-backdrop').remove();
 $('table#lectures tbody').append("<%= j render @lecture %>")
-$('.blur-filter').removeClass('blur-filter')
-$('a').removeClass('disabled')
