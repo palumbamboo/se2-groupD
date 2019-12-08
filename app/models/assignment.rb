@@ -3,7 +3,7 @@ class Assignment < ApplicationRecord
     attribute :expiry_date, type: Time
     attribute :file
     attribute :subject
-    attribute :description
+    attribute :description, type: text
 
     belongs_to :school_class
     belongs_to :teacher

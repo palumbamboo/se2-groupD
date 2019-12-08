@@ -43,10 +43,10 @@ class ParentsController < ApplicationController
         set_parent
         @students = @parent.students
         if params[:stud]
-            @student = @parent.students.find(params[:stud])
+            @student = @students.find(params[:stud])
             @subjects = Assignment.where(school_class: @student.school_class).select(:subject).distinct
         else
-            @student = @parent.students.first
+            @student = @students.first
             @subjects = Assignment.where(school_class: @student.school_class).select(:subject).distinct
         end
         respond_to do |format|
