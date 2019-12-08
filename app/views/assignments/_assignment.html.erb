@@ -1,0 +1,9 @@
+<tr id="show-assignment_<%= assignment.id %>">
+  <td><%= assignment.name %></td>
+  <td><%= assignment.pretty_expiry_date %></td>
+  <td><%= assignment.subject %></td>
+  <td><%= assignment.school_class.class_to_s %></td>
+  <td><%= assignment.teacher %></td>
+  <td><%= assignment.lecture.name %></td>
+  <td><%= link_to 'More info', assignment_url(assignment), {remote:true, 'data-toggle' => "modal", 'data-target' => "#assignment-show-modal", class: 'btn btn-primary btn-sm'} %></td>
+</tr>
