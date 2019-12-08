@@ -8,4 +8,8 @@ class Assignment < ApplicationRecord
     belongs_to :school_class
     belongs_to :teacher
     belongs_to :lecture
+
+    def pretty_expiry_date
+        expiry_date.to_date.strftime("%d/%m/%Y")
+    end
 end
