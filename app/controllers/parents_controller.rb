@@ -39,6 +39,29 @@ class ParentsController < ApplicationController
         @marks = Mark.where(student_id: params[:stud], subject: params[:sub])
     end
 
+    def assignments
+        set_parent
+        @students = @parent.students
+        if params[:stud]
+            @student = @parent.students.find(params[:stud])
+            @subjects = Assignment.where(school_class: @student.school_class).select(:subject).distinct
+        else
+            @student = @parent.students.first
+            @subjects = Assignment.where(school_class: @student.school_class).select(:subject).distinct
+        end
+        respond_to do |format|
+            format.js
+            format.html
+        end
+    end
+
+    def assignments_per_subject
+        set_parent
+        s = @parent.students.find(params[:stud])
+        @subject = params[:sub]
+        @assignments = Assignment.where(school_class: s.school_class, subject: params[:sub])
+    end
+
     def create
         @parent = Parent.new(parent_params)
         if @parent.save

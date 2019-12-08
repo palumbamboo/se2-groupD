@@ -57,12 +57,23 @@ form {
     color: #3b8070;
 }
 
-#confirm_child {
+#confirm_mark_child {
     background-color: #3b8070;
     color: white;
 }
 
-#confirm_child:hover {
+#confirm_mark_child:hover {
+    background-color: white;
+    color: #3b8070;
+    border-color: #3b8070;
+}
+
+#confirm_assignment_child {
+    background-color: #3b8070;
+    color: white;
+}
+
+#confirm_assignment_child:hover {
     background-color: white;
     color: #3b8070;
     border-color: #3b8070;

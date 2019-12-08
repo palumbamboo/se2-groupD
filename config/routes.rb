@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   get 'parents/:id/students(/:stud)', to: 'parents#students', as: 'parent_marks'
   post 'parents/:id/students/:stud/subjects/:sub', to: 'parents#marks_per_subject'
 
+  get 'parents/:id/assignments(/:stud)', to: 'parents#assignments', as: 'parent_assignments'
+  post 'parents/:id/assignments/:stud/subjects/:sub', to: 'parents#assignments_per_subject'
+
   get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 
