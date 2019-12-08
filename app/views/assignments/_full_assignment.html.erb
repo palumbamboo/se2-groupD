@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @assignment.name %>
+</p>
+
+<p>
+  <strong>Expiry date:</strong>
+  <%= @assignment.pretty_expiry_date %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @assignment.subject %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @assignment.description %>
+</p>
+
+<p>
+  <strong>File:</strong>
+  <%= @assignment.file %>
+</p>
+
+<p>
+  <strong>School Class:</strong>
+  <%= @assignment.school_class.class_to_s %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @assignment.teacher %>
+</p>
+
+<p>
+  <strong>Lecture:</strong>
+  <%= @assignment.lecture.name %>
+</p>
