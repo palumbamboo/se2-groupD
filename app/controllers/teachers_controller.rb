@@ -32,6 +32,32 @@ class TeachersController < ApplicationController
     @marks = @teacher.marks
   end
 
+  def assignments
+    set_teacher
+    @school_classes = @teacher.school_classes
+    if params[:school_class_id]
+      @school_class = @school_classes.find(params[:school_class_id])
+      @subjects = Assignment.where(school_class_id: @school_class.id).select(:subject).distinct
+      @assignments_presence = Assignment.where(school_class_id: @school_class.id)
+
+    else
+      @school_class = @school_classes.first
+      @subjects = Assignment.where(school_class_id: @school_class.id).select(:subject).distinct
+      @assignments_presence = Assignment.where(school_class_id: @school_class.id)
+    end
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def assignments_per_subject
+    set_teacher
+    sc = @teacher.school_classes.find(params[:school_class_id])
+    @subject = params[:sub]
+    @assignments = Assignment.where(school_class_id: sc.id, subject: params[:sub])
+  end
+
   private
   def set_teacher
     @teacher = Teacher.find(params[:id])
