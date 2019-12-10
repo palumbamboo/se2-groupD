@@ -1,4 +1,5 @@
 class AssignmentsController < ApplicationController
+  before_action :set_assignment, only: [:show, :edit, :update, :destroy]
 
   # GET /assignments
   # GET /assignments.json
@@ -9,7 +10,6 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
-    set_assignment
     respond_to do |format|
       format.js
     end
@@ -20,6 +20,9 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.new
   end
 
+  # GET /assignments/1/edit
+  def edit
+  end
 
   # POST /assignments
   # POST /assignments.json
@@ -37,21 +40,12 @@ class AssignmentsController < ApplicationController
     end
   end
 
-    # GET /assignments/1/edit
-  def edit
-    set_assignment
-    @teacher = @assignment.teacher
-  end
-
   # PATCH/PUT /assignments/1
   # PATCH/PUT /assignments/1.json
   def update
-    set_assignment
-
     respond_to do |format|
       if @assignment.update(assignment_params)
-        format.js
-        format.html { redirect_to @assignment, notice: 'Assignment updated' }
+        format.html { redirect_to @assignment, notice: 'Assignment was successfully updated.' }
         format.json { render :show, status: :ok, location: @assignment }
       else
         format.html { render :edit }
@@ -63,17 +57,10 @@ class AssignmentsController < ApplicationController
   # DELETE /assignments/1
   # DELETE /assignments/1.json
   def destroy
-    set_assignment
-
+    @assignment.destroy
     respond_to do |format|
-      if @assignment.destroy
-        format.js
-        format.html { redirect_to @assignment, notice: "Assignment deleted" }
-        format.json { render :show, status: :created, location: @assignment }
-      else
-        format.html { render :new }
-        format.json { render json: @assignment.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to assignments_url, notice: 'Assignment was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
@@ -85,6 +72,6 @@ class AssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_params
-      params.require(:assignment).permit(:name, :expiry_date, :file, :description)
+      params.require(:assignment).permit(:name, :expiry_date, :file)
     end
 end

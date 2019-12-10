@@ -25,12 +25,12 @@
   </div>
   <div class="form-group">
     <label class="col-form-label">Description:</label>
-    <textarea class="form-control" id="message-text" readonly><%= assignment.description %></textarea>
+    <textarea class="form-control" id="message-text" readonly><%= assignment.name%></textarea>
   </div>
-  <% if assignment.file %>
+  <%# if assignment.file %>
     <div class="form-group">
       <label class="col-form-label">Additional material:</label>
       <button type="button" class="btn btn-primary">Download</button>
     </div>
-  <% end %>
+  <%# end %>
 </form>
