@@ -49,7 +49,7 @@
     </li>
   </ul>
 <% end %>
-<% if !(@assignments_presence.blank?) %>
+<%# if !(@assignments_presence.blank?) %>
 <br/><br>
 <ul class="nav nav-tabs" id="subjects-tabs" role="tablist">
   <%= render partial: 'subject', collection: @subjects %>
@@ -58,6 +58,6 @@
   <%= render partial: 'tab_assignments', collection: @subjects %>
 </div>
 <%= render partial: 'assignments/modal_show' %>
-<% else %>
-  <p>No assignments</p>
-<% end %>
+<%# else %>
+<!--  <p>No assignments</p>-->
+<%# end %>

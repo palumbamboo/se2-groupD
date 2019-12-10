@@ -38,12 +38,9 @@ class TeachersController < ApplicationController
     if params[:school_class_id]
       @school_class = @school_classes.find(params[:school_class_id])
       @subjects = Assignment.where(school_class_id: @school_class.id).select(:subject).distinct
-      @assignments_presence = Assignment.where(school_class_id: @school_class.id)
-
     else
       @school_class = @school_classes.first
       @subjects = Assignment.where(school_class_id: @school_class.id).select(:subject).distinct
-      @assignments_presence = Assignment.where(school_class_id: @school_class.id)
     end
     respond_to do |format|
       format.js
