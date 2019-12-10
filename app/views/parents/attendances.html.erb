@@ -1,0 +1,221 @@
+<%= javascript_include_tag "core/main.js" %>
+<%= javascript_include_tag "daygrid/main.js" %>
+<%= javascript_include_tag "timegrid/main.js" %>
+<%= javascript_include_tag "list/main.js" %>
+<%= javascript_include_tag "interaction/main.js" %>
+<%= stylesheet_link_tag "core/main.css" %>
+<%= stylesheet_link_tag "daygrid/main.css" %>
+
+<script type="text/javascript">
+    function colorCalendar() {
+        <% @attendances.each do |attendance| %>
+        <% if attendance.absence_type == "Absent" %>
+        if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
+            $('[data-date = <%= attendance.formatted_date %>]')[0].style.backgroundColor = "red";
+            $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+        }
+        <% elsif attendance.absence_type == "Late" %>
+        if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
+            $('[data-date = <%= attendance.formatted_date %>]')[0].style.backgroundColor = "orange";
+            $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+            $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('late', '<%= attendance.formatted_enters_at %>');
+        }
+        <% else %>
+        if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
+            $('[data-date = <%= attendance.formatted_date %>]')[0].style.backgroundColor = "yellow";
+            $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+            $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
+        }
+        <% end %>
+        <% end %>
+    }
+
+    function setStudentSelectListener() {
+        document.getElementById("student_select").value = "<%= @student.id %>";
+        document.getElementById("student_select").onchange = function () {
+            loadAttendances(document.getElementById("student_select").value);
+        };
+    }
+
+    function initializeCalendar() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ]
+        }, {
+            header: { center: 'dayGridMonth,timeGridWeek' }, // buttons for switching between views
+
+            views: {
+                dayGridMonth: { // name of view
+                    titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
+                    // other view-specific options here
+                }
+            }
+        });
+
+        calendar.on('dateClick', function(info) {
+            console.log('clicked on ' + info.dateStr);
+
+            fillAttendanceTable(info)
+        });
+
+        calendar.render();
+    }
+
+    function loadAttendances(student_id) {
+        $.ajax({
+            type: 'GET',
+            url: "/parents/<%= @parent.id %>/attendances/" + student_id,
+            content_type: "text/javascript"
+        }).done(function (response) {
+
+        });
+    }
+
+    function makeDaysClickable() {
+        for(let i = 0; i < $('[data-date]').length; i++) {
+            if( $('[data-date]')[i].classList.contains('attendance-notice') ) {
+                $('[data-date]')[i].style.cursor = "pointer";
+            }
+        }
+    }
+
+    function returnToOriginalTableHeaders() {
+        let enters = $('#table-attendance')[0].rows[0].appendChild(document.createElement('th'));
+        enters.innerHTML = "Enters at";
+        let exits = $('#table-attendance')[0].rows[0].appendChild(document.createElement('th'));
+        exits.innerHTML = "Exits at";
+    }
+
+    function fillAttendanceTable(info) {
+        if( $('[data-date = ' + info.dateStr + ']')[0].classList.contains('attendance-notice') ) {
+            if( $('#table-attendance')[0].rows.length > 1 ) {
+                $('#table-attendance')[0].deleteRow(1);
+            }
+
+            if( $('.panel-body table th').length == 2 ) {
+                returnToOriginalTableHeaders();
+            }
+            else if( $('.panel-body table th').length == 3 ) {
+                $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove();
+                returnToOriginalTableHeaders();
+            }
+
+            let row = $('#table-attendance')[0].insertRow(1);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+
+            if( $('#panel-table')[0].style.visibility == "hidden" ) {
+                $('#panel-table')[0].style.visibility = "visible";
+            }
+
+            cell1.innerHTML = info.dateStr;
+
+            if( $('[data-date = ' + info.dateStr + ']')[0].style.backgroundColor == "red" ) {
+                cell2.innerHTML = "Absent";
+                $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove();
+                $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove();
+            }
+            else if( $('[data-date = ' + info.dateStr + ']')[0].style.backgroundColor == "orange" ) {
+                cell2.innerHTML = "Late entry";
+                let cell3 = row.insertCell(2);
+                cell3.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].getAttribute('late');
+                $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove();
+            }
+            else {
+                cell2.innerHTML = "Early exit";
+                let cell4 = row.insertCell(2);
+                cell4.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].getAttribute('early');
+                $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove();
+            }
+        }
+        else {
+            if( $('#panel-table')[0].style.visibility == "visible" ) {
+                $('#panel-table')[0].style.visibility = "hidden";
+            }
+        }
+    }
+</script>
+
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @parent.name %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Parent page</p>
+    <li><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
+    <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Attendance", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><span class="mdi mdi-account-switch"></span></span>
+        </div>
+        <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "custom-select", remote: true%>
+      </div>
+    </li>
+  </ul>
+<% end %>
+
+<div id="calendar"></div>
+
+<div class="panel panel-info" id="panel-table" style="visibility: hidden; margin-top: 5%">
+  <div class="panel-heading">Attendance information</div>
+  <div class="panel-body">
+    <table class="table table-striped" id="table-attendance">
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Enters at</th>
+        <th>Exits at</th>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+    setStudentSelectListener();
+
+    initializeCalendar();
+
+    colorCalendar();
+
+    makeDaysClickable();
+
+    window.onload = () => {
+        document.getElementById("student_select").onchange = function() {
+            for(let i = 0; i < $('[data-date]').length; i++) {
+                $('[data-date]')[i].style.backgroundColor = "";
+            }
+            loadAttendances(document.getElementById("student_select").value);
+        };
+    }
+
+    $('.fc-prev-button')[0].onclick = function () {
+        let student_id = $('#student_select')[0].value;
+        loadAttendances(student_id);
+        $('#panel-table')[0].style.visibility = "hidden";
+    };
+
+    $('.fc-next-button')[0].onclick = function () {
+        let student_id = $('#student_select')[0].value;
+        loadAttendances(student_id);
+        $('#panel-table')[0].style.visibility = "hidden";
+    };
+
+    $('.fc-today-button')[0].onclick = function () {
+        let student_id = $('#student_select')[0].value;
+        loadAttendances(student_id);
+        $('#panel-table')[0].style.visibility = "hidden";
+    };
+
+    var intervalID = setInterval(makeDaysClickable, 500);
+</script>
+

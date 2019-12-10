@@ -1,0 +1,20 @@
+<% @attendances.each do |attendance| %>
+  <% if attendance.absence_type == "Absent" %>
+    if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
+        $('[data-date = <%= attendance.formatted_date %>]')[0].style.backgroundColor = "red";
+        $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+    }
+  <% elsif attendance.absence_type == "Late" %>
+    if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
+        $('[data-date = <%= attendance.formatted_date %>]')[0].style.backgroundColor = "orange";
+        $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('late', '<%= attendance.formatted_enters_at %>');
+        $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+    }
+  <% else %>
+    if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
+        $('[data-date = <%= attendance.formatted_date %>]')[0].style.backgroundColor = "yellow";
+        $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
+        $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+    }
+  <% end %>
+<% end %>
