@@ -1,4 +1,15 @@
-document.getElementById('assignment-row_<%= @assignment.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @assignment.id %>'><td colspan=6><%= j render 'form', assignment: @assignment %></td></tr>")
-$('#assignment-edit_<%= @assignment.id %>').replaceWith("<%= j link_to("Undo", teacher_assignments_path(@teacher), id: "assignment-undo_#{@assignment.id}", class: "btn btn-warning") %>")
-$('a:not(#assignment-undo_<%= @assignment.id %>)').addClass("disabled")
-$('tr:not(#edit-form_<%= @assignment.id %>,#assignment-row_<%= @assignment.id %>)').addClass('blur-filter')
+if(document.getElementById('assignment-row_<%= @assignment.id %>')) {
+    document.getElementById('assignment-row_<%= @assignment.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @assignment.id %>'><td colspan=6><%= j render 'form', assignment: @assignment %></td></tr>")
+    $('a').addClass("disabled")
+    $('#assignment-edit_<%= @assignment.id %>').replaceWith("<a class='btn btn-warning' id='undo-edit-assignment_<%= @assignment.id %>'>Undo</a>")
+    $('tr:not(#edit-form_<%= @assignment.id %>, #assignment-row_<%= @assignment.id %>)').addClass('blur-filter')
+
+    $('#undo-edit-assignment_<%= @assignment.id %>').click(function (e) {
+        e.preventDefault();
+        $('a').removeClass("disabled");
+        $('.blur-filter').removeClass('blur-filter');
+        document.getElementById('edit-form_<%= @assignment.id %>').remove()
+        $('#assignment-row_<%= @assignment.id %>').replaceWith("<%= j render @assignment %>")
+        return false;
+    });
+}

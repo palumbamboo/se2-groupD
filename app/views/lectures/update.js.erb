@@ -1,4 +1,16 @@
-document.getElementById('edit-form_<%= @lecture.id %>').remove()
-$('#lecture-row_<%= @lecture.id %>').replaceWith("<%= j render @lecture %>")
-$('a').removeClass("disabled")
-$('.blur-filter').removeClass('blur-filter')
+if(document.getElementById('edit-form_<%= @lecture.id %>')) {
+    document.getElementById('edit-form_<%= @lecture.id %>').remove()
+    $('#lecture-row_<%= @lecture.id %>').replaceWith("<%= j render @lecture %>")
+    $('a').removeClass("disabled")
+    $('.blur-filter').removeClass('blur-filter')
+}
+
+<% if @updated %>
+$('#js-notice').html("Lecture Updated").show(150)
+<% else %>
+$('#js-alert').html("Something went wrong, please reload the page :(").show(150)
+<% end %>
+setTimeout(function() {
+    $('#js-notice').fadeOut(150);
+    $('#js-alert').fadeOut(150);
+}, 1000);

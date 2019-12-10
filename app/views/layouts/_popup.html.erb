@@ -1,0 +1,9 @@
+<% if notice %>
+  <div class="alert alert-success float" id="message"><%= notice %></div>
+<% end %>
+<% if alert %>
+  <div class="alert alert-danger float" id="message"><%= alert %></div>
+<% end %>
+
+<div class="alert alert-success float" style="display:none" id="js-notice"></div>
+<div class="alert alert-danger float" style="display:none" id="js-alert"></div>

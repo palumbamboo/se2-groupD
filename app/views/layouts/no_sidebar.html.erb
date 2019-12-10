@@ -14,12 +14,7 @@
 <div class="wrapper">
   <div class="container">
     <div class="card main-layout">
-      <% if notice %>
-        <div class="alert alert-success float" id="message"><%= notice %></div>
-      <% end %>
-      <% if alert %>
-        <div class="alert alert-danger float" id="message"><%= alert %></div>
-      <% end %>
+      <%= render partial: 'layouts/popup' %>
 
       <nav id="navbar" class="navbar navbar-expand-md shadow-sm p-3 mb-5 bg-white rounded">
         <%= yield :navbar %>

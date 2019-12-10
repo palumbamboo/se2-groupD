@@ -1,7 +1,7 @@
 <% content_for :navbar do %>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <%= link_to " Back to teacher view", teacher_lectures_path(@lecture.teacher, school_class_id: @lecture.school_class), class: "btn btn-primary mdi mdi-arrow-left" %>
+      <%= link_to " Back to teacher view", teacher_lectures_path(@lecture.teacher, school_class_id: @lecture.school_class), class: "btn btn-primary mdi mdi-arrow-left", id: "back-to-teacher"%>
     </li>
   </ul>
   <span class="navbar-brand"><%= @lecture.name %></span>
@@ -19,9 +19,9 @@
   </div>
 </div>
 
-<%= form_with(model: @lecture) do |f| %>
+<%= form_with(model: @lecture, id: "topics-edit") do |f| %>
   <%= f.text_field :topics %>
-  <%= f.submit "Update Topics" %>
+  <%= f.submit "Update Topics", id: "submit-topics-edit", disabled: "disabled" %>
 <% end %>
 
 <div class="row">
@@ -88,10 +88,71 @@
     </div>
     <div id="attendance-table" class="collapse" aria-labelledby="headingThree" data-parent="#lecture-tables">
       <div class="card-body">
-        Work in progress :)
+        <table id="attendances">
+          <thead>
+          <tr>
+            <th>Student</th>
+            <th>Attendance</th>
+          </tr>
+          </thead>
+          <tbody id="attendances-body">
+          <%= render partial: 'attendances/attendance', collection: @lecture.school_class.attendances.sort_by{ |a| a[:student_name] } %>
+          </tbody>
+        </table>
+        <div>
+          <button class="btn btn-success" id="submit-attendances" disabled onclick="update_attendances()">Send Data</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <%= render partial: 'marks/modal_form' %>
+
+<script type="text/javascript">
+    $(document).on('ready turbolinks:load', function (e) {
+        $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle();
+    });
+    $(document).ready(function () {
+        var today = new Date();
+        var lecture_date = new Date("<%= @lecture.date.split('/').reverse.join('-') %>");
+        if(today > new Date(lecture_date.getTime() + 86400000) || today < new Date(lecture_date.getTime() - 86400000)) { disable_clickable() }
+    });
+    function disable_clickable() {
+        $('a:not(#back-to-teacher)').addClass('disabled');
+        $('input, .toggle').prop('disabled', true);
+    }
+    function get_attendances() {
+        var students_ids = {
+            absents: [],
+            presents: []
+        };
+        $('input[type="checkbox"]').each(function(){
+            if(this.checked){ students_ids['presents'].push(this.id)}
+            else { students_ids['absents'].push(this.id)}
+        });
+        return students_ids;
+    }
+    function update_attendances(){
+        var students_ids = get_attendances();
+        $.ajax({
+            type: 'POST',
+            url: "/lectures/<%= @lecture.id %>/attendances",
+            data: { "school_class_id": "<%= @lecture.school_class.id %>", "students_ids": students_ids},
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    }
+    $(document).on('change','#attendances > tbody > tr > td',function(){
+        $('#submit-attendances').prop("disabled", false)
+    });
+    $(document).on('keyup', '#topics-edit input[type=text]', function () {
+        $('input[type=submit]').prop('disabled', false);
+    });
+    $('form#topics-edit input[type=submit]').click( function () {
+      $(this).prop("disabled", true);
+      $('form#topics-edit').submit();
+    })
+</script>
+

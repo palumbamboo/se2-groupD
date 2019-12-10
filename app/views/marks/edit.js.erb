@@ -1,4 +1,15 @@
-document.getElementById('mark-row_<%= @mark.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @mark.id %>'><td colspan=6><%= j render 'form', mark: @mark %></td></tr>")
-$('#mark-edit_<%= @mark.id %>').replaceWith("<%= j link_to("Undo", teacher_marks_path(@teacher), id: "mark-undo_#{@mark.id}", class: "btn btn-warning") %>")
-$('a:not(#mark-undo_<%= @mark.id %>)').addClass("disabled")
-$('tr:not(#edit-form_<%= @mark.id %>,#mark-row_<%= @mark.id %>)').addClass('blur-filter')
+if(document.getElementById('mark-row_<%= @mark.id %>')) {
+    document.getElementById('mark-row_<%= @mark.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @mark.id %>'><td colspan=6><%= j render 'form', mark: @mark %></td></tr>")
+    $('a').addClass("disabled")
+    $('#mark-edit_<%= @mark.id %>').replaceWith("<a class='btn btn-warning' id='undo-edit-mark_<%= @mark.id %>'>Undo</a>")
+    $('tr:not(#edit-form_<%= @mark.id %>, #mark-row_<%= @mark.id %>)').addClass('blur-filter')
+
+    $('#undo-edit-mark_<%= @mark.id %>').click(function (e) {
+        e.preventDefault();
+        $('a').removeClass("disabled");
+        $('.blur-filter').removeClass('blur-filter');
+        document.getElementById('edit-form_<%= @mark.id %>').remove()
+        $('#mark-row_<%= @mark.id %>').replaceWith("<%= j render @mark %>")
+        return false;
+    });
+}
