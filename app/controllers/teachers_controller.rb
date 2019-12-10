@@ -37,10 +37,10 @@ class TeachersController < ApplicationController
     @school_classes = @teacher.school_classes
     if params[:school_class_id]
       @school_class = @school_classes.find(params[:school_class_id])
-      @subjects = Assignment.where(school_class_id: @school_class.id).select(:subject).distinct
+      @subjects = Assignment.where(school_class_id: @school_class.id, teacher: @teacher).select(:subject).distinct
     else
       @school_class = @school_classes.first
-      @subjects = Assignment.where(school_class_id: @school_class.id).select(:subject).distinct
+      @subjects = Assignment.where(school_class_id: @school_class.id, teacher: @teacher).select(:subject).distinct
     end
     respond_to do |format|
       format.js
@@ -52,7 +52,7 @@ class TeachersController < ApplicationController
     set_teacher
     sc = @teacher.school_classes.find(params[:school_class_id])
     @subject = params[:sub]
-    @assignments = Assignment.where(school_class_id: sc.id, subject: params[:sub])
+    @assignments = Assignment.where(school_class_id: sc.id, subject: params[:sub], teacher: @teacher)
   end
 
   private

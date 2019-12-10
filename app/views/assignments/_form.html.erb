@@ -1,22 +1,22 @@
 <%= form_with(model: @assignment) do |f| %>
   <div>
     <%= f.label :name %>
-    <% if @assignment.name %>
-      <%= f.select(:name, [[@assignment.name, @assignment.id]], {}, {:class => 'custom-select'}) %>
-    <% else %>
-      <%= f.text_field :name, class: 'form-control' %>
-    <% end %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
   <br/>
   <div>
     <%= f.label :expiry_date %>
-      <%= f.text_field :expiry_date, class: 'form-control' %>
+    <% if @assignment.expiry_date %>
+    <%= f.date_field :expiry_date, :value => @assignment.expiry_date.to_date, class: 'form-control' %>
+    <% else %>
+    <%= f.date_field :expiry_date, class: 'form-control' %>
+    <% end %>
   </div>
   <br/>
   <div>
     <%= f.label :subject %>
     <% if @teacher %>
-      <%= f.select(:subject, @teacher.subjects, {}, {:class => 'custom-select'}) %>
+      <%= f.text_field :subject, :readonly => true, class: 'form-control' %>
     <% else %>
       <%= f.text_field :subject, class: 'form-control' %>
     <% end %>
@@ -24,28 +24,23 @@
   <br/>
   <div>
     <%= f.label :school_class %>
-    <%= f.select(:school_class_id, SchoolClass.all.collect {|sc| [ sc.class_to_s, sc.id ] }, {}, {:class => 'custom-select'})%>
+    <%= f.text_field :school_class, :value => @assignment.school_class.class_to_s, :readonly => true, class: 'form-control' %>
   </div>
   <br/>
   <div>
     <%= f.label :teacher %>
-    <% if @teacher %>
-     <%= f.select(:teacher_id, [[@teacher.to_s, @teacher.id]], {}, {:class => 'custom-select'}) %>
-    <% else %>
-      <%= f.select(:teacher_id, Teacher.all.collect {|t| [ t.surname, t.id ]}, {}, {:class => 'custom-select'})%>
-    <% end %>
+     <%= f.text_field :teacher, :readonly => true, class: 'form-control' %>
   </div>
   <br/>
   <div>
     <%= f.label :lecture %>
     <% if @assignment.lecture %>
-      <%= f.select(:lecture_id, [[@assignment.lecture.name, @assignment.lecture.id]], {}, {:class => 'custom-select'}) %>
+      <%= f.select(:lecture, [[@assignment.lecture.name, @assignment.lecture.id]], {}, {:class => 'custom-select'}) %>
     <% else %>
       <%= f.select(:lecture_id, Lecture.all.collect {|l| [ l.name, l.id ]}, {}, {:class => 'custom-select'})%>
     <% end %>
   </div>
   <br/>
-  <br />
   <div>
     <%= f.label :description %>
     <%= f.text_area :description, class: 'form-control' %>
@@ -53,7 +48,7 @@
   <br /><br />
   <div class="row">
     <div class="col-md-4"></div>
-      <div class="col-md-4">
+      <div class="col-md-5">
         <%= f.submit :class => 'btn btn-success' %>
       </div>
   </div>
