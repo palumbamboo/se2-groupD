@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :communications
   resources :assignments
   resources :attendances
   devise_for :users
