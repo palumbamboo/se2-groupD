@@ -16,7 +16,7 @@ COPY ./package.json /school-app/package.json
 COPY ./tmp/db /school-app/tmp/db
 RUN bundle install
 RUN npm install
-RUN yarn install
+RUN yarn install --check-files
 # Copy application code
 COPY . /school-app
 
