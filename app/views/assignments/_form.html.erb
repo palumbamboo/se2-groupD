@@ -1,32 +1,55 @@
-<%= form_with(model: assignment, local: true) do |form| %>
-  <% if assignment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
-
-      <ul>
-        <% assignment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+<%= form_with(model: @assignment) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-
-  <div class="field">
-    <%= form.label :expiry_date %>
-    <%= form.datetime_select :expiry_date %>
+  <br/>
+  <div>
+    <%= f.label :expiry_date %>
+    <% if @assignment.expiry_date %>
+    <%= f.date_field :expiry_date, :value => @assignment.expiry_date.to_date, class: 'form-control' %>
+    <% else %>
+    <%= f.date_field :expiry_date, class: 'form-control' %>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :file %>
-    <%= form.text_field :file %>
+  <br/>
+  <div>
+    <%= f.label :subject %>
+    <% if @teacher %>
+      <%= f.text_field :subject, :readonly => true, class: 'form-control' %>
+    <% else %>
+      <%= f.text_field :subject, class: 'form-control' %>
+    <% end %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <br/>
+  <div>
+    <%= f.label :school_class %>
+    <%= f.text_field :school_class, :value => @assignment.school_class.class_to_s, :readonly => true, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :teacher %>
+     <%= f.text_field :teacher, :readonly => true, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :lecture %>
+    <% if @assignment.lecture %>
+      <%= f.select(:lecture, [[@assignment.lecture.name, @assignment.lecture.id]], {}, {:class => 'custom-select'}) %>
+    <% else %>
+      <%= f.select(:lecture_id, Lecture.all.collect {|l| [ l.name, l.id ]}, {}, {:class => 'custom-select'})%>
+    <% end %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control' %>
+  </div>
+  <br /><br />
+  <div class="row">
+    <div class="col-md-4"></div>
+      <div class="col-md-5">
+        <%= f.submit :class => 'btn btn-success' %>
+      </div>
   </div>
 <% end %>

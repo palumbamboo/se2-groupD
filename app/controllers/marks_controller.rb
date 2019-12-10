@@ -42,9 +42,9 @@ class MarksController < ApplicationController
             if @mark.update_attributes(mark_params)
                 format.js
                 format.html { redirect_to @mark, notice: "Mark updated" }
-                format.json { render :show, status: :created, location: @mark }
+                format.json { render :show, status: :ok, location: @mark }
             else
-                format.html { render :new }
+                format.html { render :edit }
                 format.json { render json: @mark.errors, status: :unprocessable_entity }
             end
         end

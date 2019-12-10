@@ -1,0 +1,63 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @teacher.name %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Teacher page</p>
+    <li><%= link_to " Home", teacher_path(@teacher), class: 'mdi mdi-view-dashboard' %></li>
+    <li><%= link_to " Lectures", teacher_lectures_url, class:'mdi mdi-teach' %></li>
+    <li><%= link_to " Marks", teacher_marks_url, class: 'mdi mdi-bookmark' %></li>
+    <li class="active"><%= link_to " Assignments", teacher_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+<script type="text/javascript">
+    function loadAssignments(school_class_id){
+        $.ajax({
+            type: 'GET',
+            url: "/teachers/<%= @teacher.id%>/assignments/" + school_class_id,
+            contentType: "text/javascript",
+        }).done(function(response){
+            if (document.getElementById("subjects-tabs") != null && document.getElementById("subjects-tabs") != undefined && document.getElementById("subjects-tabs").children[0] != null && document.getElementById("subjects-tabs").children[0] != undefined) {
+                document.getElementById("subjects-tabs").firstChild.firstElementChild.classList.add("active");
+                document.getElementById("subjects-tabs-content").children[1].classList.add("show");
+                document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+            }
+        });
+    }
+    $(document).ready(function() {
+        if (document.getElementById("subjects-tabs") != null && document.getElementById("subjects-tabs") != undefined && document.getElementById("subjects-tabs").children[0] != null && document.getElementById("subjects-tabs").children[0] != undefined) {
+            document.getElementById("subjects-tabs").children[0].children[0].classList.add("active");
+            document.getElementById("subjects-tabs-content").children[1].classList.add("show");
+            document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+        }
+          document.getElementById("school_class_select").value = "<%= @school_class.id%>"
+          document.getElementById("school_class_select").onchange = function () {
+              loadAssignments(document.getElementById("school_class_select").value);
+          };
+    });
+</script>
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><span class="mdi mdi-account-switch"></span></span>
+        </div>
+        <%= select_tag :school_class_select, options_for_select(@school_classes.map{|sc| [sc.class_to_s, sc.id]}), class: "custom-select", remote: true%>
+      </div>
+    </li>
+  </ul>
+<% end %>
+<%# if !(@assignments.blank?) %>
+<br/><br>
+<ul class="nav nav-tabs" id="subjects-tabs" role="tablist">
+  <%= render partial: 'subject', collection: @subjects %>
+</ul>
+<div class="tab-content" id="subjects-tabs-content">
+  <%= render partial: 'tab_assignments', collection: @subjects %>
+</div>
+<%= render partial: 'assignments/modal_show' %>
+<%# else %>
+<!--  <p>No assignments</p>-->
+<%# end %>
