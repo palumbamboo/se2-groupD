@@ -10,6 +10,9 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /assignments/new

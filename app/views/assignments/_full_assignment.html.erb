@@ -1,0 +1,36 @@
+<form>
+  <div class="form-group">
+    <label class="col-form-label">Name:</label>
+    <input type="text" class="form-control" value="<%= assignment.name %>" readonly>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label">Subject:</label>
+    <input type="text" class="form-control" value="<%= assignment.subject %>" readonly>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label">Expiry Date:</label>
+    <input type="text" class="form-control" value="<%= assignment.pretty_expiry_date %>" readonly>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label">School Class:</label>
+    <input type="text" class="form-control" value="<%= assignment.school_class.class_to_s %>" readonly>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label">Teacher:</label>
+    <input type="text" class="form-control" value="<%= assignment.teacher %>" readonly>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label">Lecture:</label>
+    <input type="text" class="form-control" value="<%= assignment.lecture.name + ' in date ' + assignment.lecture.start_time.to_date.strftime("%d/%m/%Y") %>" readonly>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label">Description:</label>
+    <textarea class="form-control" id="message-text" readonly><%= assignment.name%></textarea>
+  </div>
+  <%# if assignment.file %>
+    <div class="form-group">
+      <label class="col-form-label">Additional material:</label>
+      <button type="button" class="btn btn-primary">Download</button>
+    </div>
+  <%# end %>
+</form>
