@@ -6,11 +6,8 @@
   <br/>
   <div>
     <%= f.label :expiry_date %>
-    <% if @assignment.expiry_date %>
-    <%= f.date_field :expiry_date, :value => @assignment.expiry_date.to_date, class: 'form-control' %>
-    <% else %>
-    <%= f.date_field :expiry_date, class: 'form-control' %>
-    <% end %>
+      <% @date = @assignment.expiry_date ? @assignment.expiry_date.to_date : Date.today+1.day %>
+    <%= f.date_field :expiry_date, :value => @date, :min => Date.today+1.day, :max => Date.new(2020, 9, 30), class: 'form-control' %>
   </div>
   <br/>
   <div>
