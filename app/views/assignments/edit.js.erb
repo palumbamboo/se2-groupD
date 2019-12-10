@@ -1,4 +1,0 @@
-document.getElementById('assignment-row_<%= @assignment.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @assignment.id %>'><td colspan=6><%= j render 'form', assignment: @assignment %></td></tr>")
-$('#assignment-edit_<%= @assignment.id %>').replaceWith("<%= j link_to("Undo", teacher_assignments_path(@teacher), id: "assignment-undo_#{@assignment.id}", class: "btn btn-warning") %>")
-$('a:not(#assignment-undo_<%= @assignment.id %>)').addClass("disabled")
-$('tr:not(#edit-form_<%= @assignment.id %>,#assignment-row_<%= @assignment.id %>)').addClass('blur-filter')

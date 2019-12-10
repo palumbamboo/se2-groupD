@@ -29,11 +29,7 @@
     </div>
     <div class="col">
       <%= f.label :date %>
-      <% if @mark.date %>
-        <%= f.date_field :date, :value => @mark.date, :class => 'form-control' %>
-      <% else %>
-        <%= f.date_field(:date,:start_year => 1950, :class => 'form-control') %>
-      <% end %>
+      <%= f.date_field(:date,:start_year => 1950, :class => 'form-control') %>
     </div>
   </div>
   <br />
