@@ -89,6 +89,18 @@
 
     function fillAttendanceTable(info) {
         if( $('[data-date = ' + info.dateStr + ']')[0].classList.contains('attendance-notice') ) {
+            let modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            let span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+                modal.style.display = "none";
+            };
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+
             if( $('#table-attendance')[0].rows.length > 1 ) {
                 $('#table-attendance')[0].deleteRow(1);
             }
@@ -228,19 +240,30 @@
 
 <div id="calendar"></div>
 
-<div class="panel panel-info" id="panel-table" style="visibility: hidden; margin-top: 5%">
-  <div class="panel-heading">Attendance information</div>
-  <div class="panel-body">
-    <table class="table table-striped" id="table-attendance">
-      <tr>
-        <th>Date</th>
-        <th>Type</th>
-        <th>Enters at</th>
-        <th>Exits at</th>
-      </tr>
-    </table>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+      <div class="panel panel-info" id="panel-table" style="visibility: hidden; margin-top: 5%">
+        <div class="panel-heading">Attendance information</div>
+        <div class="panel-body">
+          <table class="table table-striped" id="table-attendance">
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Enters at</th>
+              <th>Exits at</th>
+            </tr>
+          </table>
+        </div>
+      </div>
   </div>
+
 </div>
+
+
 
 <script type="text/javascript">
     window.onload = () => {
