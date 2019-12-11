@@ -56,8 +56,6 @@
         });
 
         calendar.on('dateClick', function(info) {
-            console.log('clicked on ' + info.dateStr);
-
             fillAttendanceTable(info)
         });
 
@@ -113,7 +111,6 @@
 
             cell1.innerHTML = info.dateStr;
 
-            console.log(info.dateStr);
             if( $('[data-date = ' + info.dateStr + ']')[0].children[0].style.backgroundColor == "red" ) {
                 cell2.innerHTML = "Absent";
                 $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove();
@@ -143,25 +140,19 @@
         let todayMonth = new Date().getMonth()+1;
         let todayDay = new Date().getDate();
 
-        console.log($('[data-date]').length);
         for(let i = 0; i < $('[data-date]').length; i++) {
             let cellMonth = $('[data-date]')[i].getAttribute('data-date').split('-')[1];
             let cellDay = parseInt($('[data-date]')[i].getAttribute('data-date').split('-')[2]);
 
-            console.log("cellmonth:" + cellMonth + "todaymonth" + todayMonth);
             if( cellMonth == todayMonth ) {
-                console.log("cellday:" + cellDay + "todayday" + todayDay);
                 if( cellDay > todayDay ) {
                     $('[data-date]')[i].style.backgroundColor = "#F1F1F1";
                 }
             }
         }
 
-        console.log($('.fc-day-number').length);
         for(let i = 0; i < $('.fc-day-number').length; i++) {
-            console.log("calendarmonth:" + calendar.getDate().getMonth()+1 + "todaymonth" + todayMonth);
             if( calendar.getDate().getMonth()+1 == todayMonth ) {
-                console.log("celldaynumber:" + $('.fc-day-number')[i].textContent + "todaymonth" + todayDay);
                 if( $('.fc-day-number')[i].textContent > todayDay ) {
                     $('.fc-day-number')[i].style.backgroundColor = "#F1F1F1";
                 }
@@ -178,6 +169,19 @@
             circle.style.marginLeft = "31%";
             circle.style.borderRadius = "50%";
             $('[data-date]')[i].appendChild(circle);
+        }
+    }
+
+    function checkRightArrow() {
+        let todayMonth = new Date().getMonth()+1;
+        let calendarMonth = calendar.getDate().getMonth()+1;
+        if( calendarMonth == todayMonth ) {
+            $('.fc-next-button')[0].setAttribute('disabled', '');
+        }
+        else {
+            if( $('.fc-next-button')[0].getAttribute('disabled') != null ) {
+                $('.fc-next-button')[0].removeAttribute('disabled');
+            }
         }
     }
 </script>
@@ -251,12 +255,15 @@
 
     makeDaysClickable();
 
+    checkRightArrow();
+
     $('.fc-prev-button')[0].onclick = function () {
         let student_id = $('#student_select')[0].value;
         addAttendanceCircles();
         loadAttendances(student_id);
         $('#panel-table')[0].style.visibility = "hidden";
         greyFutureDays();
+        checkRightArrow();
     };
 
     $('.fc-next-button')[0].onclick = function () {
@@ -264,7 +271,8 @@
         addAttendanceCircles();
         loadAttendances(student_id);
         $('#panel-table')[0].style.visibility = "hidden";
-        greyFutureDays()
+        greyFutureDays();
+        checkRightArrow();
     };
 
     $('.fc-today-button')[0].onclick = function () {
@@ -273,6 +281,7 @@
         loadAttendances(student_id);
         $('#panel-table')[0].style.visibility = "hidden";
         greyFutureDays();
+        checkRightArrow();
     };
 
     var intervalID = setInterval(makeDaysClickable, 500);
