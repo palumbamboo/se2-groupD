@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
+  get 'officers/:id/communications', to: 'officers#communications', as: 'officer_communications'
 
   post 'school_classes/update/:id', to: 'school_classes#update'
   post 'school_classes/:id/file', to: 'school_classes#file_import'

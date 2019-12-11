@@ -1,42 +1,33 @@
-<%= form_with(model: communication, local: true) do |form| %>
-  <% if communication.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(communication.errors.count, "error") %> prohibited this communication from being saved:</h2>
-
-      <ul>
-        <% communication.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+<%= form_with(model: @communication) do |f| %>
+  <div>
+    <%= f.label "Communication: #{@communication.title}" %>
   </div>
-
-  <div class="field">
-    <%= form.label :start_date %>
-    <%= form.date_select :start_date %>
+  <div>
+    <%= f.label "Title"%>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-
-  <div class="field">
-    <%= form.label :expiry_date %>
-    <%= form.date_select :expiry_date %>
+  <br />
+  <div>
+    <%= f.label :start_date %>
+    <% @date = @communication.start_date ? @communication.start_date : Date.today %>
+    <%= f.date_field :start_date, :value => @date, :min => Date.new(2019, 9, 1), :max => Date.today, class: 'form-control' %>
   </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+  <br/>
+  <div>
+    <%= f.label :expiry_date %>
+    <% @date = @communication.expiry_date ? @communication.expiry_date : Date.today+1.day %>
+    <%= f.date_field :expiry_date, :value => @date, :min => Date.today, :max => Date.new(2020, 9, 30), class: 'form-control' %>
   </div>
-
-  <div class="field">
-    <%= form.label :attachment %>
-    <%= form.text_field :attachment %>
+  <br/>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control' %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <br /><br />
+  <div class="row">
+    <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <%= f.submit :class => 'btn btn-success'%>
+      </div>
   </div>
 <% end %>

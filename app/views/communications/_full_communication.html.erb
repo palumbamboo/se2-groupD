@@ -1,0 +1,24 @@
+<form>
+  <div class="form-group">
+    <label class="col-form-label">Title:</label>
+    <input type="text" class="form-control" value="<%= communication.title %>" readonly>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label">Start Date:</label>
+    <input type="text" class="form-control" value="<%= communication.start_date %>" readonly>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label">Expiry Date:</label>
+    <input type="text" class="form-control" value="<%= communication.expiry_date %>" readonly>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label">Description:</label>
+    <textarea class="form-control" id="message-text" readonly><%= communication.description %></textarea>
+  </div>
+  <% if communication.attachment %>
+    <div class="form-group">
+      <label class="col-form-label">Attachment:</label>
+      <button type="button" class="btn btn-primary">Download</button>
+    </div>
+  <% end %>
+</form>
