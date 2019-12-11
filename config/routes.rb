@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get 'parents/:id/students(/:stud)', to: 'parents#students', as: 'parent_marks'
   post 'parents/:id/students/:stud/subjects/:sub', to: 'parents#marks_per_subject'
 
-  get 'parents/:id/attendances(/:stud)', to: 'parents#attendances', as: 'parent_attendances'
+  get 'parents/:id/attendances(/:stud)(/:month)', to: 'parents#attendances', as: 'parent_attendances'
 
   get 'parents/:id/assignments(/:stud)', to: 'parents#assignments', as: 'parent_assignments'
   post 'parents/:id/assignments/:stud/subjects/:sub', to: 'parents#assignments_per_subject'

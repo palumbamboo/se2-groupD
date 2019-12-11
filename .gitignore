@@ -34,3 +34,5 @@ yarn-debug.log*
 .idea
 /.idea/
 package-lock.json
+
+.scannerwork/

@@ -82,10 +82,18 @@ class ParentsController < ApplicationController
         @students = @parent.students
         if params[:stud]
             @student = @students.find(params[:stud])
-            @attendances = Attendance.where(student_id: @student.id)
+            if params[:month]
+                @attendances = Attendance.where('extract(month from date) = ?', params[:month]).select{ |a| a.student_id == @student.id }
+            else
+                @attendances = Attendance.where('extract(month from date) = ?', Date.today.strftime("%m")).select{ |a| a.student_id == @student.id }
+            end
         else
             @student = @students.first
-            @attendances = Attendance.where(student_id: @student.id)
+            if params[:month]
+                @attendances = Attendance.where('extract(month from date) = ?', params[:month]).select{ |a| a.student_id == @student.id }
+            else
+                @attendances = Attendance.where('extract(month from date) = ?', Date.today.strftime("%m")).select{ |a| a.student_id == @student.id }
+            end
         end
 
         respond_to do |format|

@@ -7,6 +7,8 @@
 <%= stylesheet_link_tag "daygrid/main.css" %>
 
 <script type="text/javascript">
+  var calendar;
+
     function colorCalendar() {
         <% @attendances.each do |attendance| %>
         <% if attendance.absence_type == "Absent" %>
@@ -40,7 +42,7 @@
     function initializeCalendar() {
         var calendarEl = document.getElementById('calendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ]
         }, {
             header: { center: 'dayGridMonth,timeGridWeek' }, // buttons for switching between views
@@ -65,7 +67,7 @@
     function loadAttendances(student_id) {
         $.ajax({
             type: 'GET',
-            url: "/parents/<%= @parent.id %>/attendances/" + student_id,
+            url: "/parents/<%= @parent.id %>/attendances/" + student_id + "/" + (calendar.getDate().getMonth()+1),
             content_type: "text/javascript"
         }).done(function (response) {
 
@@ -196,7 +198,7 @@
             }
             loadAttendances(document.getElementById("student_select").value);
         };
-    }
+    };
 
     $('.fc-prev-button')[0].onclick = function () {
         let student_id = $('#student_select')[0].value;
