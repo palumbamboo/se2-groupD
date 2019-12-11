@@ -184,6 +184,19 @@
             }
         }
     }
+
+  function checkLeftArrow() {
+      let september = 9;
+      let calendarMonth = calendar.getDate().getMonth()+1;
+      if( calendarMonth == september ) {
+          $('.fc-prev-button')[0].setAttribute('disabled', '');
+      }
+      else {
+          if( $('.fc-prev-button')[0].getAttribute('disabled') != null ) {
+              $('.fc-prev-button')[0].removeAttribute('disabled');
+          }
+      }
+  }
 </script>
 
 <% content_for :sidebar do %>
@@ -257,6 +270,8 @@
 
     checkRightArrow();
 
+    checkLeftArrow();
+
     $('.fc-prev-button')[0].onclick = function () {
         let student_id = $('#student_select')[0].value;
         addAttendanceCircles();
@@ -264,6 +279,7 @@
         $('#panel-table')[0].style.visibility = "hidden";
         greyFutureDays();
         checkRightArrow();
+        checkLeftArrow();
     };
 
     $('.fc-next-button')[0].onclick = function () {
@@ -273,6 +289,7 @@
         $('#panel-table')[0].style.visibility = "hidden";
         greyFutureDays();
         checkRightArrow();
+        checkLeftArrow();
     };
 
     $('.fc-today-button')[0].onclick = function () {
@@ -282,6 +299,7 @@
         $('#panel-table')[0].style.visibility = "hidden";
         greyFutureDays();
         checkRightArrow();
+        checkLeftArrow();
     };
 
     var intervalID = setInterval(makeDaysClickable, 500);
