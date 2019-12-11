@@ -13,18 +13,18 @@
         <% @attendances.each do |attendance| %>
         <% if attendance.absence_type == "Absent" %>
         if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-            $('[data-date = <%= attendance.formatted_date %>]')[0].style.backgroundColor = "red";
+            $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "red";
             $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
         }
         <% elsif attendance.absence_type == "Late" %>
         if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-            $('[data-date = <%= attendance.formatted_date %>]')[0].style.backgroundColor = "orange";
+            $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "orange";
             $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
             $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('late', '<%= attendance.formatted_enters_at %>');
         }
         <% else %>
         if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-            $('[data-date = <%= attendance.formatted_date %>]')[0].style.backgroundColor = "yellow";
+            $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "yellow";
             $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
             $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
         }
@@ -167,6 +167,18 @@
             }
         }
     }
+
+    function addAttendanceCircles() {
+        for(let i = 0; i < $('[data-date]').length; i++) {
+            let circle = document.createElement('div');
+            circle.style.height = "50%";
+            circle.style.width = "38%";
+            circle.style.marginTop = "18%";
+            circle.style.marginLeft = "31%";
+            circle.style.borderRadius = "50%";
+            $('[data-date]')[i].appendChild(circle);
+        }
+    }
 </script>
 
 <% content_for :sidebar do %>
@@ -216,15 +228,21 @@
     window.onload = () => {
         document.getElementById("student_select").onchange = function() {
             for(let i = 0; i < $('[data-date]').length; i++) {
-                $('[data-date]')[i].style.backgroundColor = "";
+                if( $('[data-date]')[i].children[0].tagName == "DIV" ) {
+                    $('[data-date]')[i].removeChild($('[data-date]')[i].children[0]);
+                }
             }
+            addAttendanceCircles();
             loadAttendances(document.getElementById("student_select").value);
+            greyFutureDays();
         };
     };
 
     setStudentSelectListener();
 
     initializeCalendar();
+
+    addAttendanceCircles();
 
     colorCalendar();
 
@@ -234,6 +252,7 @@
 
     $('.fc-prev-button')[0].onclick = function () {
         let student_id = $('#student_select')[0].value;
+        addAttendanceCircles();
         loadAttendances(student_id);
         $('#panel-table')[0].style.visibility = "hidden";
         greyFutureDays();
@@ -241,6 +260,7 @@
 
     $('.fc-next-button')[0].onclick = function () {
         let student_id = $('#student_select')[0].value;
+        addAttendanceCircles();
         loadAttendances(student_id);
         $('#panel-table')[0].style.visibility = "hidden";
         greyFutureDays()
@@ -248,6 +268,7 @@
 
     $('.fc-today-button')[0].onclick = function () {
         let student_id = $('#student_select')[0].value;
+        addAttendanceCircles();
         loadAttendances(student_id);
         $('#panel-table')[0].style.visibility = "hidden";
         greyFutureDays();
