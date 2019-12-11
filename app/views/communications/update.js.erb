@@ -1,0 +1,16 @@
+if(document.getElementById('edit-form_<%= @communication.id %>')) {
+    document.getElementById('edit-form_<%= @communication.id %>').remove()
+    $('#communication-row_<%= @communication.id %>').replaceWith("<%= j render @communication %>")
+    $('a').removeClass("disabled")
+    $('.blur-filter').removeClass('blur-filter')
+}
+
+<% if @updated %>
+$('#js-notice').html("Communication Updated").show(150)
+<% else %>
+$('#js-alert').html("Something went wrong, please reload the page :(").show(150)
+<% end %>
+setTimeout(function() {
+    $('#js-notice').fadeOut(150);
+    $('#js-alert').fadeOut(150);
+}, 1000);

@@ -1,0 +1,64 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @officer.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Officer page</p>
+    <li><%= link_to " Home", officer_path(@officer), class: 'mdi mdi-view-dashboard' %></li>
+    <li><%= link_to " Students", officer_enrollment_url(@officer), class: 'mdi mdi-folder-account-outline' %></li>
+    <li><%= link_to " Parents", officer_parents_url(@officer), class: 'mdi mdi-human-male-girl' %></li>
+    <li><%= link_to " Class composition", officer_classes_url(@officer), class: 'mdi mdi-account-group' %></li>
+    <li class="active"><%= link_to " Communications", officer_communications_url(@officer), class: 'mdi mdi-account-group' %></li>
+  </ul>
+<% end %>
+
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= link_to ' New communication', new_communication_path(params: { officer_id: @officer.id }), {remote: true, id: "new-communication", 'data-toggle' =>  "modal", 'data-target' => '#communication-form-modal', class: 'btn btn-success mdi mdi-plus-circle'}  %>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto navbar-right">
+    <li class="nav-item">
+      <%= select_tag :validity_select,
+                     options_for_select(@communications.expiry_date.map{ |ed| [ed <= Date.today ? "Valid" : "Expired"] }), class: "custom-select", style:"width:100px;"%>
+    </li>
+  </ul>
+<% end %>
+
+<table id="communications">
+  <thead>
+  <tr>
+    <th style="width: 17%">Title</th>
+    <th style="width: 12%">Start Time</th>
+    <th style="width: 10%">Expiry Time</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody id="lectures-body">
+  <%= render partial: 'lectures/lecture', collection: @lectures.sort_by(&:start_time) %>
+  </tbody>
+</table>
+
+<div id="new-lecture">
+</div>
+
+<script type="text/javascript">
+    function loadCommunications(){
+        $.ajax({
+            type: 'GET',
+            url: "/officers/<%= @officer.id %>/communications/" + document.getElementById("validity_select").value,
+            contentType: "text/javascript",
+        }).done(function(response){
+        });
+    }
+    $(document).ready(function() {
+        // Prossima riga da fare un if se ho selezionato valide o meno
+        document.getElementById('validity_select').value = <%= @officer.id %>
+            document.getElementById("validity_select").onchange = loadCommunications;
+    });
+
+</script>
+
+<%= render partial: 'communications/modal_form' %>
