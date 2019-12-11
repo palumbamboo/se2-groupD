@@ -1622,7 +1622,7 @@ Docs & License: https://fullcalendar.io/
                 type: 'dayGrid',
                 duration: { months: 1 },
                 monthMode: true,
-                fixedWeekCount: true
+                fixedWeekCount: false
             }
         }
     });

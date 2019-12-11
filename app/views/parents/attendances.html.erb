@@ -137,6 +137,36 @@
             }
         }
     }
+
+    function greyFutureDays() {
+        let todayMonth = new Date().getMonth()+1;
+        let todayDay = new Date().getDate();
+
+        console.log($('[data-date]').length);
+        for(let i = 0; i < $('[data-date]').length; i++) {
+            let cellMonth = $('[data-date]')[i].getAttribute('data-date').split('-')[1];
+            let cellDay = parseInt($('[data-date]')[i].getAttribute('data-date').split('-')[2]);
+
+            console.log("cellmonth:" + cellMonth + "todaymonth" + todayMonth);
+            if( cellMonth == todayMonth ) {
+                console.log("cellday:" + cellDay + "todayday" + todayDay);
+                if( cellDay > todayDay ) {
+                    $('[data-date]')[i].style.backgroundColor = "#F1F1F1";
+                }
+            }
+        }
+
+        console.log($('.fc-day-number').length);
+        for(let i = 0; i < $('.fc-day-number').length; i++) {
+            console.log("calendarmonth:" + calendar.getDate().getMonth()+1 + "todaymonth" + todayMonth);
+            if( calendar.getDate().getMonth()+1 == todayMonth ) {
+                console.log("celldaynumber:" + $('.fc-day-number')[i].textContent + "todaymonth" + todayDay);
+                if( $('.fc-day-number')[i].textContent > todayDay ) {
+                    $('.fc-day-number')[i].style.backgroundColor = "#F1F1F1";
+                }
+            }
+        }
+    }
 </script>
 
 <% content_for :sidebar do %>
@@ -183,14 +213,6 @@
 </div>
 
 <script type="text/javascript">
-    setStudentSelectListener();
-
-    initializeCalendar();
-
-    colorCalendar();
-
-    makeDaysClickable();
-
     window.onload = () => {
         document.getElementById("student_select").onchange = function() {
             for(let i = 0; i < $('[data-date]').length; i++) {
@@ -200,22 +222,35 @@
         };
     };
 
+    setStudentSelectListener();
+
+    initializeCalendar();
+
+    colorCalendar();
+
+    greyFutureDays();
+
+    makeDaysClickable();
+
     $('.fc-prev-button')[0].onclick = function () {
         let student_id = $('#student_select')[0].value;
         loadAttendances(student_id);
         $('#panel-table')[0].style.visibility = "hidden";
+        greyFutureDays();
     };
 
     $('.fc-next-button')[0].onclick = function () {
         let student_id = $('#student_select')[0].value;
         loadAttendances(student_id);
         $('#panel-table')[0].style.visibility = "hidden";
+        greyFutureDays()
     };
 
     $('.fc-today-button')[0].onclick = function () {
         let student_id = $('#student_select')[0].value;
         loadAttendances(student_id);
         $('#panel-table')[0].style.visibility = "hidden";
+        greyFutureDays();
     };
 
     var intervalID = setInterval(makeDaysClickable, 500);
