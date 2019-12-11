@@ -24,7 +24,7 @@
         }
         <% else %>
         if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-            $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "yellow";
+            $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "gold";
             $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
             $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
         }
@@ -113,12 +113,13 @@
 
             cell1.innerHTML = info.dateStr;
 
-            if( $('[data-date = ' + info.dateStr + ']')[0].style.backgroundColor == "red" ) {
+            console.log(info.dateStr);
+            if( $('[data-date = ' + info.dateStr + ']')[0].children[0].style.backgroundColor == "red" ) {
                 cell2.innerHTML = "Absent";
                 $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove();
                 $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove();
             }
-            else if( $('[data-date = ' + info.dateStr + ']')[0].style.backgroundColor == "orange" ) {
+            else if( $('[data-date = ' + info.dateStr + ']')[0].children[0].style.backgroundColor == "orange" ) {
                 cell2.innerHTML = "Late entry";
                 let cell3 = row.insertCell(2);
                 cell3.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].getAttribute('late');

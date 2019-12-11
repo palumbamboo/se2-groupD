@@ -12,7 +12,7 @@
     }
   <% else %>
     if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "yellow";
+        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "gold";
         $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
         $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
     }
