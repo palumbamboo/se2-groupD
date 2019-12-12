@@ -93,6 +93,21 @@ class OfficersController < ApplicationController
     set_officer
   end
 
+
+  def communications
+    set_officer
+    if params[:expiry_date]
+      # seleziono solo quelle valide
+    else
+      # seleziono tutte
+    end
+    @communications = Communication.all # where(expiry_date <= oggi)
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
   # DELETE /officers/1
   # DELETE /officers/1.json
   def destroy
