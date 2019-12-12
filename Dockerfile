@@ -7,18 +7,17 @@ RUN apt-get -y install nodejs postgresql-client git
 RUN npm install -g yarn
 
 # Create application folder
-RUN mkdir /school-app
+RUN mkdir /studently
 # Change to the application's directory
-WORKDIR /school-app
-COPY Gemfile /school-app/Gemfile
-COPY Gemfile.lock /school-app/Gemfile.lock
-COPY ./package.json /school-app/package.json
-COPY ./tmp/db /school-app/tmp/db
+WORKDIR /studently
+COPY Gemfile /studently/Gemfile
+COPY Gemfile.lock /studently/Gemfile.lock
+COPY ./package.json /studently/package.json
+COPY ./tmp/db /studently/tmp/db
 RUN bundle install
-RUN npm install
-RUN yarn install --check-files
+RUN yarn install
 # Copy application code
-COPY . /school-app
+COPY . /studently
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
