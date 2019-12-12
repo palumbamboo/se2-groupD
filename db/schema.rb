@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_12_08_234015) do
 
   create_table "attendances", force: :cascade do |t|
     t.date "date"
-    t.string "type"
+    t.string "absence_type"
     t.datetime "enters_at"
     t.datetime "exits_at"
     t.datetime "created_at", precision: 6, null: false
