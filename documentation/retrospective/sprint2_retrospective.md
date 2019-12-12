@@ -19,16 +19,16 @@ The total number of tasks belonging to the committed stories were 41. 10 tasks o
 
 |   |  Average  |
 |---|---|
-| Actual hours per task  | 1.12  |
+| Actual hours per task  | 1.52  |
 | Tasks per story | 31/5=6.20  |
 
 
 |   |  Hours estimated  | Actual hours |
 |---|---|---|
-| Per task  | 32.50/31=1.05 | 34.75/31=1.12 |
-| Overall | 32.50 | 34.75 |
+| Per task  | 45.00/31=1.55 | 47.25/31=1.52 |
+| Overall | 45.00 | 47.25 |
 
-The total task estimation error ratio, given by the division between actual and estimated time is: 34.75/32.5=1.07.
+The total task estimation error ratio, given by the division between actual and estimated time is: 47.25/45.00=1.05.
 
 We can say that the task estimation was quite accurate, since the total task estimation error ratio is near to 1.
 
@@ -40,9 +40,9 @@ For this section, in order to evaluate properly all implemented stories, we cons
 
 | Story points | Average of estimated time(hours) |
 | --- | --- |
-| 2 | 4.50 |
-| 5 | 10.0 |
-| 8 | 10.50 |
+| 2 | 5.00 |
+| 5 | 11.00 |
+| 8 | 14.75 |
 
 **Ratio of averages**
 
@@ -50,21 +50,21 @@ In the following table, ratios are computed dividing the column value over the r
 
 | Story points | 2 | 5 | 8 |
 | --- | --- | --- | --- |
-| 2 | 1 | 0.45 | 0.43 |
-| 5 | 2.22 | 1 | 0.95 |
-| 8 | 2,33 | 1.05 | 1 |
+| 2 | 1 | 0.45 | 0.34 |
+| 5 | 2.20 | 1 | 0.75 |
+| 8 | 2.95 | 1.34 | 1 |
 
 **Considerations on averages**
 
-The ratio between stories of 2 and 5 points is correct, since stories of 5 points have been estimated to require on average a bit more of the double of the effort required for stories of 2 points. However, ratios between stories of points (2, 8) and (5, 8) are not so precise. On average, stories of 8 points have been estimated to require an effort that is similar to the one required for implementing stories of 5 points.
+The ratio between stories of 2 and 5 points is correct, since stories of 5 points have been estimated to require on average a bit more of the double of the effort required for stories of 2 points. Ratios between stories of points (2, 8) and (5, 8) turned out to be quite precise, on average. However, story #6 of 8 points have been estimated to require an effort that is similar to the one required for implementing a story of 5 points, actually.
 
 ### Actual time
 
 | Story points | Average of actual time(hours) |
 | --- | --- |
-| 2 | 5.00 |
-| 5 | 9.00 |
-| 8 | 10.63 |
+| 2 | 5.50 |
+| 5 | 10.50 |
+| 8 | 14.88 |
 
 
 **Ratio of averages**
@@ -73,13 +73,13 @@ In the following table, ratios are computed dividing the column value over the r
 
 | Story points | 2 | 5 | 8 |
 | --- | --- | --- | --- |
-| 2 | 1 | 0.56 | 0.47 |
-| 5 | 1.80 | 1 | 0.84 |
-| 8 | 2.13 | 1.18 | 1 |
+| 2 | 1 | 0.52 | 0.37 |
+| 5 | 1.91 | 1 | 0.71 |
+| 8 | 2.71 | 1.42 | 1 |
 
 **Considerations on averages**
 
-Those results lead to the same considerations made for the estimated time, in the previous paragraph. On average, stories of 8 points required a total effort similar to the one of 5 points.
+Those results lead to the same considerations made for the estimated time, in the previous paragraph.
 
 
 ### Considerations
