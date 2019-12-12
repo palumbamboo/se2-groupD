@@ -1,5 +1,4 @@
 class CommunicationsController < ApplicationController
-  before_action :set_communication, only: [:show, :edit, :update, :destroy]
 
   # GET /communications
   # GET /communications.json
@@ -10,6 +9,7 @@ class CommunicationsController < ApplicationController
   # GET /communications/1
   # GET /communications/1.json
   def show
+    set_communication
   end
 
   # GET /communications/new
@@ -19,6 +19,7 @@ class CommunicationsController < ApplicationController
 
   # GET /communications/1/edit
   def edit
+    set_communication
   end
 
   # POST /communications
@@ -28,6 +29,7 @@ class CommunicationsController < ApplicationController
 
     respond_to do |format|
       if @communication.save
+        format.js
         format.html { redirect_to @communication, notice: 'Communication was successfully created.' }
         format.json { render :show, status: :created, location: @communication }
       else
@@ -42,6 +44,7 @@ class CommunicationsController < ApplicationController
   def update
     respond_to do |format|
       if @communication.update(communication_params)
+        format.js
         format.html { redirect_to @communication, notice: 'Communication was successfully updated.' }
         format.json { render :show, status: :ok, location: @communication }
       else
@@ -54,10 +57,15 @@ class CommunicationsController < ApplicationController
   # DELETE /communications/1
   # DELETE /communications/1.json
   def destroy
-    @communication.destroy
     respond_to do |format|
-      format.html { redirect_to communications_url, notice: 'Communication was successfully destroyed.' }
-      format.json { head :no_content }
+      if @communication.destroy
+        format.js
+        format.html { redirect_to @communication, notice: 'Communication was successfully deleted.' }
+        format.json { render :show, status: :ok, location: @communication }
+      else
+        format.html { render :new }
+        format.json { render json: @communication.errors, status: :unprocessable_entity }
+      end
     end
   end
 

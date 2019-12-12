@@ -9,7 +9,7 @@
     <li><%= link_to " Students", officer_enrollment_url(@officer), class: 'mdi mdi-folder-account-outline' %></li>
     <li><%= link_to " Parents", officer_parents_url(@officer), class: 'mdi mdi-human-male-girl' %></li>
     <li><%= link_to " Class composition", officer_classes_url(@officer), class: 'mdi mdi-account-group' %></li>
-    <li class="active"><%= link_to " Communications", officer_communications_url(@officer), class: 'mdi mdi-account-group' %></li>
+    <li class="active"><%= link_to " Communications", officer_communications_url(@officer), class: 'mdi mdi-text-to-speech' %></li>
   </ul>
 <% end %>
 
@@ -21,7 +21,7 @@
   </ul>
   <ul class="navbar-nav ml-auto navbar-right">
     <li class="nav-item">
-      <%= select_tag :validity_select,
+      <%= select_tag :expiry_date,
                      options_for_select(@communications.expiry_date.map{ |ed| [ed <= Date.today ? "Valid" : "Expired"] }), class: "custom-select", style:"width:100px;"%>
     </li>
   </ul>
@@ -48,15 +48,15 @@
     function loadCommunications(){
         $.ajax({
             type: 'GET',
-            url: "/officers/<%= @officer.id %>/communications/" + document.getElementById("validity_select").value,
+            url: "/officers/<%= @officer.id %>/communications/" + document.getElementById("expiry_date").value,
             contentType: "text/javascript",
         }).done(function(response){
         });
     }
     $(document).ready(function() {
         // Prossima riga da fare un if se ho selezionato valide o meno
-        document.getElementById('validity_select').value = <%= @officer.id %>
-            document.getElementById("validity_select").onchange = loadCommunications;
+        document.getElementById('expiry_date').value = <%= @officer.id %>
+            document.getElementById("expiry_date").onchange = loadCommunications;
     });
 
 </script>
