@@ -9,16 +9,59 @@
 <script type="text/javascript">
   var calendar;
 
-    function handleMouseEnterAndLeave(formattedDate, backgroundColor) {
-        $('[data-date = ' + formattedDate + ']').mouseenter( function () {
-            $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = backgroundColor;
-        } );
-        $('[data-date = ' + formattedDate + ']').mouseleave( function () {
-            $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = "";
-        } );
+    function handleMouseEnterAndLeave(formattedDate, backgroundColor, firstBackgroundColor = null) {
+        if( $('[data-date = ' + formattedDate + ']')[0].children[0].getAttribute('present') == null ) {
+            if (firstBackgroundColor != null) {
+                $('[data-date = ' + formattedDate + ']').mouseenter(function () {
+                    $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = firstBackgroundColor;
+                    $('[data-date = ' + formattedDate + ']')[0].children[1].style.backgroundColor = backgroundColor;
+                });
+                $('[data-date = ' + formattedDate + ']').mouseleave(function () {
+                    $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = "";
+                    $('[data-date = ' + formattedDate + ']')[0].children[1].style.backgroundColor = "";
+                });
+            } else {
+                $('[data-date = ' + formattedDate + ']').mouseenter(function () {
+                    $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = backgroundColor;
+                });
+                $('[data-date = ' + formattedDate + ']').mouseleave(function () {
+                    $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = "";
+                });
+            }
+        }
+        else {
+            $('[data-date = ' + formattedDate + ']').off('mouseenter');
+            $('[data-date = ' + formattedDate + ']').off('mouseleave');
+        }
+    }
+
+    function addSecondCircle(formattedDate, formattedHour, lateCircle) {
+        let circle = $('[data-date = ' + formattedDate + ']')[0].children[0];
+        circle.style.marginLeft = "6%";
+        circle.style.cssFloat = "left";
+
+        let newCircle = document.createElement('div');
+        newCircle.style.height = "50%";
+        newCircle.style.width = "38%";
+        newCircle.style.marginTop = "33%";
+        newCircle.style.marginRight = "6%";
+        newCircle.style.borderRadius = "50%";
+        newCircle.style.cssFloat = "right";
+        if( lateCircle == true ) {
+            newCircle.setAttribute('late', formattedHour);
+            newCircle.classList.add('late');
+        }
+        else {
+            newCircle.setAttribute('early', formattedHour);
+            newCircle.classList.add('early');
+        }
+        newCircle.classList.add('attendance-notice');
+        $('[data-date = ' + formattedDate + ']')[0].appendChild(newCircle);
     }
 
     function colorCalendar() {
+        let firstBackgroundColor = null;
+
         <% @attendances.each do |attendance| %>
         <% if attendance.absence_type == "Absent" %>
         if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
@@ -27,19 +70,37 @@
             $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
             $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('absent', '');
         }
-        <% elsif attendance.absence_type == "Late" %>
+        <% end %>
+        <% if attendance.absence_type == "Late" %>
         if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-            handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#EB862D");
-            $('[data-date = <%= attendance.formatted_date %>] div').addClass('late');
+            if( $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].classList.contains('early') ) { // late entry and early exit in the same day
+                addSecondCircle('<%= attendance.formatted_date %>', '<%= attendance.formatted_enters_at %>', true);
+                firstBackgroundColor = "gold";
+                handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#EB862D", firstBackgroundColor);
+                $('[data-date = <%= attendance.formatted_date %>]')[0].children[1].setAttribute('late', '<%= attendance.formatted_enters_at %>');
+            }
+            else {
+                $('[data-date = <%= attendance.formatted_date %>] div')[0].classList.add('late');
+                handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#EB862D");
+                $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('late', '<%= attendance.formatted_enters_at %>');
+            }
             $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
-            $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('late', '<%= attendance.formatted_enters_at %>');
         }
-        <% else %>
+        <% end %>
+        <% if attendance.absence_type == "Earl" %>
         if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-            handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "gold");
-            $('[data-date = <%= attendance.formatted_date %>] div').addClass('early');
+            if( $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].classList.contains('late') ) { // late entry and early exit in the same day
+                addSecondCircle('<%= attendance.formatted_date %>', '<%= attendance.formatted_exits_at %>', false);
+                firstBackgroundColor = "#EB862D";
+                handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "gold", firstBackgroundColor);
+                $('[data-date = <%= attendance.formatted_date %>]')[0].children[1].setAttribute('early', '<%= attendance.formatted_exits_at %>');
+            }
+            else {
+                $('[data-date = <%= attendance.formatted_date %>] div')[0].classList.add('early');
+                handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "gold");
+                $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
+            }
             $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
-            $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
         }
         <% end %>
         <% end %>
@@ -49,6 +110,7 @@
             let notFutureDate = $('[data-date]')[i].style.backgroundColor != "rgb(241, 241, 241)";
             if( presentAtSchoolDate && notFutureDate && $('[data-date]')[i].children[0].tagName == "DIV" ) {
                 $('[data-date]')[i].children[0].style.backgroundColor = "lightgreen";
+                $('[data-date]')[i].children[0].setAttribute('present', '');
             }
         }
     }
@@ -98,6 +160,9 @@
             if( $('[data-date]')[i].classList.contains('attendance-notice') ) {
                 $('[data-date]')[i].style.cursor = "pointer";
             }
+            else {
+                $('[data-date]')[i].style.cursor = "";
+            }
         }
     }
 
@@ -122,7 +187,8 @@
                 }
             };
 
-            if( $('#table-attendance')[0].rows.length > 1 ) {
+            let rows = $('#table-attendance')[0].rows.length;
+            for(let i = 1; i < rows; i++) {
                 $('#table-attendance')[0].deleteRow(1);
             }
 
@@ -134,32 +200,50 @@
                 returnToOriginalTableHeaders();
             }
 
-            let row = $('#table-attendance')[0].insertRow(1);
-            let cell1 = row.insertCell(0);
-            let cell2 = row.insertCell(1);
+            for(let i = 0; i < $('[data-date = ' + info.dateStr + ']')[0].children.length; i++) {
+                let row = $('#table-attendance')[0].insertRow(i+1);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
 
-            if( $('#panel-table')[0].style.visibility == "hidden" ) {
-                $('#panel-table')[0].style.visibility = "visible";
-            }
+                if ($('#panel-table')[0].style.visibility == "hidden") {
+                    $('#panel-table')[0].style.visibility = "visible";
+                }
 
-            cell1.innerHTML = info.dateStr;
+                cell1.innerHTML = info.dateStr;
 
-            if( $('[data-date = ' + info.dateStr + ']')[0].children[0].getAttribute('absent') != null ) {
-                cell2.innerHTML = "Absent";
-                $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove();
-                $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove();
-            }
-            else if( $('[data-date = ' + info.dateStr + ']')[0].children[0].getAttribute('late') != null ) {
-                cell2.innerHTML = "Late entry";
-                let cell3 = row.insertCell(2);
-                cell3.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[0].getAttribute('late');
-                $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove();
-            }
-            else {
-                cell2.innerHTML = "Early exit";
-                let cell4 = row.insertCell(2);
-                cell4.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[0].getAttribute('early');
-                $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove();
+                if ($('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('absent') != null) {
+                    cell2.innerHTML = "Absent";
+                    $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove();
+                    $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove();
+                }
+                else if ($('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('late') != null) {
+                    cell2.innerHTML = "Late entry";
+                    if( $('[data-date = ' + info.dateStr + ']')[0].children.length == 1 ) {
+                        $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove();
+                        let cell3 = row.insertCell(2);
+                        cell3.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('late');
+                    }
+                    else {
+                        let cell3 = row.insertCell(2);
+                        cell3.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('late');
+                        let cell4 = row.insertCell(3);
+                        cell4.innerHTML = "-";
+                    }
+                }
+                else {
+                    cell2.innerHTML = "Early exit";
+                    if( $('[data-date = ' + info.dateStr + ']')[0].children.length == 1 ) {
+                        $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove();
+                        let cell3 = row.insertCell(2);
+                        cell3.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('early');
+                    }
+                    else {
+                        let cell3 = row.insertCell(2);
+                        cell3.innerHTML = "-";
+                        let cell4 = row.insertCell(3);
+                        cell4.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('early');
+                    }
+                }
             }
         }
         else {
@@ -259,6 +343,24 @@
   </ul>
 <% end %>
 
+<table style="margin-top: 3%">
+  <tr>
+    <td>
+      <div class="absent" style="border-radius: 50%; width: 3vw; height: 3vw; float: left"></div>
+      <p style="float: right; margin: 2% 20% 0 0; font-size: 2vw">Absent</p>
+    </td>
+    <td>
+      <div class="late" style="border-radius: 50%; width: 3vw; height: 3vw; float: left"></div>
+      <p style="float: right; margin: 2% 20% 0 0; font-size: 2vw">Late</p>
+    </td>
+    <td>
+      <div class="early" style="border-radius: 50%; width: 3vw; height: 3vw; float: left"></div>
+      <p style="float: right; margin: 2% 20% 0 0; font-size: 2vw">Early</p>
+    </td>
+  </tr>
+</table>
+
+
 <div id="calendar"></div>
 
 <!-- The Modal -->
@@ -284,14 +386,15 @@
 
 </div>
 
-
-
 <script type="text/javascript">
     window.onload = () => {
         document.getElementById("student_select").onchange = function() {
             for(let i = 0; i < $('[data-date]').length; i++) {
-                if( $('[data-date]')[i].children[0].tagName == "DIV" ) {
-                    $('[data-date]')[i].removeChild($('[data-date]')[i].children[0]);
+                let children = $('[data-date]')[i].children.length;
+                for(let j = 0; j < children; j++) {
+                    if( $('[data-date]')[i].children[0].tagName == "DIV" ) {
+                        $('[data-date]')[i].removeChild($('[data-date]')[i].children[0]);
+                    }
                 }
             }
             addAttendanceCircles();
