@@ -14,11 +14,11 @@ class Attendance < ApplicationRecord
   end
 
   def formatted_enters_at
-    enters_at.to_date.strftime("%I:%M%p")
+    enters_at.strftime("%H:%M:%S")
   end
 
   def formatted_exits_at
-    exits_at.to_date.strftime("%I:%M%p")
+    exits_at.strftime("%H:%M:%S")
   end
 
   # absence_type should be one of {"Absent", "Late", "Earl"} -> TODO: force input data to be like this
