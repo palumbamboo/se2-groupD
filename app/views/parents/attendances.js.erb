@@ -1,20 +1,32 @@
 <% @attendances.each do |attendance| %>
   <% if attendance.absence_type == "Absent" %>
     if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "red";
+        handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#B00700");
+        $('[data-date = <%= attendance.formatted_date %>] div').addClass('absent');
         $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('absent', '');
     }
   <% elsif attendance.absence_type == "Late" %>
     if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "orange";
-        $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('late', '<%= attendance.formatted_enters_at %>');
+        handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#EB862D");
+        $('[data-date = <%= attendance.formatted_date %>] div').addClass('late');
         $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('late', '<%= attendance.formatted_enters_at %>');
     }
   <% else %>
     if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
-        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].style.backgroundColor = "gold";
-        $('[data-date = <%= attendance.formatted_date %>]')[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
+        handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "gold");
+        $('[data-date = <%= attendance.formatted_date %>] div').addClass('early');
         $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
     }
   <% end %>
 <% end %>
+
+for(let i = 0; i < $('[data-date]').length; i++) {
+    let presentAtSchoolDate = ! ($('[data-date]')[i].children[0].classList.contains('absent') || $('[data-date]')[i].children[0].classList.contains('late') || $('[data-date]')[i].children[0].classList.contains('early'));
+    let notFutureDate = $('[data-date]')[i].style.backgroundColor != "rgb(241, 241, 241)";
+    if( presentAtSchoolDate && notFutureDate && $('[data-date]')[i].children[0].tagName == "DIV" ) {
+        $('[data-date]')[i].children[0].style.backgroundColor = "lightgreen";
+    }
+}
