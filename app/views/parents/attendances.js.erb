@@ -47,7 +47,6 @@ for(let i = 0; i < $('[data-date]').length; i++) {
     if( presentAtSchoolDate && notFutureDate && $('[data-date]')[i].children[0].tagName == "DIV" ) {
         $('[data-date]')[i].children[0].style.backgroundColor = "lightgreen";
         $('[data-date]')[i].children[0].setAttribute('present', '');
-        console.log($('[data-date]')[i].getAttribute('data-date'));
         handleMouseEnterAndLeave($('[data-date]')[i].getAttribute('data-date'), null, null);
         $('[data-date = ' + $('[data-date]')[i].getAttribute('data-date') + ']').removeClass('attendance-notice');
     }
