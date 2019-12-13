@@ -1,3 +1,7 @@
+/*
+ * for comments about this code, see colorCalendar() in attendances.html.erb (it's the same code)
+ */
+
 <% @attendances.each do |attendance| %>
 <% if attendance.absence_type == "Absent" %>
 if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
