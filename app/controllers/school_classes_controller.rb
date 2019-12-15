@@ -11,7 +11,7 @@ class SchoolClassesController < ApplicationController
   def edit
     set_school_class
     @students = @school_class.students
-    @students_available = SchoolClass.find_by(number: 0).students
+    @students_available = SchoolClass.find_or_create_by(number: 0, section: 0).students
     respond_to do |format|
       format.js
     end
@@ -25,7 +25,7 @@ class SchoolClassesController < ApplicationController
       student.save
     end
     @previous_students.where.not(id: params[:students_to_add]).each do |student|            # if some of the previous students is
-      student.school_class = SchoolClass.find_or_create_by(number: 0)                       # deselected, 'zero' class is assigned
+      student.school_class = SchoolClass.find_or_create_by(number: 0, section: 0)                       # deselected, 'zero' class is assigned
       student.save                                                                          # to him/her -> the student doesn't have
     end                                                                                     # a class anymore                                                        
   end
@@ -60,7 +60,7 @@ class SchoolClassesController < ApplicationController
             student.save
           end
           @previous_students.where.not(fiscal_code: all_ssns).each do |student|
-            student.school_class = SchoolClass.find_or_create_by(number: 0)
+            student.school_class = SchoolClass.find_or_create_by(number: 0, section: 0)
             student.save
           end
         end

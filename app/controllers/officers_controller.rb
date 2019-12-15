@@ -76,7 +76,7 @@ class OfficersController < ApplicationController
     if params[:class]
       @class = SchoolClass.find(params[:class])
     else
-      @class = SchoolClass.first
+      @class = SchoolClass.available_classes.first
     end
     @students = @class.students
     respond_to do |format|
