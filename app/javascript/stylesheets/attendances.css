@@ -47,6 +47,9 @@
     background-color: #FCEE51;
 }
 
+.present {
+    background-color: lightgreen;
+}
 .absent:hover {
     background-color: #B00700;
 }

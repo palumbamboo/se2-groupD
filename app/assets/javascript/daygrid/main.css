@@ -43,6 +43,8 @@
 
 .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
   float: right;
+  margin: 8px;
+  font-size: larger;
 }
 
 .fc-rtl .fc-dayGrid-view .fc-day-top .fc-day-number {

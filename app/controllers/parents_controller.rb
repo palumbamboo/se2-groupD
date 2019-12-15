@@ -80,21 +80,9 @@ class ParentsController < ApplicationController
     def attendances
         set_parent
         @students = @parent.students
-        if params[:stud]
-            @student = @students.find(params[:stud])
-            if params[:month]
-                @attendances = Attendance.where('extract(month from date) = ?', params[:month]).select{ |a| a.student_id == @student.id }
-            else
-                @attendances = Attendance.where('extract(month from date) = ?', Date.today.strftime("%m")).select{ |a| a.student_id == @student.id }
-            end
-        else
-            @student = @students.first
-            if params[:month]
-                @attendances = Attendance.where('extract(month from date) = ?', params[:month]).select{ |a| a.student_id == @student.id }
-            else
-                @attendances = Attendance.where('extract(month from date) = ?', Date.today.strftime("%m")).select{ |a| a.student_id == @student.id }
-            end
-        end
+        @student  = params[:stud] ? @students.find(params[:stud]) : @students.first
+        month     = params[:month] ? params[:month] : Date.today.strftime("%m")
+        @attendances = Attendance.where('extract(month from date) = ?', month).where(student: @student)
 
         respond_to do |format|
             format.js

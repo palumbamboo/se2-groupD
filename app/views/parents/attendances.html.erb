@@ -7,7 +7,7 @@
 <%= stylesheet_link_tag "daygrid/main.css" %>
 
 <script type="text/javascript">
-  var calendar;
+    var calendar;
 
     function handleMouseEnterAndLeave(formattedDate, backgroundColor, firstBackgroundColor = null) {
         if( $('[data-date = ' + formattedDate + ']')[0].children[0].getAttribute('present') == null ) { // if the student was not present all day long
@@ -282,7 +282,7 @@
             let circle = document.createElement('div'); // create an empty circle
             circle.style.height = "50%";
             circle.style.width = "38%";
-            circle.style.marginTop = "33%";
+            circle.style.marginTop = "20%";
             circle.style.marginLeft = "31%";
             circle.style.borderRadius = "50%";
             $('[data-date]')[i].appendChild(circle);
@@ -302,18 +302,18 @@
         }
     }
 
-  function checkLeftArrow() {
-      let september = 9;
-      let calendarMonth = calendar.getDate().getMonth()+1;
-      if( calendarMonth == september ) { // if calendar month is september
-          $('.fc-prev-button')[0].setAttribute('disabled', ''); // disable left arrow
-      }
-      else { // if calendar month is not september
-          if( $('.fc-prev-button')[0].getAttribute('disabled') != null ) { // if left arrow was disabled
-              $('.fc-prev-button')[0].removeAttribute('disabled'); // enable it
-          }
-      }
-  }
+    function checkLeftArrow() {
+        let september = 9;
+        let calendarMonth = calendar.getDate().getMonth()+1;
+        if( calendarMonth == september ) { // if calendar month is september
+            $('.fc-prev-button')[0].setAttribute('disabled', ''); // disable left arrow
+        }
+        else { // if calendar month is not september
+            if( $('.fc-prev-button')[0].getAttribute('disabled') != null ) { // if left arrow was disabled
+                $('.fc-prev-button')[0].removeAttribute('disabled'); // enable it
+            }
+        }
+    }
 </script>
 
 <% content_for :sidebar do %>
@@ -343,25 +343,27 @@
   </ul>
 <% end %>
 
-<table style="margin-top: 3%">
-  <tr>
-    <td>
-      <div class="absent" style="border-radius: 50%; width: 3vw; height: 3vw; float: left"></div>
-      <p style="float: right; margin: 2% 20% 0 0; font-size: 2vw">Absent</p>
-    </td>
-    <td>
-      <div class="late" style="border-radius: 50%; width: 3vw; height: 3vw; float: left"></div>
-      <p style="float: right; margin: 2% 20% 0 0; font-size: 2vw">Late</p>
-    </td>
-    <td>
-      <div class="early" style="border-radius: 50%; width: 3vw; height: 3vw; float: left"></div>
-      <p style="float: right; margin: 2% 20% 0 0; font-size: 2vw">Early</p>
-    </td>
-  </tr>
-</table>
-
-
-<div id="calendar"></div>
+<div id="calendar-container">
+  <div class="row" id="legend" style="width: 100%">
+    <div class="col-sm-3">
+      <div class="absent" style="border-radius: 50%; width: 2.6vw; height: 2.6vw; float: left"></div>
+      <p style="float: right; margin: 5% 10% 0 0; font-size: 1.8vw">Absent</p>
+    </div>
+    <div class="col-sm-3">
+      <div class="late" style="border-radius: 50%; width: 2.6vw; height: 2.6vw; float: left"></div>
+      <p style="float: right; margin: 5% 10% 0 0; font-size: 1.8vw">Late</p>
+    </div>
+    <div class="col-sm-3">
+      <div class="early" style="border-radius: 50%; width: 2.6vw; height: 2.6vw; float: left"></div>
+      <p style="float: right; margin: 5% 10% 0 0; font-size: 1.8vw">Early</p>
+    </div>
+    <div class="col-sm-3">
+      <div class="present" style="border-radius: 50%; width: 2.6vw; height: 2.6vw; float: left"></div>
+      <p style="float: right; margin: 5% 10% 0 0; font-size: 1.8vw">Present</p>
+    </div>
+  </div>
+  <div id="calendar"></div>
+</div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -369,19 +371,19 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-      <div class="panel panel-info" id="panel-table" style="visibility: hidden; margin-top: 5%">
-        <div class="panel-heading">Attendance information</div>
-        <div class="panel-body">
-          <table class="table table-striped" id="table-attendance">
-            <tr>
-              <th>Date</th>
-              <th>Type</th>
-              <th>Enters at</th>
-              <th>Exits at</th>
-            </tr>
-          </table>
-        </div>
+    <div class="panel panel-info" id="panel-table" style="visibility: hidden; margin-top: 5%">
+      <div class="panel-heading">Attendance information</div>
+      <div class="panel-body">
+        <table class="table table-striped" id="table-attendance">
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Enters at</th>
+            <th>Exits at</th>
+          </tr>
+        </table>
       </div>
+    </div>
   </div>
 
 </div>

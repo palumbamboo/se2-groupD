@@ -165,3 +165,21 @@ pre {
 .toggle.disabled {
     cursor: not-allowed;
 }
+
+#calendar-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    word-wrap: break-word;
+    align-items: center;
+    width: 100%;
+}
+
+#legend {
+    margin-bottom: 30px;
+    max-width: 850px;
+}
+
+#calendar {
+    max-width: 1000px;
+}
