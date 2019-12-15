@@ -8,10 +8,14 @@
         </div>
 </div>
 <div class="row">
-    <div class="col-md-2"></div>
-        <div class="col-xs-12 col-md-8">
+    <div class="col-md-3"></div>
+        <div class="col-xs-12 col-md-6">
         <%= form_with(url: {action: :file_import, controller: :school_classes}, multipart: true, remote: true) do %>
-            <%= file_field_tag 'class_file', accept: ".xls,.xlsx" %>
+            <div class="custom-file">
+            <%= file_field_tag 'class_file', accept: ".xls,.xlsx", class: "custom-file-input" %>
+            <label class="custom-file-label" for="inputGroupFile01">Choose file...</label>
+            </div>
+            <br><br>
             <button type="submit" class="btn btn-success" id="file-confirm" disabled style="cursor: not-allowed"><span class="mdi mdi-check-bold"> Confirm</span></button>
             <p><br>The file must be an excel file (extensions accepted: 'xls', 'xlsx').
             The first row must match this format: "Surname | Name | SSN".
@@ -34,6 +38,7 @@ $(document).ready(function(){
     $('#class_file').change(function(){
         $('#file-confirm').css("cursor", "pointer");
         $('#file-confirm').attr("disabled", false);
+        $('.custom-file-label').html($('#class_file')[0].files[0].name);
     })
 })
 </script>
