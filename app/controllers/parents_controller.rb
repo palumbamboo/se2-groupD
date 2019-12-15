@@ -62,6 +62,19 @@ class ParentsController < ApplicationController
         @assignments = Assignment.where(school_class: s.school_class, subject: params[:sub])
     end
 
+    def communications
+        set_parent
+        if params[:expiry_date_select] && params[:expiry_date_select] == "Valid"
+            @communications = Communication.where("expiry_date > ?", Date.today)
+        else
+            @communications = Communication.all
+        end
+        respond_to do |format|
+            format.js
+            format.html
+        end
+    end
+
     def create
         @parent = Parent.new(parent_params)
         if @parent.save
