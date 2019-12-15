@@ -11,6 +11,7 @@ class DefaultData
     Attendance.delete_all
     Mark.delete_all
     Assignment.delete_all
+    Communication.delete_all
     true
   end
 
@@ -26,6 +27,7 @@ class DefaultData
     result[:attendance]     = attendances
     result[:mark]           = marks
     result[:assignment]     = assignments
+    result[:communication]  = communications
     result
   end
 
@@ -189,6 +191,18 @@ class DefaultData
 
     result << Assignment.create(name: 'Biology: ex. 2', expiry_date: Date.new(2019, 12, 19), subject: 'Biology', description: 'BioBook: Pag 100, ex 2, please write down the entire procedure.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Digestive system', subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
     result << Assignment.create(name: 'Biology: ex. 11', expiry_date: Date.new(2019, 12, 11), subject: 'Biology', description: 'BioBook: Pag 105, ex 11, please write down the entire procedure.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Digestive system', subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
+
+    result.all?
+  end
+
+  def communications
+    result = []
+
+    result << Communication.create(title: 'Erasmus', start_date: Date.new(2019, 10, 30), expiry_date: Date.new(2019, 12, 24), description: 'Candidates should apply.').id
+    result << Communication.create(title: 'Christmas holidays', start_date: Date.new(2019, 11, 30), expiry_date: Date.new(2020, 1, 7), description: 'Holidays will be in those days specified in the attached file.').id
+
+    result << Communication.create(title: 'Halloween holidays', start_date: Date.new(2019, 10, 20), expiry_date: Date.new(2019, 11, 2), description: 'On 31th October, 1st and 2nd November the school will be closed.').id
+    result << Communication.create(title: 'Gym hours', start_date: Date.new(2019, 9, 30), expiry_date: Date.new(2019, 12, 1), description: 'Gym will remain closed until 1st December.').id
 
     result.all?
   end

@@ -42,6 +42,8 @@ class CommunicationsController < ApplicationController
   # PATCH/PUT /communications/1
   # PATCH/PUT /communications/1.json
   def update
+    set_communication
+
     respond_to do |format|
       if @communication.update(communication_params)
         format.js
@@ -57,6 +59,8 @@ class CommunicationsController < ApplicationController
   # DELETE /communications/1
   # DELETE /communications/1.json
   def destroy
+    set_communication
+
     respond_to do |format|
       if @communication.destroy
         format.js
