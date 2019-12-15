@@ -17,7 +17,7 @@
     <%= yield :sidebar %>
     <% if user_signed_in? %>
       <ul class="list-unstyled components">
-        <li><%= button_to destroy_user_session_path, method: :delete, id: 'logout-button', :form => { :id => "logout-form" } do %>
+        <li><%= button_to destroy_user_session_path, method: :delete, id: 'logout-button', :form => { :id => "logout-form" }, class: 'btn btn-link' do %>
             <i class="mdi mdi-logout"></i> Logout
           <% end %>
         </li>
