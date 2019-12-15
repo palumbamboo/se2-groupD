@@ -22,7 +22,7 @@
   <ul class="navbar-nav ml-auto navbar-right">
     <li class="nav-item">
       <%= select_tag :expiry_date_select,
-                     options_for_select(["All", "Valid"]), class: "custom-select", style:"width:100px;"%>
+                     options_for_select(["All", "Valid", "Expired"]), class: "custom-select", style:"width:100px;"%>
     </li>
   </ul>
 <% end %>
@@ -37,7 +37,7 @@
   </tr>
   </thead>
   <tbody id="communications-body">
-  <%= render partial: 'communications/communication', collection: @communications.sort_by(&:start_date) %>
+  <%= render partial: 'communications/communication', collection: @communications.sort_by(&:start_date).reverse %>
   </tbody>
 </table>
 
