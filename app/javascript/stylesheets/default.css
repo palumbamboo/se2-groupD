@@ -66,6 +66,17 @@ form {
     border-color: #74a4b5;
 }
 
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color: #2f4b55;
+    color: lightgrey;
+    border-color: #2f4b55;
+}
+
+#new_mark_lecture, #new_assignment_lecture {
+    float: left;
+    margin-bottom: 15px;
+}
+
 .input-group-text {
     color: #446c7a;
 }
@@ -139,4 +150,8 @@ pre {
 
 .modal-dialog {
     max-width: 50%;
+}
+
+.nav-link {
+    color: #74a4b5;
 }
