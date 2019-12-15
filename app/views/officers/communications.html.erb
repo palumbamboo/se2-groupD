@@ -1,19 +1,25 @@
 <% content_for :sidebar do %>
   <div class="sidebar-header">
-    <h3>Welcome <%= @parent.name %>!</h3>
+    <h3>Welcome <%= @officer.to_s %>!</h3>
   </div>
 
   <ul class="list-unstyled components">
-    <p>Parent page</p>
-    <li><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
-    <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
-    <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
-    <li class="active"><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
+    <p>Officer page</p>
+    <li><%= link_to " Home", officer_path(@officer), class: 'mdi mdi-view-dashboard' %></li>
+    <li><%= link_to " Students", officer_enrollment_url(@officer), class: 'mdi mdi-folder-account-outline' %></li>
+    <li><%= link_to " Parents", officer_parents_url(@officer), class: 'mdi mdi-human-male-girl' %></li>
+    <li><%= link_to " Class composition", officer_classes_url(@officer), class: 'mdi mdi-account-group' %></li>
+    <li class="active"><%= link_to " Communications", officer_communications_url(@officer), class: 'mdi mdi-text-to-speech' %></li>
   </ul>
 <% end %>
 
 <% content_for :navbar do %>
   <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= link_to ' New communication', new_communication_path(params: { officer_id: @officer.id }), {remote: true, id: "new-communication", 'data-toggle' =>  "modal", 'data-target' => '#communication-form-modal', class: 'btn btn-success mdi mdi-plus-circle'}  %>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto navbar-right">
     <li class="nav-item">
       <%= select_tag :expiry_date_select,
                      options_for_select(["All", "Valid", "Expired"]), class: "custom-select", style:"width:100px;"%>
@@ -31,7 +37,7 @@
   </tr>
   </thead>
   <tbody id="communications-body">
-  <%= render partial: 'parents/communication', collection: @communications.sort_by(&:start_date).reverse %>
+  <%= render partial: 'communications/communication', collection: @communications.sort_by(&:start_date).reverse %>
   </tbody>
 </table>
 
@@ -42,7 +48,7 @@
     function loadCommunications(){
             $.ajax({
               type: 'GET',
-              url: "/parents/<%= @parent.id %>/communications/",
+              url: "/officers/<%= @officer.id %>/communications/",
                 data: {
                     expiry_date_select: document.getElementById("expiry_date_select").value
                 },
@@ -57,3 +63,5 @@
 </script>
 
 <%= render partial: 'communications/modal_show' %>
+
+<%= render partial: 'communications/modal_form' %>
