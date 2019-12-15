@@ -21,8 +21,8 @@
   </ul>
   <ul class="navbar-nav ml-auto navbar-right">
     <li class="nav-item">
-      <%= select_tag :expiry_date,
-                     options_for_select(@communications.expiry_date.map{ |ed| [ed <= Date.today ? "Valid" : "Expired"] }), class: "custom-select", style:"width:100px;"%>
+      <%= select_tag :expiry_date_select,
+                     options_for_select(["All", "Valid"]), class: "custom-select", style:"width:100px;"%>
     </li>
   </ul>
 <% end %>
@@ -32,31 +32,32 @@
   <tr>
     <th style="width: 17%">Title</th>
     <th style="width: 12%">Start Time</th>
-    <th style="width: 10%">Expiry Time</th>
+    <th style="width: 12%">Expiry Time</th>
     <th></th>
   </tr>
   </thead>
-  <tbody id="lectures-body">
-  <%= render partial: 'lectures/lecture', collection: @lectures.sort_by(&:start_time) %>
+  <tbody id="communications-body">
+  <%= render partial: 'communications/communication', collection: @communications.sort_by(&:start_date) %>
   </tbody>
 </table>
 
-<div id="new-lecture">
+<div id="new-communication">
 </div>
 
 <script type="text/javascript">
     function loadCommunications(){
-        $.ajax({
-            type: 'GET',
-            url: "/officers/<%= @officer.id %>/communications/" + document.getElementById("expiry_date").value,
-            contentType: "text/javascript",
+            $.ajax({
+              type: 'GET',
+              url: "/officers/<%= @officer.id %>/communications/",
+                data: {
+                    expiry_date_select: document.getElementById("expiry_date_select").value
+                },
+              contentType: "text/javascript",
         }).done(function(response){
         });
     }
     $(document).ready(function() {
-        // Prossima riga da fare un if se ho selezionato valide o meno
-        document.getElementById('expiry_date').value = <%= @officer.id %>
-            document.getElementById("expiry_date").onchange = loadCommunications;
+            document.getElementById("expiry_date_select").onchange = loadCommunications;
     });
 
 </script>
