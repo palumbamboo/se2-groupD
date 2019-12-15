@@ -1,6 +1,6 @@
 class OfficersController < ApplicationController
 
-  before_action :set_officer, only: [:show, :edit, :update, :destroy, :parents]
+  before_action :set_officer, only: [:show, :edit, :update, :destroy, :parents, :students, :communications]
   before_action :officer_permission
   before_action :officer_auth, except: [:index]
 
@@ -91,6 +91,20 @@ class OfficersController < ApplicationController
 
   def students
     set_officer
+  end
+
+
+  def communications
+    set_officer
+    if params[:expiry_date_select] && params[:expiry_date_select] == "Valid"
+      @communications = Communication.where("expiry_date > ?", Date.today)
+    else
+      @communications = Communication.all
+    end
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   # DELETE /officers/1

@@ -1,0 +1,59 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @parent.name %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Parent page</p>
+    <li><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
+    <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
+  </ul>
+<% end %>
+
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= select_tag :expiry_date_select,
+                     options_for_select(["All", "Valid"]), class: "custom-select", style:"width:100px;"%>
+    </li>
+  </ul>
+<% end %>
+
+<table id="communications">
+  <thead>
+  <tr>
+    <th style="width: 17%">Title</th>
+    <th style="width: 12%">Start Time</th>
+    <th style="width: 12%">Expiry Time</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody id="communications-body">
+  <%= render partial: 'parents/communication', collection: @communications.sort_by(&:start_date) %>
+  </tbody>
+</table>
+
+<div id="new-communication">
+</div>
+
+<script type="text/javascript">
+    function loadCommunications(){
+            $.ajax({
+              type: 'GET',
+              url: "/parents/<%= @parent.id %>/communications/",
+                data: {
+                    expiry_date_select: document.getElementById("expiry_date_select").value
+                },
+              contentType: "text/javascript",
+        }).done(function(response){
+        });
+    }
+    $(document).ready(function() {
+            document.getElementById("expiry_date_select").onchange = loadCommunications;
+    });
+
+</script>
+
+<%= render partial: 'communications/modal_show' %>

@@ -1,0 +1,1 @@
+$("#communications-body").html("<%= j render partial: 'parents/communication', collection: @communications.sort_by(&:start_date) %>");

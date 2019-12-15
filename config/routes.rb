@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :communications
   resources :assignments
   resources :attendances
   devise_for :users
@@ -32,8 +33,12 @@ Rails.application.routes.draw do
   get 'parents/:id/assignments(/:stud)', to: 'parents#assignments', as: 'parent_assignments'
   post 'parents/:id/assignments/:stud/subjects/:sub', to: 'parents#assignments_per_subject'
 
+  get 'parents/:id/communications', to: 'parents#communications', as: 'parent_communications'
+
   get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
+
+  get 'officers/:id/communications', to: 'officers#communications', as: 'officer_communications'
 
   post 'school_classes/update/:id', to: 'school_classes#update'
   post 'school_classes/:id/file', to: 'school_classes#file_import'

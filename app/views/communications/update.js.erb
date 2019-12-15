@@ -1,0 +1,6 @@
+if(document.getElementById('edit-form_<%= @communication.id %>')) {
+    document.getElementById('edit-form_<%= @communication.id %>').remove()
+    $('#communication-row_<%= @communication.id %>').replaceWith("<%= j render @communication %>")
+    $('a').removeClass("disabled")
+    $('.blur-filter').removeClass('blur-filter')
+}

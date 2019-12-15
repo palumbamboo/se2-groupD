@@ -46,7 +46,7 @@ class LecturesController < ApplicationController
         @updated = true
         format.js
         format.html { redirect_to @lecture, notice: "Lecture updated" }
-        format.json { render :show, status: :created, location: @lecture }
+        format.json { render :show, status: :ok, location: @lecture }
       else
         format.html { render :new }
         format.json { render json: @lecture.errors, status: :unprocessable_entity }
@@ -61,7 +61,7 @@ class LecturesController < ApplicationController
       if @lecture.destroy
         format.js
         format.html { redirect_to @lecture, notice: "Lecture deleted" }
-        format.json { render :show, status: :created, location: @lecture }
+        format.json { render :show, status: :ok, location: @lecture }
       else
         format.html { render :new }
         format.json { render json: @lecture.errors, status: :unprocessable_entity }
