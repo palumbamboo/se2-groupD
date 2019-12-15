@@ -34,10 +34,7 @@ label {
 }
 
 form {
-    max-width: 500px;
     background: white;
-    margin: 10px auto;
-    padding: 20px;
     border-radius: 8px;
 }
 
@@ -57,15 +54,15 @@ form {
     color: #446c7a;
 }
 
-.confirm_child {
+.btn-primary {
     background-color: #74a4b5;
     color: white;
     border-color: white;
 }
 
-.confirm_child:hover {
-    background-color: white;
-    color: #74a4b5;
+.btn-primary:hover {
+    background-color: #446c7a;
+    color: white;
     border-color: #74a4b5;
 }
 
@@ -75,6 +72,15 @@ form {
 
 td,th {
     padding: .5em 1em;
+}
+
+td {
+    color: #446c7a;
+}
+
+th {
+    background-color: #74a4b5;
+    color: white;
 }
 
 h1 {
@@ -123,9 +129,14 @@ pre {
 }
 
 #new_student {
-    max-width: 70%;
+    width: 90%;
+    display: inline-block;
 }
 
 .toggle-handle {
     background-color: white;
+}
+
+.modal-dialog {
+    max-width: 50%;
 }

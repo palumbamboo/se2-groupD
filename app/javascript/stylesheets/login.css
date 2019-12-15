@@ -74,3 +74,8 @@
     display: inline-block;
     margin: 100px auto;
 }
+
+.login-body {
+    margin: 10px auto;
+    padding: 20px;
+}
