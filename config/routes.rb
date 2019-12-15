@@ -35,7 +35,6 @@ Rails.application.routes.draw do
 
   get 'parents/:id/communications', to: 'parents#communications', as: 'parent_communications'
 
-
   get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 

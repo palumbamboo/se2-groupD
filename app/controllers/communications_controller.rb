@@ -1,5 +1,6 @@
 class CommunicationsController < ApplicationController
 
+  before_action :officer_auth, only: [:create]
   # GET /communications
   # GET /communications.json
   def index
@@ -83,4 +84,9 @@ class CommunicationsController < ApplicationController
     def communication_params
       params.require(:communication).permit(:title, :start_date, :expiry_date, :description, :attachment)
     end
+
+  def officer_auth
+    return true if current_user.officer? && current_user.officer_id == params[:id].to_i
+    redirect_to direct_user(current_user), alert: "Permission denied"
+  end
 end
