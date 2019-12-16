@@ -115,17 +115,42 @@ class DefaultData
   def attendances
     result = []
     # Roberto Musso
+    result << Attendance.create(date: Date.new(2019, 9, 13), absence_type: 'Late', enters_at: DateTime.new(2019, 9, 13, 10), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 9, 23), absence_type: 'Absent', student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 9, 27), absence_type: 'Earl', exits_at: DateTime.new(2019, 9, 27, 13), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 10, 10), absence_type: 'Late', enters_at: DateTime.new(2019, 10, 10, 11), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 10, 18), absence_type: 'Earl', exits_at: DateTime.new(2019, 10, 18, 13), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
     result << Attendance.create(date: Date.new(2019, 10, 24), absence_type: 'Absent', student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
     result << Attendance.create(date: Date.new(2019, 10, 25), absence_type: 'Absent', student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
-    result << Attendance.create(date: Date.new(2019, 10, 10), absence_type: 'Late', enters_at: DateTime.new(2019, 10, 10, 11), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 8), absence_type: 'Earl', exits_at: DateTime.new(2019, 11, 8, 12), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 18), absence_type: 'Late', enters_at: DateTime.new(2019, 11, 18, 9), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 21), absence_type: 'Absent', student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 12, 4), absence_type: 'Late', enters_at: DateTime.new(2019, 12, 4, 9), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 12, 4), absence_type: 'Earl', exits_at: DateTime.new(2019, 12, 4, 13), student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 12, 9), absence_type: 'Absent', student: Student.find_by(name: 'Roberto', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
 
     # Luigi Gamba
     result << Attendance.create(date: Date.new(2019, 10, 13), absence_type: 'Absent', student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
     result << Attendance.create(date: Date.new(2019, 10, 14), absence_type: 'Late', enters_at: DateTime.new(2019, 10, 14, 10), student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
-    result << Attendance.create(date: Date.new(2019, 10, 29), absence_type: 'Earl', exits_at: DateTime.new(2019, 10, 29, 12, 35), student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 10, 29), absence_type: 'Earl', exits_at: DateTime.new(2019, 10, 29, 12), student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 19), absence_type: 'Absent', student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 20), absence_type: 'Absent', student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 21), absence_type: 'Absent', student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 22), absence_type: 'Absent', student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 12, 12), absence_type: 'Late', enters_at: DateTime.new(2019, 12, 12, 9), student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 12, 12), absence_type: 'Earl', exits_at: DateTime.new(2019, 12, 12, 13), student: Student.find_by(name: 'Luigi', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 2, section: 'A')).id
 
     # Stefano Gamba
+    result << Attendance.create(date: Date.new(2019, 10, 28), absence_type: 'Absent', student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 10, 29), absence_type: 'Absent', student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
     result << Attendance.create(date: Date.new(2019, 10, 30), absence_type: 'Absent', student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 12), absence_type: 'Late', enters_at: DateTime.new(2019, 11, 12, 9), student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 20), absence_type: 'Late', enters_at: DateTime.new(2019, 11, 20, 9), student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 25), absence_type: 'Late', enters_at: DateTime.new(2019, 11, 25, 9), student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 11, 27), absence_type: 'Earl', exits_at: DateTime.new(2019, 11, 27, 12), student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 12, 9), absence_type: 'Late', enters_at: DateTime.new(2019, 12, 9, 9), student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 12, 9), absence_type: 'Earl', exits_at: DateTime.new(2019, 12, 9, 13), student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
+    result << Attendance.create(date: Date.new(2019, 12, 16), absence_type: 'Absent', student: Student.find_by(name: 'Stefano', surname: 'Gamba'), school_class: SchoolClass.find_by(number: 1, section: 'A')).id
 
     # Chiara Saracco
     # Angela Nebiolo
