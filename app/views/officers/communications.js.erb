@@ -1,2 +1,2 @@
-$("#communications-body").html("<%= j render partial: 'communications/communication', collection: @communications.sort_by(&:start_date) %>");
+$("#communications-body").html("<%= j render partial: 'communications/communication', collection: @communications.sort_by(&:start_date).reverse %>");
 $("#new-communication").replaceWith('<%= j link_to ' New Communication', new_communication_path(params: { officer_id: @officer.id}), {remote: true, id: "new-communication", 'data-toggle' =>  "modal", 'data-target' => '#communication-form-modal', class: 'btn btn-success mdi mdi-plus-circle'} %>\n')
