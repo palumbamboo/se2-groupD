@@ -65,7 +65,9 @@ class ParentsController < ApplicationController
     def communications
         set_parent
         if params[:expiry_date_select] && params[:expiry_date_select] == "Valid"
-            @communications = Communication.where("expiry_date > ?", Date.today)
+            @communications = Communication.where("expiry_date >= ?", Date.today)
+        elsif params[:expiry_date_select] && params[:expiry_date_select] == "Expired"
+            @communications = Communication.where("expiry_date < ?", Date.today)
         else
             @communications = Communication.all
         end
