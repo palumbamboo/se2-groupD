@@ -1,5 +1,7 @@
 class AssignmentsController < ApplicationController
 
+  before_action :teacher_auth, only: [:create, :destroy, :update, :edit]
+
   # GET /assignments
   # GET /assignments.json
   def index
@@ -88,13 +90,18 @@ class AssignmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_assignment
-      @assignment = Assignment.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_assignment
+    @assignment = Assignment.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def assignment_params
-      params.require(:assignment).permit(:name, :expiry_date, :file, :subject, :description, :teacher_id, :lecture_id, :school_class_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def assignment_params
+    params.require(:assignment).permit(:name, :expiry_date, :file, :subject, :description, :teacher_id, :lecture_id, :school_class_id)
+  end
+
+  def teacher_auth
+    return true if current_user.teacher? && current_user.teacher.id == params[:id].to_i
+    redirect_to direct_user(current_user), alert: "Permission denied"
+  end
 end
