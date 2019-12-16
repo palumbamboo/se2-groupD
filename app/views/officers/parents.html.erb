@@ -42,7 +42,7 @@
       <% if parent.access_enabled == true %>
         <button class="btn btn-success" style="margin-top: 0; width: 100%" disabled>Enable</button>
       <% else %>
-        <button class="button-enable btn btn-success" style="margin-top: 0; width: 100%" enabled id="<%= parent.id %>" >Enable</button>
+        <button class="button-enable btn btn-success" style="margin-top: 0; width: 100%" enabled id="<%= parent.id %>" onclick="postEnable(this.id)" >Enable</button>
       <% end %>
       </td>
     </tr>
@@ -51,19 +51,15 @@
 </body>
 
 <script type="text/javascript">
-  window.onload = () => {
-      for(let i = 0; i < document.getElementsByClassName('button-enable').length; i++) {
-          document.getElementsByClassName('button-enable')[i].onclick = () => {
-              var userID = document.getElementsByClassName('button-enable')[i].id;
-              $.ajax({
-                  type: 'POST',
-                  url: "parents/" + userID + "/enable",
-                  contentType: "text/javascript",
-                  success: function(data) {
-                      console.log(data);
-                  }
-              });
+  function postEnable(parentID) {
+      console.log(parentID);
+      $.ajax({
+          type: 'POST',
+          url: "parents/" + parentID + "/enable",
+          contentType: "text/javascript",
+          success: function(data) {
+              console.log(data);
           }
-      }
+      });
   }
 </script>
