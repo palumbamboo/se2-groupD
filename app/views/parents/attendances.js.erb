@@ -1,0 +1,57 @@
+/*
+ * for comments about this code, see colorCalendar() in attendances.html.erb (it's the same code)
+ */
+
+<% @attendances.each do |attendance| %>
+<% if attendance.absence_type == "Absent" %>
+if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
+    handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#B00700");
+    $('[data-date = <%= attendance.formatted_date %>] div').addClass('absent');
+    $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+    $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('absent', '');
+}
+<% end %>
+<% if attendance.absence_type == "Late" %>
+if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
+    if( $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].classList.contains('early') ) { // late entry and early exit in the same day
+        addSecondCircle('<%= attendance.formatted_date %>', '<%= attendance.formatted_enters_at %>', true);
+        firstBackgroundColor = "gold";
+        handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#EB862D", firstBackgroundColor);
+        $('[data-date = <%= attendance.formatted_date %>]')[0].children[1].setAttribute('late', '<%= attendance.formatted_enters_at %>');
+    }
+    else {
+        $('[data-date = <%= attendance.formatted_date %>] div')[0].classList.add('late');
+        handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#EB862D");
+        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('late', '<%= attendance.formatted_enters_at %>');
+    }
+    $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+}
+<% end %>
+<% if attendance.absence_type == "Earl" %>
+if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) {
+    if( $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].classList.contains('late') ) { // late entry and early exit in the same day
+        addSecondCircle('<%= attendance.formatted_date %>', '<%= attendance.formatted_exits_at %>', false);
+        firstBackgroundColor = "#EB862D";
+        handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "gold", firstBackgroundColor);
+        $('[data-date = <%= attendance.formatted_date %>]')[0].children[1].setAttribute('early', '<%= attendance.formatted_exits_at %>');
+    }
+    else {
+        $('[data-date = <%= attendance.formatted_date %>] div')[0].classList.add('early');
+        handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "gold");
+        $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('early', '<%= attendance.formatted_exits_at %>');
+    }
+    $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+}
+<% end %>
+<% end %>
+
+for(let i = 0; i < $('[data-date]').length; i++) {
+    let presentAtSchoolDate = ! ($('[data-date]')[i].children[0].classList.contains('absent') || $('[data-date]')[i].children[0].classList.contains('late') || $('[data-date]')[i].children[0].classList.contains('early'));
+    let notFutureDate = $('[data-date]')[i].style.backgroundColor != "rgb(241, 241, 241)";
+    if( presentAtSchoolDate && notFutureDate && $('[data-date]')[i].children[0].tagName == "DIV" ) {
+        $('[data-date]')[i].children[0].style.backgroundColor = "lightgreen";
+        $('[data-date]')[i].children[0].setAttribute('present', '');
+        handleMouseEnterAndLeave($('[data-date]')[i].getAttribute('data-date'), null, null);
+        $('[data-date = ' + $('[data-date]')[i].getAttribute('data-date') + ']').removeClass('attendance-notice');
+    }
+}

@@ -28,7 +28,7 @@ class ParentsController < ApplicationController
             @subjects = Mark.where(student_id: @student.id).select(:subject).distinct
         end
         respond_to do |format|
-            format.js 
+            format.js
             format.html
         end
     end
@@ -71,6 +71,19 @@ class ParentsController < ApplicationController
         else
             @communications = Communication.all
         end
+        respond_to do |format|
+            format.js
+            format.html
+        end
+    end
+
+    def attendances
+        set_parent
+        @students = @parent.students
+        @student  = params[:stud] ? @students.find(params[:stud]) : @students.first
+        month     = params[:month] ? params[:month] : Date.today.strftime("%m")
+        @attendances = Attendance.where('extract(month from date) = ?', month).where(student: @student)
+
         respond_to do |format|
             format.js
             format.html
