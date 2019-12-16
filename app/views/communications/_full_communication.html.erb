@@ -15,10 +15,13 @@
     <label class="col-form-label">Description:</label>
     <textarea class="form-control" id="message-text" readonly><%= communication.description %></textarea>
   </div>
-  <% if communication.attachment %>
+  <% if communication.attachment.url.present? %>
     <div class="form-group">
       <label class="col-form-label">Attachment:</label>
-      <button type="button" class="btn btn-primary">Download</button>
-    </div>
+      <a href="<%= communication.attachment.url%>" download>
+        <button type="button" class="btn btn-primary">
+          Download
+        </button>
+      </a>    </div>
   <% end %>
 </form>

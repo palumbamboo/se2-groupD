@@ -4,4 +4,7 @@ class Communication < ApplicationRecord
   attribute :expiry_date, type: Date
   attribute :description
   attribute :attachment
+
+  mount_uploader :attachment, FileUploader
+
 end
