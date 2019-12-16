@@ -86,7 +86,7 @@ class CommunicationsController < ApplicationController
     end
 
   def officer_auth
-    return true if current_user.officer? && current_user.officer_id == params[:id].to_i
+    return true if current_user.officer?
     redirect_to direct_user(current_user), alert: "Permission denied"
   end
 end
