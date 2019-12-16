@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
     return parent_path(resource.parent.id) if resource.parent?
     return officer_path(resource.officer.id) if resource.officer?
     return administrator_path(resource.administrator.id) if resource.administrator?
+    return principal_path(resource.principal.id) if resource.principal?
     super
   end
 

@@ -1,0 +1,13 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @principal.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Principal page</p>
+    <li class="active"><%= link_to " Home", principal_path(@principal), class: 'mdi mdi-view-dashboard' %></li>
+  </ul>
+<% end %>
+
+<p>Work in progress :)</p>
+

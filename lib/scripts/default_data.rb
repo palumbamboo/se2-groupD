@@ -13,6 +13,7 @@ class DefaultData
     Assignment.delete_all
     Communication.delete_all
     Administrator.delete_all
+    Principal.delete_all
     true
   end
 
@@ -30,6 +31,7 @@ class DefaultData
     result[:assignment]     = assignments
     result[:communication]  = communications
     result[:administrator]  = administrators
+    result[:principal]      = principals
     result
   end
 
@@ -43,6 +45,7 @@ class DefaultData
     result << User.create(email: 'u6@p.it', password: 'user6pass').id
     result << User.create(email: 'u7@p.it', password: 'user7pass', password_changed: true).id
     result << User.create(email: 'u8@p.it', password: 'user8pass', password_changed: true).id # admin
+    result << User.create(email: 'u9@p.it', password: 'user9pass', password_changed: true).id # principal
     result.all?
   end
 
@@ -213,6 +216,12 @@ class DefaultData
   def administrators
     result = []
     result << Administrator.create(name: 'Marco', surname: 'Ghillardi', user: User.find_by(email: 'u8@p.it')).id
+    result.all?
+  end
+
+  def principals
+    result = []
+    result << Principal.create(name: 'Giulia', surname: 'Principe', user: User.find_by(email: 'u9@p.it')).id
     result.all?
   end
 

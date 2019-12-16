@@ -12,9 +12,11 @@ class User < ApplicationRecord
   has_one :parent
   has_one :officer
   has_one :administrator
+  has_one :principal
+
 
   def roles
-    [:teacher, :parent, :officer, :administrator].map{ |r| r if send(r) }.compact
+    [:teacher, :parent, :officer, :administrator, :principal].map{ |r| r if send(r) }.compact
   end
 
   def teacher?
@@ -31,6 +33,10 @@ class User < ApplicationRecord
 
   def administrator?
     administrator.present?
+  end
+
+  def principal?
+    principal.present?
   end
 
   def password_changed?
