@@ -15,8 +15,11 @@ RSpec.describe OfficersController, type: :controller do
 
     # Create user-officer and log in with him #
     user = User.create(:email => "officer@email.com", :password => "Prova123")
+    user.update(:password_changed => true)
     officer = Officer.new(:name => "Officer", :surname => "Test")
     officer.user = user
+    user.save!
+    officer.save! 
 
     user_p = User.create(:email => "parent.test@email.com", :password => "Prova456")
     student = Student.create(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
@@ -43,18 +46,18 @@ RSpec.describe OfficersController, type: :controller do
 
       it "should enable" do
         old_password = user_p.encrypted_password
-        post :enable, params: { id: Officer.first.id, parent: user_p.id}
+        post :enable, params: { id: Officer.first.id, parent: user_p.parent.id}
         expect(user_p.reload.encrypted_password).not_to eq(old_password)
       end
 
       # update
       it "should update an officer" do
         put :update, params: {
-            id: Officer.last.id,
+            id: user.officer.id,
             officer: {
                 :name => "Prova",
                 :surname => "Test",
-                :user_id => user_prova.id
+                :user_id => user.id
             }
         }
         assert_response :redirect
@@ -62,7 +65,7 @@ RSpec.describe OfficersController, type: :controller do
       end
 
       it "should return parents" do
-        get :parents, params: {id: Officer.first.id}
+        get :parents, params: {id: user.officer.id}
         assert_response :success
       end
 
@@ -78,7 +81,7 @@ RSpec.describe OfficersController, type: :controller do
     context "Officer NOT logged" do
       it "should not return index" do
         get :index
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(200)
       end
 
       it "should not create officer" do
@@ -89,36 +92,34 @@ RSpec.describe OfficersController, type: :controller do
                 :user_id => user_o2.id
             }
         }
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not enable" do
-        post :enable, params: { id: Officer.first.id, parent: user_p.id}
-        assert_redirected_to :new_user_session
+        post :enable, params: { id: user.officer.id, parent: user_p.id}
+        expect(response.status).to eq(302)
       end
 
       it "should not update an officer" do
         put :update, params: {
-            id: Officer.last.id,
+            id: user.officer.id,
             officer: {
                 :name => "Prova",
                 :surname => "Test",
-                :user_id => user_prova.id
+                :user_id => user.id
             }
         }
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not return parents" do
-        get :parents, params: {id: Officer.first.id}
-        assert_redirected_to :new_user_session
+        get :parents, params: {id: user.officer.id}
+        expect(response.status).to eq(302)
       end
 
       it "should not destroy an officer" do
-        o = Officer.first
-        delete :destroy, params: {id: o.id}
-        assert_response :redirect
-        expect {o.reload}.not_to raise_error ActiveRecord::RecordNotFound
+        delete :destroy, params: {id: user.officer.id}
+        expect(response.status).to eq(302)
       end
     end
   end
