@@ -29,7 +29,7 @@
     <%= link_to 'Add Mark', new_mark_path(params: { school_class_id: @lecture.school_class, teacher_id: @lecture.teacher }), {remote: true, 'data-toggle' =>  "modal", 'data-target' => '#mark-modal', class: 'btn btn-primary btn-lg'}  %>
   </div>
   <div class="col-sm">
-    <%= link_to "Add Assignments" %>
+    <%= link_to "Add Assignments", new_assignment_path(params: { school_class_id: @lecture.school_class, teacher_id: @lecture.teacher, lecture_id: @lecture.id }), {remote: true, 'data-toggle' => "modal", 'data-target' => '#assignment-modal', class: 'btn btn-primary btn-lg'} %>
   </div>
 </div>
 
@@ -74,7 +74,22 @@
     </div>
     <div id="assignments-table" class="collapse" aria-labelledby="headingTwo" data-parent="#lecture-tables">
       <div class="card-body">
-        Work in progress :)
+        <table id="assignments">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Expiry Date</th>
+            <th>School Class</th>
+            <th>Teacher</th>
+            <th>Lecture</th>
+            <th colspan="3"></th>
+          </tr>
+          </thead>
+          <tbody id="assignments-body">
+          <%= render partial: 'assignments/assignment', collection: @lecture.teacher.assignments.where('expiry_date > ?', @lecture.start_time).where(subject: @lecture.subject).sort_by(&:expiry_date) %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -108,6 +123,8 @@
 </div>
 
 <%= render partial: 'marks/modal_form' %>
+<%= render partial: 'assignments/modal_form' %>
+<%= render partial: 'assignments/modal_show' %>
 
 <script type="text/javascript">
     $(document).on('ready turbolinks:load', function (e) {
@@ -155,4 +172,3 @@
       $('form#topics-edit').submit();
     })
 </script>
-

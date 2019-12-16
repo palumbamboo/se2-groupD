@@ -17,7 +17,7 @@
     <% @attendances.each do |attendance| %>
       <tr>
         <td><%= attendance.date %></td>
-        <td><%= attendance.type %></td>
+        <td><%= attendance.absence_type %></td>
         <td><%= attendance.enters_at %></td>
         <td><%= attendance.exits_at %></td>
         <td><%= link_to 'Show', attendance %></td>

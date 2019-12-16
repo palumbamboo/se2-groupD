@@ -1,5 +1,7 @@
 class AssignmentsController < ApplicationController
 
+  before_action :teacher_auth, only: [:create, :destroy, :update, :edit]
+
   # GET /assignments
   # GET /assignments.json
   def index
@@ -17,7 +19,16 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/new
   def new
-    @assignment = Assignment.new
+    if params[:school_class_id]
+      @school_class = SchoolClass.find(params[:school_class_id].to_i)
+    end
+    if params[:teacher_id]
+      @teacher = Teacher.find(params[:teacher_id].to_i)
+    end
+    if params[:lecture_id]
+      @lecture = Lecture.find(params[:lecture_id].to_i)
+    end
+    @assignment = Assignment.new(school_class: @school_class, teacher: @teacher, lecture: @lecture)
   end
 
 
@@ -28,6 +39,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       if @assignment.save
+        format.js
         format.html { redirect_to @assignment, notice: 'Assignment was successfully created.' }
         format.json { render :show, status: :created, location: @assignment }
       else
@@ -69,7 +81,7 @@ class AssignmentsController < ApplicationController
       if @assignment.destroy
         format.js
         format.html { redirect_to @assignment, notice: "Assignment deleted" }
-        format.json { render :show, status: :created, location: @assignment }
+        format.json { head :no_content }
       else
         format.html { render :new }
         format.json { render json: @assignment.errors, status: :unprocessable_entity }
@@ -78,13 +90,19 @@ class AssignmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_assignment
-      @assignment = Assignment.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_assignment
+    @assignment = Assignment.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def assignment_params
-      params.require(:assignment).permit(:name, :expiry_date, :file, :description)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def assignment_params
+    params.require(:assignment).permit(:name, :expiry_date, :file, :subject, :description,
+                                       :teacher_id, :lecture_id, :school_class_id,  :teacher, :lecture, :school_class)
+  end
+
+  def teacher_auth
+    return true if current_user.teacher?
+    redirect_to direct_user(current_user), alert: "Permission denied"
+  end
 end

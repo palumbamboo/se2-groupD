@@ -69,6 +69,6 @@ class AttendancesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def attendance_params
-    params.require(:attendance).permit(:date, :type, :enters_at, :exits_at)
+    params.require(:attendance).permit(:date, :absence_type, :enters_at, :exits_at)
   end
 end

@@ -12,11 +12,7 @@
   <br/>
   <div>
     <%= f.label :subject %>
-    <% if @teacher %>
-      <%= f.text_field :subject, :readonly => true, class: 'form-control' %>
-    <% else %>
-      <%= f.text_field :subject, class: 'form-control' %>
-    <% end %>
+    <%= f.text_field :subject, :value => @assignment.lecture.subject, :readonly => true, class: 'form-control' %>
   </div>
   <br/>
   <div>
@@ -31,18 +27,22 @@
   <br/>
   <div>
     <%= f.label :lecture %>
-    <% if @assignment.lecture %>
-      <%= f.select(:lecture, [[@assignment.lecture.name, @assignment.lecture.id]], {}, {:class => 'custom-select'}) %>
-    <% else %>
-      <%= f.select(:lecture_id, Lecture.all.collect {|l| [ l.name, l.id ]}, {}, {:class => 'custom-select'})%>
-    <% end %>
+    <%= f.text_field :lecture, :readonly => true, class: 'form-control' %>
   </div>
   <br/>
   <div>
     <%= f.label :description %>
     <%= f.text_area :description, class: 'form-control' %>
   </div>
-  <br /><br />
+  <br/>
+  <div>
+    <%= f.label :file %>
+    <%= f.file_field :file, class: 'form-control' %>
+  </div>
+  <br/>
+  <%= f.hidden_field :teacher_id, value: @assignment.teacher.id %>
+  <%= f.hidden_field :school_class_id, value: @assignment.school_class.id %>
+  <%= f.hidden_field :lecture_id, value: @assignment.lecture.id %>
   <div class="row">
     <div class="col-md-4"></div>
       <div class="col-md-5">
