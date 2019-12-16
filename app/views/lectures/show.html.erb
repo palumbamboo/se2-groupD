@@ -87,7 +87,7 @@
           </tr>
           </thead>
           <tbody id="assignments-body">
-          <%= render partial: 'assignments/assignment', collection: @lecture.teacher.assignments.sort_by(&:expiry_date) %>
+          <%= render partial: 'assignments/assignment', collection: @lecture.teacher.assignments.where('expiry_date > ?', @lecture.start_time).where(subject: @lecture.subject).sort_by(&:expiry_date) %>
           </tbody>
         </table>
       </div>

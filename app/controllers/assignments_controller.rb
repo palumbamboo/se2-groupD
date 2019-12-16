@@ -28,7 +28,7 @@ class AssignmentsController < ApplicationController
     if params[:lecture_id]
       @lecture = Lecture.find(params[:lecture_id].to_i)
     end
-    @assignment = Assignment.new
+    @assignment = Assignment.new(school_class: @school_class, teacher: @teacher, lecture: @lecture)
   end
 
 
@@ -97,11 +97,12 @@ class AssignmentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def assignment_params
-    params.require(:assignment).permit(:name, :expiry_date, :file, :subject, :description, :teacher_id, :lecture_id, :school_class_id)
+    params.require(:assignment).permit(:name, :expiry_date, :file, :subject, :description,
+                                       :teacher_id, :lecture_id, :school_class_id,  :teacher, :lecture, :school_class)
   end
 
   def teacher_auth
-    return true if current_user.teacher? && current_user.teacher.id == params[:id].to_i
+    return true if current_user.teacher?
     redirect_to direct_user(current_user), alert: "Permission denied"
   end
 end

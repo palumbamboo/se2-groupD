@@ -13,4 +13,8 @@ class Lecture < ApplicationRecord
   def date
     start_time.to_date.strftime("%d/%m/%Y")
   end
+
+  def to_s
+    name
+  end
 end
