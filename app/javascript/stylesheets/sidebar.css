@@ -2,16 +2,20 @@
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
-    background: #3b8070;
-    color: #fff;
+    background: #74a4b5;
+    color: white;
     transition: all 0.3s;
+    border-right: solid 1px lightgrey;
+    -moz-box-shadow:    5px 0 5px -5px #555;
+    -webkit-box-shadow: 5px 0 5px -5px #555;
+    box-shadow: 5px 0 5px -5px #555;
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
-    background: #3b8070;
-    border-bottom: solid #2f6254;
+    padding: 30px 30px 20px 30px;
+    background: #74a4b5;
     font-weight: lighter;
+    color: white;
 }
 
 #sidebar a, a:hover, a:focus {
@@ -21,14 +25,16 @@
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
-    text-align: center;
+    padding: 0px 0;
+    text-align: left;
 }
 
 #sidebar ul p {
-    color: #fff;
-    padding: 10px 10px 25px;
-    border-bottom: solid #2f6254;
+    text-align: center;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    margin-bottom: 0px;
+    border-bottom: solid 1px white;
 }
 
 #sidebar ul li a {
@@ -38,11 +44,24 @@
 }
 
 #sidebar ul li a:hover {
-    color: #306758;
-    background: #fff;
+    background-color: #446c7a;
+    color: white;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #fff;
-    background: #306758;
+    background-color: #446c7a;
+    color: white;
+}
+
+#logout-form {
+    text-align: center;
+    background: none !important;
+}
+
+.btn-link:hover {
+    color: #446c7a;
+}
+
+.btn-link {
+    color: white;
 }

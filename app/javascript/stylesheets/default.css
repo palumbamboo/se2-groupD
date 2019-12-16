@@ -1,7 +1,7 @@
 body {
     font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     text-align: center;
-    color: #1f475f;
+    color: #446c7a;
 }
 
 input, select {
@@ -13,7 +13,7 @@ input, select {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     background: #ffff;
-    color:#3b8070;
+    color:#446c7a;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
 }
@@ -34,10 +34,7 @@ label {
 }
 
 form {
-    max-width: 500px;
     background: white;
-    margin: 10px auto;
-    padding: 20px;
     border-radius: 8px;
 }
 
@@ -54,26 +51,53 @@ form {
 }
 
 .custom-select {
-    color: #3b8070;
+    color: #446c7a;
 }
 
-.confirm_child {
-    background-color: #3b8070;
+.btn-primary {
+    background-color: #74a4b5;
     color: white;
+    border-color: white;
 }
 
-.confirm_child:hover {
-    background-color: white;
-    color: #3b8070;
-    border-color: #3b8070;
+*:disabled, *.disabled {
+    cursor: not-allowed;
+}
+
+.btn-primary:hover {
+    background-color: #446c7a;
+    color: white;
+    border-color: #74a4b5;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color: #2f4b55;
+    color: lightgrey;
+    border-color: #2f4b55;
+    cursor: not-allowed;
+    pointer-events: auto !important;
+}
+
+#new_mark_lecture, #new_assignment_lecture {
+    float: left;
+    margin-bottom: 15px;
 }
 
 .input-group-text {
-    color: #3b8070;
+    color: #446c7a;
 }
 
 td,th {
     padding: .5em 1em;
+}
+
+td {
+    color: #446c7a;
+}
+
+th {
+    background-color: #74a4b5;
+    color: white;
 }
 
 h1 {
@@ -122,9 +146,22 @@ pre {
 }
 
 #new_student {
-    max-width: 70%;
+    width: 90%;
+    display: inline-block;
 }
 
 .toggle-handle {
     background-color: white;
+}
+
+.modal-dialog {
+    max-width: 50%;
+}
+
+.nav-link {
+    color: #74a4b5;
+}
+
+.toggle.disabled {
+    cursor: not-allowed;
 }
