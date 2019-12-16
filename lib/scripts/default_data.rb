@@ -12,6 +12,7 @@ class DefaultData
     Mark.delete_all
     Assignment.delete_all
     Communication.delete_all
+    Administrator.delete_all
     true
   end
 
@@ -28,6 +29,7 @@ class DefaultData
     result[:mark]           = marks
     result[:assignment]     = assignments
     result[:communication]  = communications
+    result[:administrator]  = administrators
     result
   end
 
@@ -40,6 +42,7 @@ class DefaultData
     result << User.create(email: 'u5@p.it', password: 'user5pass').id
     result << User.create(email: 'u6@p.it', password: 'user6pass').id
     result << User.create(email: 'u7@p.it', password: 'user7pass', password_changed: true).id
+    result << User.create(email: 'u8@p.it', password: 'user8pass', password_changed: true).id # admin
     result.all?
   end
 
@@ -204,6 +207,12 @@ class DefaultData
     result << Communication.create(title: 'Halloween holidays', start_date: Date.new(2019, 10, 20), expiry_date: Date.new(2019, 11, 2), description: 'On 31th October, 1st and 2nd November the school will be closed.').id
     result << Communication.create(title: 'Gym hours', start_date: Date.new(2019, 9, 30), expiry_date: Date.new(2019, 12, 1), description: 'Gym will remain closed until 1st December.').id
 
+    result.all?
+  end
+
+  def administrators
+    result = []
+    result << Administrator.create(name: 'Marco', surname: 'Ghillardi', user: User.find_by(email: 'u8@p.it')).id
     result.all?
   end
 

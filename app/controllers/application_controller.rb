@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
     return teacher_path(resource.teacher.id) if resource.teacher?
     return parent_path(resource.parent.id) if resource.parent?
     return officer_path(resource.officer.id) if resource.officer?
+    return administrator_path(resource.administrator.id) if resource.administrator?
     super
   end
 
