@@ -9,6 +9,8 @@ class Assignment < ApplicationRecord
     belongs_to :teacher
     belongs_to :lecture
 
+    mount_uploader :file, FileUploader
+
     def pretty_expiry_date
         expiry_date.to_date.strftime("%d/%m/%Y")
     end

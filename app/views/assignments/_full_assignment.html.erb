@@ -27,10 +27,14 @@
     <label class="col-form-label">Description:</label>
     <textarea class="form-control" id="message-text" readonly><%= assignment.description %></textarea>
   </div>
-  <% if assignment.file %>
+  <% if assignment.file.url.present? %>
     <div class="form-group">
       <label class="col-form-label">Additional material:</label>
-      <button type="button" class="btn btn-primary">Download</button>
+        <a href="<%= assignment.file.url%>" download>
+          <button type="button" class="btn btn-primary">
+            Download
+          </button>
+        </a>
     </div>
   <% end %>
 </form>

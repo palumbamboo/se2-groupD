@@ -1,0 +1,25 @@
+{
+  "application.js": "/packs/js/application-0e6f31146005982ad46e.js",
+  "application.js.map": "/packs/js/application-0e6f31146005982ad46e.js.map",
+  "bootstrap_custom.js": "/packs/js/bootstrap_custom-7088f0658d34e2829a1c.js",
+  "bootstrap_custom.js.map": "/packs/js/bootstrap_custom-7088f0658d34e2829a1c.js.map",
+  "entrypoints": {
+    "application": {
+      "js": [
+        "/packs/js/application-0e6f31146005982ad46e.js"
+      ],
+      "js.map": [
+        "/packs/js/application-0e6f31146005982ad46e.js.map"
+      ]
+    },
+    "bootstrap_custom": {
+      "js": [
+        "/packs/js/bootstrap_custom-7088f0658d34e2829a1c.js"
+      ],
+      "js.map": [
+        "/packs/js/bootstrap_custom-7088f0658d34e2829a1c.js.map"
+      ]
+    }
+  },
+  "media/stylesheets/images/armadietti.jpeg": "/packs/media/stylesheets/images/armadietti-c413b36c3d7eb2c3831fcc49fa42eaf5.jpeg"
+}
