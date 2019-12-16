@@ -6,4 +6,8 @@ class Parent < ApplicationRecord
 
     belongs_to :user
     has_and_belongs_to_many :students
+
+    def to_s
+        "#{name&.capitalize} #{surname&.capitalize}"
+    end
 end

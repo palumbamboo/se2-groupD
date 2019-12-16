@@ -15,6 +15,14 @@
   <!-- Sidebar -->
   <nav id="sidebar">
     <%= yield :sidebar %>
+    <% if current_user.roles.size > 1 %>
+      <ul class="list-unstyled components">
+        <li><%= button_to welcome_role_path(current_user), method: :get, id: 'logout-button', :form => { :id => "logout-form" }, class: 'btn btn-link' do %>
+            <i class="mdi mdi-keyboard-backspace"></i> Back
+          <% end %>
+        </li>
+      </ul>
+      <% end %>
     <% if user_signed_in? %>
       <ul class="list-unstyled components">
         <li><%= button_to destroy_user_session_path, method: :delete, id: 'logout-button', :form => { :id => "logout-form" }, class: 'btn btn-link' do %>
