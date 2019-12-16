@@ -20,11 +20,11 @@
 </head>
 
 <body>
-<div class="navbar navbar-default navbar-fixed-top" style="height: 6vh">
+<div class="navbar navbar-default navbar-fixed-top" style="height: 6vh; background-color: #699AAC;">
   <div class="container" style="height: 100%; padding: 0">
     <div class="navbar-header" style="height: 100%">
 
-      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav" style="width: 100%; height: 100%; margin-left: 20%; padding-top: 0%">
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav" style="width: 100%; height: 100%; margin-left: 20%; padding-top: 0%; background-color: #699AAC;">
         <i class="mdi mdi-menu mdi-24px"></i>
       </button>
 
@@ -90,6 +90,7 @@
                 $('.sidebar-offcanvas').toggleClass('active', 1000); // set sidebar inactive
                 if(parent_navbar != null) {
                     parent_navbar.insertBefore(navbar, parent_navbar.firstChild); // re-establish navbar on top
+                    navbar.style.backgroundColor = "#699AAC";
                     is_navbar_visible = true; // update navbar visibility info
                 }
             }
@@ -108,7 +109,10 @@
             let percentage = (distance > 0) ? distance / 100 : -1 * distance / 100; // compute percentage
 
             document.getElementsByClassName('sidebar-offcanvas')[0].setAttribute('style', "opacity:" + percentage); // update sidebar opacity in function of percentage distance
-            document.getElementsByClassName('navbar-fixed-top')[0].setAttribute('style', "opacity:" + percentage + "; height: 50px"); // update navbar opacity in function of percentage distance
+            if( document.getElementsByClassName('navbar-fixed-top')[0] !== undefined ) { // if navbar exists
+                document.getElementsByClassName('navbar-fixed-top')[0].setAttribute('style', "opacity:" + percentage + "; height: 50px; background-color: #699AAC"); // update navbar opacity in function of percentage distance
+            }
+
 
             if(screenWidth > 960) { // if screen width is greater than 960 px
                 if( $('.navbar-fixed-top')[0] !== undefined ) { // if there is navbar on top
