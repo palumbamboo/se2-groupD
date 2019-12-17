@@ -1,5 +1,5 @@
 class AdministratorsController < ApplicationController
-  before_action :set_administrator, only: [:show, :edit, :update, :destroy, :users]
+  before_action :set_administrator, only: [:show, :edit, :update, :destroy, :users, :add_user]
   before_action :administrator_auth
 
   # GET /administrators
@@ -25,6 +25,9 @@ class AdministratorsController < ApplicationController
 
   def users
     @users = User.all.order(id: :asc)
+  end
+
+  def add_user
   end
 
   # POST /administrators

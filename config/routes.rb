@@ -51,4 +51,6 @@ Rails.application.routes.draw do
   get 'officers/:id/students', to: 'officers#students', as: 'officer_enrollment'
 
   get 'administrators/:id/users', to: 'administrators#users', as: 'administrator_users'
+  get 'administrators/:id/add_user', to: 'administrators#add_user', as: 'administrator_add_user'
+
 end
