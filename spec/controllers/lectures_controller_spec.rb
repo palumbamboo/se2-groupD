@@ -10,11 +10,18 @@ RSpec.describe LecturesController, type: :controller do
     User.all.delete_all
     SchoolClass.delete_all
     Teacher.all.delete_all
+    Lecture.all.delete_all
+    Student.all.delete_all
+    Attendance.all.delete_all
     ################
 
     # Create user-teacher and log in with him #
     user = User.create(:email => "prova@email.com", :password => "Prova123")
+    user.update(:password_changed => true)
     sc = SchoolClass.create(:number => 0, :section => "0")
+    student = Student.create(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
+    student.school_class = sc
+    student.save!
     teacher = Teacher.create(:name => "Paolo", :surname => "Garza", :subjects => ["Math"])
     teacher.user = user
     teacher.school_classes = [sc]
@@ -68,7 +75,7 @@ RSpec.describe LecturesController, type: :controller do
 
       it "should update a lecture" do
         put :update, params: {
-            id: Lecture.last.id,
+            id: lecture.id,
             lecture: {
                 :name => "Intro to areas",
                 :start_time => "12/11/2019",
@@ -81,9 +88,9 @@ RSpec.describe LecturesController, type: :controller do
             }
         }
         assert_response :redirect
-        expect(Lecture.last.name).to eq("Intro to areas")
+        expect(lecture.reload.name).to eq("Intro to areas")
       end
-
+      
       it "should destroy a lecture" do
         l = Lecture.last
         delete :destroy, params: {id: l.id}
@@ -95,17 +102,17 @@ RSpec.describe LecturesController, type: :controller do
     context "Teacher NOT logged" do
       it "should not return index" do
         get :index
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(200)
       end
 
       it "should not return show" do
         get :show, params: {id: lecture.id}
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not get new" do
         get :new
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not create lecture" do
@@ -121,12 +128,12 @@ RSpec.describe LecturesController, type: :controller do
                 :teacher_id => teacher.id
             }
         }
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not update" do
         put :update, params: {
-            id: Lecture.last.id,
+            id: lecture.id,
             lecture: {
                 :name => "Intro to areas",
                 :start_time => "12/11/2019",
@@ -138,7 +145,7 @@ RSpec.describe LecturesController, type: :controller do
                 :teacher_id => teacher.id
             }
         }
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not delete" do

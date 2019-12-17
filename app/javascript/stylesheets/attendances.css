@@ -1,0 +1,26 @@
+.absent {
+    background-color: #FA0700;
+}
+
+.late {
+    background-color: #FFA538;
+}
+
+.early {
+    background-color: #FCEE51;
+}
+
+.present {
+    background-color: lightgreen;
+}
+.absent:hover {
+    background-color: #B00700;
+}
+
+.late:hover {
+    background-color: #EB862D;
+}
+
+.early:hover {
+    background-color: gold;
+}

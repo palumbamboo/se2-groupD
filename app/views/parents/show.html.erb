@@ -2,31 +2,36 @@
   <div class="sidebar-header">
     <h3>Welcome <%= @parent.to_s %>!</h3>
   </div>
-    <ul class="list-unstyled components" data-no-turbolink>
+  <ul class="list-unstyled components" data-no-turbolink>
     <p>Parent page</p>
     <li class="active"><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
     <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
-      <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
-      <li><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
-    </ul>
+    <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
+    <li><%= link_to " Attendances", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
+    <li><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
+  </ul>
 <% end %>
 <script>
-$(document).ready(function(){
-    document.getElementById("confirm_mark_child").onclick = function(){
-      window.open("/parents/<%= @parent.id %>/students/" + document.getElementById("student_select").value, "_self");
-    };
+    $(document).ready(function(){
+        document.getElementById("confirm_mark_child").onclick = function(){
+            window.open("/parents/<%= @parent.id %>/students/" + document.getElementById("student_select").value, "_self");
+        };
 
-    document.getElementById("confirm_assignment_child").onclick = function(){
-        window.open("/parents/<%= @parent.id %>/assignments/" + document.getElementById("student_select").value, "_self");
-    };
-});
+        document.getElementById("confirm_assignment_child").onclick = function(){
+            window.open("/parents/<%= @parent.id %>/assignments/" + document.getElementById("student_select").value, "_self");
+        };
+
+        document.getElementById("confirm_attendance_child").onclick = function(){
+            window.open("/parents/<%= @parent.id %>/attendances/" + document.getElementById("student_select").value, "_self");
+        };
+    });
 </script>
 <div class="row">
   <div class="col-md-4"></div>
-    <div class="col-md-4">
+  <div class="col-md-4">
     <label>Select your child:</label>
-      <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "custom-select", selected: :student_select%>
-    </div>
+    <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "custom-select", selected: :student_select%>
+  </div>
 </div>
 <div class="row">
   <div class="col-md-4"></div>
@@ -39,6 +44,13 @@ $(document).ready(function(){
   <div class="col-md-4"></div>
   <div class="col-md-4">
     <button class="btn btn-primary confirm_child" id="confirm_assignment_child" style="margin-top: 10%"><span class='mdi mdi-book-open'> View assignments</span></button>
+  </div>
+  <br>
+</div>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <button class="btn btn-primary confirm_child" id="confirm_attendance_child" style="margin-top: 10%"><span class='mdi mdi-clock-check'> View attendance</span></button>
   </div>
   <br>
 </div>

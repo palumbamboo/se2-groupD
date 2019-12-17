@@ -1,0 +1,432 @@
+<%= javascript_include_tag "core/main.js" %>
+<%= javascript_include_tag "daygrid/main.js" %>
+<%= javascript_include_tag "timegrid/main.js" %>
+<%= javascript_include_tag "list/main.js" %>
+<%= javascript_include_tag "interaction/main.js" %>
+<%= javascript_include_tag "bootstrap.js" %>
+<%= stylesheet_link_tag "core/main.css" %>
+<%= stylesheet_link_tag "daygrid/main.css" %>
+
+<script type="text/javascript">
+    var calendar;
+
+    function handleMouseEnterAndLeave(formattedDate, backgroundColor, firstBackgroundColor = null) {
+        if( $('[data-date = ' + formattedDate + ']')[0].children[0].getAttribute('present') == null ) { // if the student was not present all day long
+            if (firstBackgroundColor != null) { // if there are two events in the same day (late entry and early exit)
+                $('[data-date = ' + formattedDate + ']').mouseenter(function () {
+                    $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = firstBackgroundColor; // make the first circle darker
+                    $('[data-date = ' + formattedDate + ']')[0].children[1].style.backgroundColor = backgroundColor; // make the second circle darker
+                });
+                $('[data-date = ' + formattedDate + ']').mouseleave(function () {
+                    $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = ""; // make the first circle ligther
+                    $('[data-date = ' + formattedDate + ']')[0].children[1].style.backgroundColor = ""; // make the second circle ligther
+                });
+            } else { // if there's only one event in that day
+                $('[data-date = ' + formattedDate + ']').mouseenter(function () {
+                    $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = backgroundColor; // make the circle darker
+                });
+                $('[data-date = ' + formattedDate + ']').mouseleave(function () {
+                    $('[data-date = ' + formattedDate + ']')[0].children[0].style.backgroundColor = ""; // make the circle lighter
+                });
+            }
+        }
+        else { // if the student was present all day long
+            $('[data-date = ' + formattedDate + ']').off('mouseenter'); // forget making the circle darker
+            $('[data-date = ' + formattedDate + ']').off('mouseleave'); // forget making the circle lighter
+        }
+    }
+
+    function addSecondCircle(formattedDate, formattedHour, lateCircle) {
+        let circle = $('[data-date = ' + formattedDate + ']')[0].children[0]; // this is the already present circle
+        circle.style.marginLeft = "6%";
+        circle.style.cssFloat = "left"; // move to the left to create room for second circle
+
+        let newCircle = document.createElement('div'); // this is the new circle to be put side by side with the previous one
+        newCircle.style.height = "50%";
+        newCircle.style.width = "38%";
+        newCircle.style.marginTop = "33%";
+        newCircle.style.marginRight = "6%";
+        newCircle.style.borderRadius = "50%";
+        newCircle.style.cssFloat = "right";
+        if( lateCircle == true ) { // if the new circle references a late entry
+            newCircle.setAttribute('late', formattedHour);
+            newCircle.classList.add('late');
+        }
+        else { // if the new circle refernces an early exit
+            newCircle.setAttribute('early', formattedHour);
+            newCircle.classList.add('early');
+        }
+        newCircle.classList.add('attendance-notice');
+        $('[data-date = ' + formattedDate + ']')[0].appendChild(newCircle); // put the new circle aside
+    }
+
+    function colorCalendar() {
+        let firstBackgroundColor = null; // this variable is used only in case there are two events on the same day (late entry and early exit)
+
+        <% @attendances.each do |attendance| %> // for each absence/late-entry/early-exit
+        <% if attendance.absence_type == "Absent" %> // if the student was absent
+        if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) { // if the date exists in the calendar
+            handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#B00700"); // handle mouse enter and leave in that day-cell
+            $('[data-date = <%= attendance.formatted_date %>] div').addClass('absent'); // color the circle in red
+            $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+            $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('absent', ''); // add absent attribute to the circle
+        }
+        <% end %>
+        <% if attendance.absence_type == "Late" %> // if the student was late
+        if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) { // if the date exists in the calendar
+            if( $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].classList.contains('early') ) { // if late entry and early exit are in the same day (there was already a circle tagged as early)
+                addSecondCircle('<%= attendance.formatted_date %>', '<%= attendance.formatted_enters_at %>', true); // add a second circle
+                firstBackgroundColor = "gold"; // set background color of the first circle (the one indicating early exit) for mouse entering
+                handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#EB862D", firstBackgroundColor); // handle mouse enter and leave in that day-cell
+                $('[data-date = <%= attendance.formatted_date %>]')[0].children[1].setAttribute('late', '<%= attendance.formatted_enters_at %>'); // add late attribute to the second circle
+            }
+            else { // if there's just an event in that day (for the moment, still)
+                $('[data-date = <%= attendance.formatted_date %>] div')[0].classList.add('late'); // color the circle in orange
+                handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "#EB862D"); // handle mouse enter and leave in that day-cell
+                $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('late', '<%= attendance.formatted_enters_at %>'); // add late attribute to the circle
+            }
+            $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+        }
+        <% end %>
+        <% if attendance.absence_type == "Earl" %> // if the student exited from school early
+        if( $('[data-date = <%= attendance.formatted_date %>]')[0] ) { // if the date exists in the calendar
+            if( $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].classList.contains('late') ) { // if late entry and early exit are in the same day (there was already a circle tagged as early)
+                addSecondCircle('<%= attendance.formatted_date %>', '<%= attendance.formatted_exits_at %>', false); // add a second circle
+                firstBackgroundColor = "#EB862D"; // set background color of the first circle (the one indicating early exit) for mouse entering
+                handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "gold", firstBackgroundColor); // handle mouse enter and leave in that day-cell
+                $('[data-date = <%= attendance.formatted_date %>]')[0].children[1].setAttribute('early', '<%= attendance.formatted_exits_at %>'); // add early attribute to the second circle
+            }
+            else { // if there's just an event in that day (for the moment, still)
+                $('[data-date = <%= attendance.formatted_date %>] div')[0].classList.add('early'); // color the circle in yellow
+                handleMouseEnterAndLeave("<%= attendance.formatted_date %>", "gold"); // handle mouse enter and leave in that day-cell
+                $('[data-date = <%= attendance.formatted_date %>]')[0].children[0].setAttribute('early', '<%= attendance.formatted_exits_at %>'); // add early attribute to the circle
+            }
+            $('[data-date = <%= attendance.formatted_date %>]').addClass('attendance-notice');
+        }
+        <% end %>
+        <% end %>
+
+        for(let i = 0; i < $('[data-date]').length; i++) { // for each cell in the calendar
+            let presentAtSchoolDate = ! ($('[data-date]')[i].children[0].classList.contains('absent') || $('[data-date]')[i].children[0].classList.contains('late') || $('[data-date]')[i].children[0].classList.contains('early')); // if that cell was not previously filled with some circle(s)
+            let notFutureDate = $('[data-date]')[i].style.backgroundColor != "rgb(241, 241, 241)"; // and if the day-cell is not referencing a fuure day
+            if( presentAtSchoolDate && notFutureDate && $('[data-date]')[i].children[0].tagName == "DIV" ) {
+                $('[data-date]')[i].children[0].style.backgroundColor = "lightgreen"; // color the circle in green
+                $('[data-date]')[i].children[0].setAttribute('present', ''); // add present attribute to the circle
+            }
+        }
+    }
+
+    function setStudentSelectListener() {
+        document.getElementById("student_select").value = "<%= @student.id %>"; // set value to the dropdown menu according to the selected student
+        document.getElementById("student_select").onchange = function () {
+            loadAttendances(document.getElementById("student_select").value); // whenever the value changes, load attendences for the new student
+        };
+    }
+
+    function initializeCalendar() {
+        var calendarEl = document.getElementById('calendar');
+
+        calendar = new FullCalendar.Calendar(calendarEl, { // stuff for initializing the calendar
+            plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ]
+        }, {
+            header: { center: 'dayGridMonth,timeGridWeek' },
+
+            views: {
+                dayGridMonth: { // name of view
+                    titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
+                    // other view-specific options here
+                }
+            }
+        });
+
+        calendar.on('dateClick', function(info) { // whenever the user clicks on day-cell
+            fillAttendanceTable(info); // fill the table with information about student's attendance in that day (spoiler: if there was something to show, so not just presence)
+        });
+
+        calendar.render();
+    }
+
+    function loadAttendances(student_id) {
+        $.ajax({ // AJAX request for retrieving attendances of a certain student in a certain month
+            type: 'GET',
+            url: "/parents/<%= @parent.id %>/attendances/" + student_id + "/" + (calendar.getDate().getMonth()+1),
+            content_type: "text/javascript"
+        }).done(function (response) {
+
+        });
+    }
+
+    function makeDaysClickable() {
+        for(let i = 0; i < $('[data-date]').length; i++) {
+            if( $('[data-date]')[i].classList.contains('attendance-notice') ) { // if the day-cell is marked with class "attendance-notice" it means that it should be clickable to show information
+                $('[data-date]')[i].style.cursor = "pointer"; // show pointer instead of arrow
+            }
+            else {
+                $('[data-date]')[i].style.cursor = ""; // show arrow
+            }
+        }
+    }
+
+    function returnToOriginalTableHeaders() {
+        let enters = $('#table-attendance')[0].rows[0].appendChild(document.createElement('th')); // create "enters at" header cell
+        enters.innerHTML = "Enters at";
+        let exits = $('#table-attendance')[0].rows[0].appendChild(document.createElement('th')); // create "exits at" header cell
+        exits.innerHTML = "Exits at";
+    }
+
+    function fillAttendanceTable(info) {
+        if( $('[data-date = ' + info.dateStr + ']')[0].classList.contains('attendance-notice') ) { // if the day clicked has something to show (so it doesn't reference presence at school)
+            $('#attendance-show-modal').modal('show');
+
+            let rows = $('#table-attendance')[0].rows.length; // retrieve rows of the information table
+            for(let i = 1; i < rows; i++) { // for each row different from the first one (which contains headers)
+                $('#table-attendance')[0].deleteRow(1); // delete it
+            }
+
+            if( $('.panel-body table th').length == 2 ) { // if there are only 2 column headers
+                returnToOriginalTableHeaders(); // add two more for "enters at" and "exits at"
+            }
+            else if( $('.panel-body table th').length == 3 ) { // if there are only 3 column headers
+                $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove(); // remove the last one
+                returnToOriginalTableHeaders(); // add two more for "enters at" and "exits at"
+            }
+
+            for(let i = 0; i < $('[data-date = ' + info.dateStr + ']')[0].children.length; i++) { // for each event in clicked cell-day
+                let row = $('#table-attendance')[0].insertRow(i+1); // insert a row
+                let cell1 = row.insertCell(0); // insert a cell
+                let cell2 = row.insertCell(1); // insert a cell
+
+                if ($('#panel-table')[0].style.visibility == "hidden") {
+                    $('#panel-table')[0].style.visibility = "visible"; // make table visible
+                }
+
+                cell1.innerHTML = info.dateStr; // write the day in the first cell
+
+                if ($('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('absent') != null) { // if the student was absent on that day
+                    cell2.innerHTML = "Absent";
+                    $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove(); // remove 4th column
+                    $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove(); // remove 3rd column
+                }
+                else if ($('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('late') != null) { // if the student was late on that day
+                    cell2.innerHTML = "Late entry";
+                    if( $('[data-date = ' + info.dateStr + ']')[0].children.length == 1 ) { // if there's only one event in that day
+                        $('.panel-body table tr').find('td:eq(4), th:nth-child(4)').remove(); // remove 4th column
+                        let cell3 = row.insertCell(2);
+                        cell3.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('late'); // write the time when he entered
+                    }
+                    else { // if there are two events in that day (late entry and early exit)
+                        let cell3 = row.insertCell(2);
+                        cell3.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('late'); // write the time when he entered
+                        let cell4 = row.insertCell(3);
+                        cell4.innerHTML = "-"; // fill the other column with "-"
+                    }
+                }
+                else { // if the student exited from school early on that day
+                    cell2.innerHTML = "Early exit";
+                    if( $('[data-date = ' + info.dateStr + ']')[0].children.length == 1 ) { // if there's only one event in that day
+                        $('.panel-body table tr').find('td:eq(3), th:nth-child(3)').remove(); // remove 3rd column
+                        let cell3 = row.insertCell(2);
+                        cell3.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('early'); // write the time when he exited
+                    }
+                    else { // if there are two events in that day (late entry and early exit)
+                        let cell3 = row.insertCell(2);
+                        cell3.innerHTML = "-"; // fill the other column with "-"
+                        let cell4 = row.insertCell(3);
+                        cell4.innerHTML = $('[data-date = ' + info.dateStr + ']')[0].children[i].getAttribute('early'); // write the time when he exited
+                    }
+                }
+            }
+        }
+        else { // if the day clicked doesn't have something to show (so it doesn't reference presence at school)
+            if( $('#panel-table')[0].style.visibility == "visible" ) {
+                $('#panel-table')[0].style.visibility = "hidden"; // hide the table
+            }
+        }
+    }
+
+    function greyFutureDays() {
+        let todayMonth = new Date().getMonth()+1;
+        let todayDay = new Date().getDate();
+
+        for(let i = 0; i < $('[data-date]').length; i++) { // for each day-cell
+            let cellMonth = $('[data-date]')[i].getAttribute('data-date').split('-')[1]; // retrieve calendar month
+            let cellDay = parseInt($('[data-date]')[i].getAttribute('data-date').split('-')[2]); // retrieve cell-day
+
+            if( cellMonth == todayMonth ) { // if calendar month is the same as today month
+                if( cellDay > todayDay ) { // if day-cell is greater that today's day in the month (so it's in the future)
+                    $('[data-date]')[i].style.backgroundColor = "#F1F1F1"; // color day-cell in grey
+                }
+            }
+        }
+
+        for(let i = 0; i < $('.fc-day-number').length; i++) { // for each month number in the calendar
+            if( calendar.getDate().getMonth()+1 == todayMonth ) { // if calendar month is the same as today month
+                if( $('.fc-day-number')[i].textContent > todayDay ) { // if the number in the day-cell is greater than today's day in the month
+                    $('.fc-day-number')[i].style.backgroundColor = "#F1F1F1"; // color day-cell in grey
+                }
+            }
+        }
+    }
+
+    function addAttendanceCircles() {
+        for(let i = 0; i < $('[data-date]').length; i++) { // for each day-cell
+            let circle = document.createElement('div'); // create an empty circle
+            circle.style.height = "50%";
+            circle.style.width = "38%";
+            circle.style.marginTop = "33%";
+            circle.style.marginLeft = "31%";
+            circle.style.borderRadius = "50%";
+            $('[data-date]')[i].appendChild(circle);
+        }
+    }
+
+    function checkRightArrow() {
+        let todayMonth = new Date().getMonth()+1;
+        let calendarMonth = calendar.getDate().getMonth()+1;
+        if( calendarMonth == todayMonth ) { // if calendar month is the same as today month
+            $('.fc-next-button')[0].setAttribute('disabled', ''); // disable right arrow
+        }
+        else { // if calendar month is not the same as today month
+            if( $('.fc-next-button')[0].getAttribute('disabled') != null ) { // if right arrow was disabled
+                $('.fc-next-button')[0].removeAttribute('disabled'); // enable it
+            }
+        }
+    }
+
+    function checkLeftArrow() {
+        let september = 9;
+        let calendarMonth = calendar.getDate().getMonth()+1;
+        if( calendarMonth == september ) { // if calendar month is september
+            $('.fc-prev-button')[0].setAttribute('disabled', ''); // disable left arrow
+        }
+        else { // if calendar month is not september
+            if( $('.fc-prev-button')[0].getAttribute('disabled') != null ) { // if left arrow was disabled
+                $('.fc-prev-button')[0].removeAttribute('disabled'); // enable it
+            }
+        }
+    }
+</script>
+
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @parent.name %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Parent page</p>
+    <li><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
+    <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Attendance", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><span class="mdi mdi-account-switch"></span></span>
+        </div>
+        <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "custom-select", remote: true%>
+      </div>
+    </li>
+  </ul>
+<% end %>
+
+<div id="calendar-container">
+  <div class="row" id="legend" style="width: 100%">
+    <div class="col-sm-3">
+      <div class="absent" style="border-radius: 50%; width: 2.6vw; height: 2.6vw; float: left"></div>
+      <p style="float: right; margin: 5% 10% 0 0; font-size: 1.8vw">Absent</p>
+    </div>
+    <div class="col-sm-3">
+      <div class="late" style="border-radius: 50%; width: 2.6vw; height: 2.6vw; float: left"></div>
+      <p style="float: right; margin: 5% 10% 0 0; font-size: 1.8vw">Late</p>
+    </div>
+    <div class="col-sm-3">
+      <div class="early" style="border-radius: 50%; width: 2.6vw; height: 2.6vw; float: left"></div>
+      <p style="float: right; margin: 5% 10% 0 0; font-size: 1.8vw">Early</p>
+    </div>
+    <div class="col-sm-3">
+      <div class="present" style="border-radius: 50%; width: 2.6vw; height: 2.6vw; float: left"></div>
+      <p style="float: right; margin: 5% 10% 0 0; font-size: 1.8vw">Present</p>
+    </div>
+  </div>
+  <div id="calendar"></div>
+</div>
+
+<%= render :partial => 'attendances/modal_show' %>
+
+<script type="text/javascript">
+    window.onload = () => {
+        document.getElementById("student_select").onchange = function() { // whenever the user selects another child from dropdown menu
+            for(let i = 0; i < $('[data-date]').length; i++) { // for each day-cell
+                let children = $('[data-date]')[i].children.length; // retrieve the number of circles inside it
+                for(let j = 0; j < children; j++) { // for each circle inside it
+                    if( $('[data-date]')[i].children[0].tagName == "DIV" ) {
+                        $('[data-date]')[i].removeChild($('[data-date]')[i].children[0]); // remove it
+                    }
+                }
+            }
+            addAttendanceCircles();
+            loadAttendances(document.getElementById("student_select").value); // load attendences for the newly selected child
+            greyFutureDays(); // color future days in grey
+        };
+    };
+
+    // these are all executed when the page gets loaded for the first time
+    setStudentSelectListener();
+
+    initializeCalendar();
+
+    addAttendanceCircles();
+
+    greyFutureDays();
+
+    colorCalendar();
+
+    makeDaysClickable();
+
+    checkRightArrow();
+
+    checkLeftArrow();
+
+    $('.fc-prev-button')[0].onclick = function () { // whenever the user clicks on the left arrow
+        let student_id = $('#student_select')[0].value; // retrieve the student id
+        addAttendanceCircles(); // add empty circle in each day-cell
+        loadAttendances(student_id); // load attendances from server using AJAX get
+        $('#panel-table')[0].style.visibility = "hidden"; // hide information table
+        greyFutureDays();
+        checkRightArrow();
+        checkLeftArrow();
+    };
+
+    $('.fc-next-button')[0].onclick = function () { // whenever the user clicks on the right arrow
+        let student_id = $('#student_select')[0].value; // retrieve the student id
+        addAttendanceCircles(); // add empty circle in each day-cell
+        loadAttendances(student_id); // load attendances from server using AJAX get
+        $('#panel-table')[0].style.visibility = "hidden"; // hide information table
+        greyFutureDays();
+        checkRightArrow();
+        checkLeftArrow();
+    };
+
+    $('.fc-today-button')[0].onclick = function () { // whenever the user clicks on today button
+        let student_id = $('#student_select')[0].value; // retrieve the student id
+        addAttendanceCircles(); // add empty circle in each day-cell
+        loadAttendances(student_id); // load attendances from server using AJAX get
+        $('#panel-table')[0].style.visibility = "hidden"; // hide information table
+        greyFutureDays();
+        checkRightArrow();
+        checkLeftArrow();
+    };
+
+    var intervalID = setInterval(makeDaysClickable, 500); // run makeDaysClickabe every half a second
+
+    /*
+     * if you don't do like this (periodic call to light function), every time you change month or student new days are not clickable; in this way the browser periodically checks which days can
+     * be clicked or not and reacts as a consequence
+     */
+</script>
+

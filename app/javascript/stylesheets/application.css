@@ -1,0 +1,11 @@
+.wrapper {
+    height: 100%;
+}
+
+#page-content {
+    height: 100%;
+}
+
+html, body {
+    height: 100%;
+}

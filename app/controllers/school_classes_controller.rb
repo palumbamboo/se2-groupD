@@ -14,6 +14,7 @@ class SchoolClassesController < ApplicationController
     @students_available = SchoolClass.find_or_create_by(number: 0, section: 0).students
     respond_to do |format|
       format.js
+      format.html
     end
   end
 
