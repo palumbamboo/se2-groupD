@@ -83,7 +83,7 @@
         background-color: #3b8070;
         z-index: 51;
         margin: 0; padding: 0;
-        position: fixed;
+        position: absolute;
         left: -250%;
     }
 
