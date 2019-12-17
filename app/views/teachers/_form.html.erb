@@ -21,12 +21,12 @@
     <!--    Not mandatory-->
     <%= f.label "School classes" %>
     <% @school_classes = SchoolClass.all %>
-    <%= f.select :school_class, @school_classes.collect{|sc| [sc.class_to_s, sc.id]}, {:class => 'custom-select'} %>
+    <%= f.select :school_class, @school_classes.collect{|sc| [sc.class_to_s, sc.id]}, {}, {:class => 'custom-select'} %>
   </div>
   <br />
   <div>
     <!--    Not mandatory-->
-    <%= f.label "Subjects: (example: <Subject1> <Subject2> <Subject3>)"%>
+    <%= f.label "Subjects: (example: Math Physics Science)"%>
     <%= f.text_field :subjects, class: 'form-control' %>
   </div>
   <br />

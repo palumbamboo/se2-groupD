@@ -79,7 +79,6 @@ form {
 }
 
 #new_mark_lecture, #new_assignment_lecture {
-    float: left;
     margin-bottom: 15px;
 }
 
