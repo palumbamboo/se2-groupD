@@ -23,6 +23,9 @@ class TeachersController < ApplicationController
     @teacher.school_classes << SchoolClass.find(params[:school_class].to_i)
     @teacher.subjects = params[:subjects].split(' ')
     if @teacher.save
+      otp = Devise.friendly_token(20)
+      user.update(password: otp)
+      OfficerMailer.with(user: user, current_pass: otp).credential_mail.deliver_now
       respond_to do |format|
         format.js
       end

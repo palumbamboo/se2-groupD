@@ -30,6 +30,9 @@ class PrincipalsController < ApplicationController
     @principal = Principal.new(name: params[:name], surname: params[:surname], user: user)
 
     if @principal.save
+      otp = Devise.friendly_token(20)
+      user.update(password: otp)
+      OfficerMailer.with(user: user, current_pass: otp).credential_mail.deliver_now
       respond_to do |format|
         format.js
       end

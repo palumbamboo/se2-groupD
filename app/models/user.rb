@@ -44,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def self.initialize_user email
-    User.new(email: email, password: Devise.friendly_token(20))
+    User.new(email: email)
   end
 
   def name
