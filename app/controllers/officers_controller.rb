@@ -26,16 +26,16 @@ class OfficersController < ApplicationController
   # POST /officers
   # POST /officers.json
   def create
-    @officer = Officer.new(officer_params)
+    user = User.initialize_user(params[:email])
 
-    respond_to do |format|
-      if @officer.save
-        format.html { redirect_to @officer, notice: 'Officer was successfully created.' }
-        format.json { render :show, status: :created, location: @officer }
-      else
-        format.html { render :new }
-        format.json { render json: @officer.errors, status: :unprocessable_entity }
+    @officer = Officer.new(name: params[:name], surname: params[:surname], user: user)
+
+    if @officer.save
+      respond_to do |format|
+        format.js
       end
+    else
+      render :new
     end
   end
 

@@ -1,4 +1,4 @@
-<%= form_with(model: @teacher) do |f| %>
+<%= form_with url: teachers_path do |f| %>
   <div>
     <%= f.label "Teacher"%>
   </div>
@@ -19,14 +19,15 @@
   <br />
   <div>
     <!--    Not mandatory-->
-    <%= f.label "School classes"%>
-    <%= f.text_field :school_classes, class: 'form-control' %>
+    <%= f.label "School classes" %>
+    <% @school_classes = SchoolClass.all %>
+    <%= f.select :school_class, @school_classes.collect{|sc| [sc.class_to_s, sc.id]}, {:class => 'custom-select'} %>
   </div>
   <br />
   <div>
     <!--    Not mandatory-->
-    <%= f.label "Subjects"%>
-    <%= f.text_field :subject, class: 'form-control' %>
+    <%= f.label "Subjects: (example: <Subject1> <Subject2> <Subject3>)"%>
+    <%= f.text_field :subjects, class: 'form-control' %>
   </div>
   <br />
   <br /><br />

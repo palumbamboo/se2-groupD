@@ -16,6 +16,21 @@ class TeachersController < ApplicationController
     @lectures = @teacher.lectures
   end
 
+  def create
+    user = User.initialize_user(params[:email])
+
+    @teacher = Teacher.new(name: params[:name], surname: params[:surname], user: user)
+    @teacher.school_classes << SchoolClass.find(params[:school_class].to_i)
+    @teacher.subjects = params[:subjects].split(' ')
+    if @teacher.save
+      respond_to do |format|
+        format.js
+      end
+    else
+      render :new
+    end
+  end
+
 
   def lectures
     set_teacher

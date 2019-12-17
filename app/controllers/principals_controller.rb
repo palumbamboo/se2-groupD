@@ -29,14 +29,12 @@ class PrincipalsController < ApplicationController
 
     @principal = Principal.new(name: params[:name], surname: params[:surname], user: user)
 
-    respond_to do |format|
-      if @principal.save
-        format.html { redirect_to @principal, notice: 'Principal was successfully created.' }
-        format.json { render :show, status: :created, location: @principal }
-      else
-        format.html { render :new }
-        format.json { render json: @principal.errors, status: :unprocessable_entity }
+    if @principal.save
+      respond_to do |format|
+        format.js
       end
+    else
+      render :new
     end
   end
 
