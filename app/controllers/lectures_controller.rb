@@ -72,20 +72,23 @@ class LecturesController < ApplicationController
   def school_class_attendances
     set_lecture
     school_class = @lecture.school_class
-      absents = params[:students_ids].dig(:absents)&.map{ |s| Attendance.find_or_initialize_by(student: Student.find(s), school_class: school_class, date: Date.today) } || []
-      absents.each{ |a| a.absence_type = "absent" }
-      presents     = Attendance.where(student: Student.where(id: params[:students_ids][:presents]), school_class: school_class, date: Date.today)
-      respond_to do |format|
-        if absents.all?(&:save) && presents.delete_all
-          @updated = true
-          format.js
-          format.html
-        else
-          @updated = false
-          format.js
-          format.html
-        end
-      end  
+    date         = @lecture.start_time
+    absents = Student.where(id: params[:students_ids].dig(:absents) || [])
+    attendances = Attendance.where(student: absents, school_class: school_class).where('date BETWEEN ? AND ?', date.beginning_of_day, date).to_a
+    attendances.to_a.concat((absents - attendances.map(&:student)).map{ |s| Attendance.new(student: s, school_class: school_class, date: date) })
+    attendances.each{ |a| a.absence_type = "Absent" }
+    presents     = Attendance.where(student: Student.where(id: params[:students_ids][:presents]), school_class: school_class).where('date BETWEEN ? AND ?', date.beginning_of_day, date)
+    respond_to do |format|
+      if attendances.all?(&:save) && presents.delete_all
+        @updated = true
+        format.js
+        format.html
+      else
+        @updated = false
+        format.js
+        format.html
+      end
+    end
   end
 
   private
