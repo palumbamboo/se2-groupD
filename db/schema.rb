@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2019_12_16_232644) do
   end
 
   create_table "attendances", force: :cascade do |t|
-    t.date "date"
+    t.datetime "date"
     t.string "absence_type"
     t.datetime "enters_at"
     t.datetime "exits_at"

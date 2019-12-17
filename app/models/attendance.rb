@@ -1,7 +1,7 @@
 class Attendance < ApplicationRecord
   attr_accessor :type
 
-  attribute :date, type: Date
+  attribute :date, type: DateTime
   attribute :absence_type
   attribute :enters_at, type: DateTime
   attribute :exits_at, type: DateTime

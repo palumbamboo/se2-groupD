@@ -57,7 +57,7 @@
           </tr>
           </thead>
           <tbody id="attendances-body">
-          <%= render partial: 'attendances/attendance', collection: @lecture.school_class.attendances.sort_by{ |a| a[:student_name] } %>
+          <%= render partial: 'attendances/attendance', collection: @lecture.school_class.attendances(@lecture.start_time).sort_by{ |a| a[:student_name] } %>
           </tbody>
         </table>
         <div>
