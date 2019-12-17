@@ -14,6 +14,7 @@ class AssignmentsController < ApplicationController
     set_assignment
     respond_to do |format|
       format.js
+      format.html
     end
   end
 

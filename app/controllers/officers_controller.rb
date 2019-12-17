@@ -1,7 +1,7 @@
 class OfficersController < ApplicationController
 
   before_action :set_officer, only: [:show, :edit, :update, :destroy, :parents, :students, :communications]
-  before_action :officer_permission
+  before_action :officer_permission, except: [:index]
   before_action :officer_auth, except: [:index]
 
   # GET /officers

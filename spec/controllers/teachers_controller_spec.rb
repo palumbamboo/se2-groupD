@@ -12,10 +12,12 @@ RSpec.describe TeachersController, type: :controller do
     Student.all.delete_all
     Teacher.all.delete_all
     Mark.all.delete_all
+    Assignment.all.delete_all
     ################
 
     # Create user-teacher and log in with him #
     user = User.create(:email => "prova@email.com", :password => "Prova123")
+    user.update(:password_changed => true)
     sc = SchoolClass.create(:number => 0, :section => "0")
     student = Student.create(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
     student.school_class = sc
@@ -30,6 +32,16 @@ RSpec.describe TeachersController, type: :controller do
     mark.student = student
     mark.teacher = teacher
     mark.save!
+    lecture = Lecture.create(:name => "Lecture 1", :start_time => Time.now, :end_time => Time.now + 1.hour, :duration => 1)
+    lecture.teacher = teacher
+    lecture.school_class = sc
+    lecture.save!
+    assignment = Assignment.create(:name => "Assignment", :expiry_date => Date.today + 1.day, :subject => "Math")
+    assignment.school_class = sc
+    assignment.teacher = teacher
+    assignment.lecture = lecture
+    assignment.save!
+
     ################
 
     context "Teacher logged" do
@@ -45,12 +57,17 @@ RSpec.describe TeachersController, type: :controller do
       end
 
       it "should return lectures" do
-        get :show, params: {id: teacher.id, school_class_id: sc.id}
+        get :lectures, params: {id: teacher.id, school_class_id: sc.id}
         assert_response :success
       end
 
       it "should return marks" do
-        get :show, params: {id: teacher.id}
+        get :marks, params: {id: teacher.id}
+        assert_response :success
+      end
+
+      it "should return assignments" do
+        get :assignments, params: {id: teacher.id, school_class_id: sc.id}
         assert_response :success
       end
     end
@@ -58,22 +75,27 @@ RSpec.describe TeachersController, type: :controller do
     context "Teacher NOT logged" do
       it "should not return index" do
         get :index
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not return show" do
         get :show, params: {id: teacher.id}
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not return lectures" do
         get :lectures, params: {id: teacher.id}
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not return marks" do
         get :marks, params: {id: teacher.id}
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
+      end
+
+      it "should not return assignments" do
+        get :marks, params: {id: teacher.id, school_class_id: sc.id}
+        expect(response.status).to eq(302)
       end
     end
   end

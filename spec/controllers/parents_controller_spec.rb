@@ -33,6 +33,7 @@ RSpec.describe ParentsController, type: :controller do
     mark.save!
 
     user_p = User.create(:email => "mario.rossi@gmail.com", :password => "Prova456")
+    user_p.update(:password_changed => true)
     parent = Parent.new(:name => "Mario", :surname => "Test", :email => "mario.rossi@gmail.com")
     parent.user = user_p
     parent.students << student
@@ -90,17 +91,17 @@ RSpec.describe ParentsController, type: :controller do
     context "Parent NOT logged" do
       it "should not return index" do
         get :index
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not return show" do
         get :show, params: {id: parent.id}
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not get new" do
         get :new
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not create parent" do
@@ -113,25 +114,23 @@ RSpec.describe ParentsController, type: :controller do
                 :students_id => [student.id]
             }
         }
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not update" do
         put :update, params: {
-            id: Parent.last.id,
+            id: user_p.parent.id,
             parent: {
                 :name => "Marione",
                 :email => "marione.rossi@gmail.com",
             }
         }
-        assert_redirected_to :new_user_session
+        expect(response.status).to eq(302)
       end
 
       it "should not delete" do
-        p = Parent.last
-        delete :destroy, params: {id: p.id}
-        assert_response :redirect
-        expect {p.reload}.not_to raise_error ActiveRecord::RecordNotFound
+        delete :destroy, params: {id: user_p.parent.id}
+        expect(response.status).to eq(302)
       end
     end
   end
