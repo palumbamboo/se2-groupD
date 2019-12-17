@@ -1,0 +1,4 @@
+$('#new-div-principal').css('display', 'none');
+$('#new-div-officer').css('display', 'none');
+$('#new-div-teacher').css('display','block');
+$('#teacher-form').find('.modal-body').html("<%= j render 'form', teacher: @teacher %>");

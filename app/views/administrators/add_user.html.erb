@@ -1,0 +1,48 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @administrator.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Administrator page</p>
+    <li><%= link_to " Home", administrator_path(@administrator), class: 'mdi mdi-view-dashboard' %></li>
+    <li><%= link_to " Users", administrator_users_url(@administrator), class: 'mdi mdi-account-multiple' %></li>
+    <li class="active"><%= link_to " Add user", administrator_add_user_url(@administrator), class: 'mdi mdi-account-plus' %></li>
+  </ul>
+<% end %>
+
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= link_to ' Create Teacher', new_teacher_path(params: {administrator: @administrator.id }), {remote: true, id: "new-teacher", 'data-toggle' =>  "modal",'data-target' => '#teacher-form', class: 'btn btn-success mdi mdi-plus-circle'}  %>
+    </li>
+  </ul>
+  <br>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= link_to ' Create Officer', new_officer_path(params: {administrator: @administrator.id }), {remote: true, id: "new-officer", 'data-toggle' =>  "modal", 'data-target' => '#officer-form', class: 'btn btn-success mdi mdi-plus-circle'}  %>
+    </li>
+  </ul>
+  <br>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= link_to ' Create Principal', new_principal_path(params: {administrator: @administrator.id }), {remote: true, id: "new-principal", 'data-toggle' =>  "modal", 'data-target' => '#principal-form', class: 'btn btn-success mdi mdi-plus-circle'}  %>
+    </li>
+  </ul>
+<% end %>
+
+<div class="alert alert-success" role="alert" style="display: none" id="success_message_principal">
+</div>
+<div class="alert alert-success" role="alert" style="display: none" id="success_message_officer">
+</div>
+<div class="alert alert-success" role="alert" style="display: none" id="success_message_teacher">
+</div>
+<div id="new-div-teacher" style="display: none">
+  <%= render partial: 'teachers/form' %>
+</div>
+<div id="new-div-officer" style="display: none">
+  <%= render partial: 'officers/form' %>
+</div>
+<div id="new-div-principal" style="display: none">
+  <%= render partial: 'principals/form' %>
+</div>

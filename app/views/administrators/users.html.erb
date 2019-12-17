@@ -1,0 +1,39 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @administrator.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Administrator page</p>
+    <li><%= link_to " Home", administrator_path(@administrator), class: 'mdi mdi-view-dashboard' %></li>
+    <li class="active"><%= link_to " Users", administrator_users_url(@administrator), class: 'mdi mdi-account-multiple' %></li>
+    <li><%= link_to " Add user", administrator_add_user_url(@administrator), class: 'mdi mdi-account-plus' %></li>
+  </ul>
+<% end %>
+
+<body>
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>E-mail</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Permissions</th>
+    </tr>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.email %></td>
+      <td><%= user.name %></td>
+      <td><%= user.surname %></td>
+      <td>
+        <ul class="list-unstyled">
+        <% user.roles.each do |role| %>
+          <li><%= role %></li>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</body>
