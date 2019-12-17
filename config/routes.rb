@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :principals
+  resources :administrators
   resources :communications
   resources :assignments
   resources :attendances
@@ -10,6 +12,7 @@ Rails.application.routes.draw do
   resources :parents
   resources :students 
   resources :teachers
+  resources :administrators
   resources :school_classes
   resources :lectures
   resources :marks
@@ -48,4 +51,8 @@ Rails.application.routes.draw do
   post 'officers/:id/parents/:parent/enable', to: 'officers#enable'
   post 'officers/:id/students/new', to: 'students#new'
   get 'officers/:id/students', to: 'officers#students', as: 'officer_enrollment'
+
+  get 'administrators/:id/users', to: 'administrators#users', as: 'administrator_users'
+  get 'administrators/:id/add_user', to: 'administrators#add_user', as: 'administrator_add_user'
+
 end

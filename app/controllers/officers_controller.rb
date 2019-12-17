@@ -1,8 +1,7 @@
 class OfficersController < ApplicationController
 
   before_action :set_officer, only: [:show, :edit, :update, :destroy, :parents, :students, :communications]
-  before_action :officer_permission, except: [:index]
-  before_action :officer_auth, except: [:index]
+  before_action :officer_auth
 
   # GET /officers
   # GET /officers.json
@@ -27,16 +26,19 @@ class OfficersController < ApplicationController
   # POST /officers
   # POST /officers.json
   def create
-    @officer = Officer.new(officer_params)
+    user = User.initialize_user(params[:email])
 
-    respond_to do |format|
-      if @officer.save
-        format.html { redirect_to @officer, notice: 'Officer was successfully created.' }
-        format.json { render :show, status: :created, location: @officer }
-      else
-        format.html { render :new }
-        format.json { render json: @officer.errors, status: :unprocessable_entity }
+    @officer = Officer.new(name: params[:name], surname: params[:surname], user: user)
+
+    if @officer.save
+      otp = Devise.friendly_token(20)
+      user.update(password: otp)
+      OfficerMailer.with(user: user, current_pass: otp).credential_mail.deliver_now
+      respond_to do |format|
+        format.js
       end
+    else
+      render :new
     end
   end
 
@@ -130,13 +132,8 @@ class OfficersController < ApplicationController
     params.fetch(:officer, {}).permit(:name, :surname)
   end
 
-  def officer_permission
-    return true if current_user.officer?
-    redirect_to welcome_index_path, alert: 'Missing require permissions'
-  end
-
   def officer_auth
-    return true if current_user.officer.id == params[:id].to_i
+    return true if (current_user.officer? && current_user.officer.id == params[:id].to_i) || current_user.administrator?
     redirect_to officer_path(current_user.officer.id), alert: "Permission denied"
   end
 end
