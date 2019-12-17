@@ -11,7 +11,7 @@ RSpec.describe AdministratorsController, type: :controller do
     Administrator.all.delete_all
     ################
 
-    # Create user-officer and log in with him #
+    # Create user-administrator and log in with him #
     user = User.create(:email => "admin@email.com", :password => "Prova123")
     user.update(:password_changed => true)
     admin = Administrator.new(:name => "Admin", :surname => "Test")
@@ -21,7 +21,7 @@ RSpec.describe AdministratorsController, type: :controller do
     
     ################
 
-    context "Officer logged" do
+    context "Administrator logged" do
       login_user(user)
       it "should return index" do
         get :index
