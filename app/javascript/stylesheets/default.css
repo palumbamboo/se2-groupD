@@ -87,17 +87,15 @@ form {
     color: #446c7a;
 }
 
-td,th {
-    padding: .5em 1em;
+th {
+    padding: 10px 40px 10px 40px !important;
+    background-color: #74a4b5;
+    color: white;
+    vertical-align: middle !important;
 }
 
 td {
     color: #446c7a;
-}
-
-th {
-    background-color: #74a4b5;
-    color: white;
 }
 
 h1 {
@@ -182,4 +180,9 @@ pre {
 
 #calendar {
     max-width: 1000px;
+}
+
+
+#manually_edit, #upload_file {
+    color: black !important;
 }

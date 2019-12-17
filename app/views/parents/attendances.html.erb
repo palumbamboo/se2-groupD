@@ -317,7 +317,8 @@
     <li><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
     <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
     <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
-    <li class="active"><%= link_to " Attendance", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Attendances", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
+    <li><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
   </ul>
 <% end %>
 
