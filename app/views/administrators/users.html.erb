@@ -5,14 +5,15 @@
 
   <ul class="list-unstyled components">
     <p>Administrator page</p>
-    <li><%= link_to " Home", administrator_path(@administrator), class: 'mdi mdi-view-dashboard' %></li>
-    <li class="active"><%= link_to " Users", administrator_users_url(@administrator), class: 'mdi mdi-account-multiple' %></li>
-    <li><%= link_to " Add user", administrator_add_user_url(@administrator), class: 'mdi mdi-account-plus' %></li>
+    <li><%= link_to " Home", administrator_path(@administrator), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Users", administrator_users_url(@administrator), class: 'mdi mdi-account-multiple', data: { turbolinks: false } %></li>
+    <li><%= link_to " Add user", administrator_add_user_url(@administrator), class: 'mdi mdi-account-plus', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
 
 <body>
-  <table class="table table-striped">
+<div style="overflow: auto">
+  <table class="table table-striped table-sm">
     <tr>
       <th>ID</th>
       <th>E-mail</th>
@@ -36,4 +37,5 @@
     </tr>
     <% end %>
   </table>
+  </div>
 </body>
