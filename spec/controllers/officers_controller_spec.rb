@@ -11,6 +11,7 @@ RSpec.describe OfficersController, type: :controller do
     Parent.all.delete_all
     Student.all.delete_all
     Officer.all.delete_all
+    SchoolClass.delete_all
     ################
 
     # Create user-officer and log in with him #
@@ -20,9 +21,11 @@ RSpec.describe OfficersController, type: :controller do
     officer.user = user
     user.save!
     officer.save! 
-
+    sc = SchoolClass.create(:number => 1, :section => "A")
     user_p = User.create(:email => "parent.test@email.com", :password => "Prova456")
     student = Student.create(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
+    student.school_class = sc
+    student.save
     user.roles
     user.save!
     parent = Parent.new(:name => "Parent", :surname => "Test")
@@ -62,6 +65,14 @@ RSpec.describe OfficersController, type: :controller do
         }
         assert_response :redirect
         expect(Officer.last.name).to eq("Prova")
+      end
+
+      it "should get class composition" do
+        get :class_composition, params: {
+            id: user.officer.id,
+            class: sc.id
+        }
+        assert_response :success
       end
 
       it "should return parents" do
