@@ -8,6 +8,7 @@
     <li><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
     <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
     <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
+    <li><%= link_to " Attendances", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
     <li class="active"><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
   </ul>
 <% end %>
@@ -20,13 +21,13 @@
     </li>
   </ul>
 <% end %>
-
-<table id="communications">
+<div style="overflow: auto">
+<table id="communications" data-sortable="true" class="table table-striped table-sm">
   <thead>
   <tr>
-    <th style="width: 17%">Title</th>
-    <th style="width: 12%">Start Time</th>
-    <th style="width: 12%">Expiry Time</th>
+    <th>Title</th>
+    <th>Start Time</th>
+    <th>Expiry Time</th>
     <th></th>
   </tr>
   </thead>
@@ -34,6 +35,7 @@
   <%= render partial: 'parents/communication', collection: @communications.sort_by(&:start_date).reverse %>
   </tbody>
 </table>
+</div>
 
 <div id="new-communication">
 </div>
