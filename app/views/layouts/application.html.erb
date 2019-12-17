@@ -34,7 +34,7 @@
 
 <div class="wrapper">
   <!-- Sidebar -->
-  <div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas" id="sidebar"; style="height: 100%">
+  <div class="sidebar-offcanvas" id="sidebar" style="overflow: auto">
     <%= yield :sidebar %>
     <% if current_user.roles.size > 1 %>
       <ul class="list-unstyled components">
