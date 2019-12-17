@@ -3,6 +3,7 @@
 <%= javascript_include_tag "timegrid/main.js" %>
 <%= javascript_include_tag "list/main.js" %>
 <%= javascript_include_tag "interaction/main.js" %>
+<%= javascript_include_tag "bootstrap.js" %>
 <%= stylesheet_link_tag "core/main.css" %>
 <%= stylesheet_link_tag "daygrid/main.css" %>
 
@@ -175,17 +176,7 @@
 
     function fillAttendanceTable(info) {
         if( $('[data-date = ' + info.dateStr + ']')[0].classList.contains('attendance-notice') ) { // if the day clicked has something to show (so it doesn't reference presence at school)
-            let modal = document.getElementById("myModal");
-            modal.style.display = "block"; // display modal
-            let span = document.getElementsByClassName("close")[0];
-            span.onclick = function() {
-                modal.style.display = "none"; // close modal
-            };
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none"; // close modal
-                }
-            };
+            $('#attendance-show-modal').modal('show');
 
             let rows = $('#table-attendance')[0].rows.length; // retrieve rows of the information table
             for(let i = 1; i < rows; i++) { // for each row different from the first one (which contains headers)
@@ -365,28 +356,7 @@
   <div id="calendar"></div>
 </div>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div class="panel panel-info" id="panel-table" style="visibility: hidden; margin-top: 5%">
-      <div class="panel-heading">Attendance information</div>
-      <div class="panel-body">
-        <table class="table table-striped" id="table-attendance">
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Enters at</th>
-            <th>Exits at</th>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
-
-</div>
+<%= render :partial => 'attendances/modal_show' %>
 
 <script type="text/javascript">
     window.onload = () => {
