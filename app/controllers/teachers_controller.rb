@@ -1,17 +1,21 @@
 class TeachersController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :teacher_permission
-  before_action :teacher_auth, except: [:index]
+  before_action :teacher_auth
 
   def index
     @teachers = Teacher.all
+  end
+
+  def new
+    @teacher = Teacher.new
   end
 
   def show
     set_teacher
     @lectures = @teacher.lectures
   end
+
 
   def lectures
     set_teacher
@@ -60,13 +64,9 @@ class TeachersController < ApplicationController
     @teacher = Teacher.find(params[:id])
   end
 
-  def teacher_permission
-    return true if current_user.teacher?
-    redirect_to welcome_index_path, alert: 'Missing require permissions'
-  end
 
   def teacher_auth
-    return true if current_user.teacher.id == params[:id].to_i
+    return true if (current_user.teacher? && current_user.teacher.id == params[:id].to_i) || current_user.administrator?
     redirect_to teacher_path(current_user.teacher.id), alert: "Permission denied"
   end
 end

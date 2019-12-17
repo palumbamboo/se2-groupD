@@ -43,6 +43,10 @@ class User < ApplicationRecord
     password_changed
   end
 
+  def self.initialize_user email
+    User.new(email: email, password: Devise.friendly_token(20))
+  end
+
   def name
     role = roles.first
     send(role).name if role

@@ -1,8 +1,7 @@
 class OfficersController < ApplicationController
 
   before_action :set_officer, only: [:show, :edit, :update, :destroy, :parents, :students, :communications]
-  before_action :officer_permission
-  before_action :officer_auth, except: [:index]
+  before_action :officer_auth
 
   # GET /officers
   # GET /officers.json
@@ -130,13 +129,8 @@ class OfficersController < ApplicationController
     params.fetch(:officer, {}).permit(:name, :surname)
   end
 
-  def officer_permission
-    return true if current_user.officer?
-    redirect_to welcome_index_path, alert: 'Missing require permissions'
-  end
-
   def officer_auth
-    return true if current_user.officer.id == params[:id].to_i
+    return true if (current_user.officer? && current_user.officer.id == params[:id].to_i) || current_user.administrator?
     redirect_to officer_path(current_user.officer.id), alert: "Permission denied"
   end
 end

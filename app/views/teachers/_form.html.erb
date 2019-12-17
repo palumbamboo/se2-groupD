@@ -1,6 +1,6 @@
-<%= form_with(model: @officer) do |f| %>
+<%= form_with(model: @teacher) do |f| %>
   <div>
-    <%= f.label "Officer"%>
+    <%= f.label "Teacher"%>
   </div>
   <div>
     <%= f.label "Name"%>
@@ -15,6 +15,18 @@
   <div>
     <%= f.label "E-mail"%>
     <%= f.text_field :email, class: 'form-control' %>
+  </div>
+  <br />
+  <div>
+    <!--    Not mandatory-->
+    <%= f.label "School classes"%>
+    <%= f.text_field :school_classes, class: 'form-control' %>
+  </div>
+  <br />
+  <div>
+    <!--    Not mandatory-->
+    <%= f.label "Subjects"%>
+    <%= f.text_field :subject, class: 'form-control' %>
   </div>
   <br />
   <br /><br />

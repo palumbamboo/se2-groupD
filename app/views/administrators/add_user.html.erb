@@ -14,22 +14,29 @@
 <% content_for :navbar do %>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <%= link_to ' Create Teacher', new_teacher_path, {remote: true, id: "new-teacher", 'data-target' => '#teacher-form', class: 'btn btn-success mdi mdi-plus-circle'}  %>
+      <%= link_to ' Create Teacher', new_teacher_path(params: {administrator: @administrator.id }), {remote: true, id: "new-teacher", 'data-toggle' =>  "modal",'data-target' => '#teacher-form', class: 'btn btn-success mdi mdi-plus-circle'}  %>
     </li>
   </ul>
   <br>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <%= link_to ' Create Officer', new_officer_path, {remote: true, id: "new-officer", 'data-target' => '#officer-form', class: 'btn btn-success mdi mdi-plus-circle'}  %>
+      <%= link_to ' Create Officer', new_officer_path(params: {administrator: @administrator.id }), {remote: true, id: "new-officer", 'data-toggle' =>  "modal", 'data-target' => '#officer-form', class: 'btn btn-success mdi mdi-plus-circle'}  %>
     </li>
   </ul>
   <br>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <%= link_to ' Create Principal', new_principal_path, {remote: true, id: "new-principal", 'data-target' => '#principal-form', class: 'btn btn-success mdi mdi-plus-circle'}  %>
+      <%= link_to ' Create Principal', new_principal_path(params: {administrator: @administrator.id }), {remote: true, id: "new-principal", 'data-toggle' =>  "modal", 'data-target' => '#principal-form', class: 'btn btn-success mdi mdi-plus-circle'}  %>
     </li>
   </ul>
 <% end %>
 
-<div id="new-teacher">
+<div id="new-div-teacher" style="display: none">
+  <%= render partial: 'teachers/form' %>
+</div>
+<div id="new-div-officer" style="display: none">
+  <%= render partial: 'officers/form' %>
+</div>
+<div id="new-div-principal" style="display: none">
+  <%= render partial: 'principals/form' %>
 </div>

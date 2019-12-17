@@ -1,5 +1,6 @@
 class PrincipalsController < ApplicationController
   before_action :set_principal, only: [:show, :edit, :update, :destroy]
+  before_action :principal_auth
 
   # GET /principals
   # GET /principals.json
@@ -24,7 +25,9 @@ class PrincipalsController < ApplicationController
   # POST /principals
   # POST /principals.json
   def create
-    @principal = Principal.new(principal_params)
+    user = User.initialize_user(params[:email])
+
+    @principal = Principal.new(name: params[:name], surname: params[:surname], user: user)
 
     respond_to do |format|
       if @principal.save
@@ -71,4 +74,9 @@ class PrincipalsController < ApplicationController
     def principal_params
       params.require(:principal).permit(:name, :surname)
     end
+
+  def principal_auth
+    return true if (current_user.principal? && current_user.principal.id == params[:id].to_i) || current_user.administrator?
+    redirect_to principal_path(current_user.principal.id), alert: "Permission denied"
+  end
 end

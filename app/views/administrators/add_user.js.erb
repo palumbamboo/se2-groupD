@@ -1,0 +1,3 @@
+$("#new-teacher").replaceWith('<%= j link_to ' Create Teacher', new_teacher_path, {remote: true, id: "new-teacher", 'data-toggle' =>  "modal", 'data-target' => '#teacher-form', class: 'btn btn-success mdi mdi-plus-circle'} %>\n')
+$("#new-officer").replaceWith('<%= j link_to ' Create Officer', new_officer_path, {remote: true, id: "new-officer", 'data-toggle' =>  "modal", 'data-target' => '#officer-form', class: 'btn btn-success mdi mdi-plus-circle'} %>\n')
+$("#new-principal").replaceWith('<%= j link_to ' Create Principal', new_principal_path, {remote: true, id: "new-principal", 'data-toggle' =>  "modal", 'data-target' => '#principal-form', class: 'btn btn-success mdi mdi-plus-circle'} %>\n')
