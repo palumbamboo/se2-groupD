@@ -88,7 +88,7 @@
     }
 
     .sidebar-offcanvas ul li{margin:0}
-    .sidebar-offcanvas ul li a{color:#fff;padding: 15px 20px;margin:0;font-size: 15px;border-bottom: 1px solid #d6474d}
+    .sidebar-offcanvas ul li a{color:#fff;padding: 15px 20px;margin:0;font-size: 15px;}
     .sidebar-offcanvas ul li a:hover{background:#54303a;border:none; border-radius:0}
 
     .nav{margin-top: 0px;}
