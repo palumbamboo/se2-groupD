@@ -68,14 +68,14 @@ We can say that, on average, the task estimation was accurate, since the total t
 
 ## QUALITY MEASURES
 * Unit Testing:
-	- Total hours estimated: ?
-	- Total hours spent: ?
-	- Nr of automated unit tests: ?
-	- Coverage (if available): ?
+	- Total hours estimated: 3.5
+	- Total hours spent: 2.25
+	- Nr of automated unit tests: 7
+	- Coverage (if available): -
 
 * E2E testing:
-	- Total hours estimated: ?
-	- Total hours spent: ?
+	- Total hours estimated: 4
+	- Total hours spent: 3
 
 * Code review
 	- Total hours estimated: 4.75
@@ -90,9 +90,9 @@ We can say that, on average, the task estimation was accurate, since the total t
 	Technical Debt management will be done in the next sprint. Analysis with SonarQube has been done to provide a view on the overall technical debt at the demo.
 
 * Overall Technical Debt at the demo:
-	- number of days: ?
-	- debt ratio: ?
-	- rating: ?
+	- number of days: 3d 4h
+	- debt ratio: 0.1%
+	- rating: A
 
 	
 ## STORIES COMPARISON
