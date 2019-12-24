@@ -68,14 +68,14 @@ We can say that, on average, the task estimation was accurate, since the total t
 
 ## QUALITY MEASURES
 * Unit Testing:
-	- Total hours estimated: 3.5
+	- Total hours estimated: 3.50
 	- Total hours spent: 2.25
-	- Nr of automated unit tests: 7
+	- Nr of automated unit tests: 7.00
 	- Coverage (if available): -
 
 * E2E testing:
-	- Total hours estimated: 4
-	- Total hours spent: 3
+	- Total hours estimated: 4.00
+	- Total hours spent: 3.00
 
 * Code review
 	- Total hours estimated: 4.75
@@ -84,8 +84,8 @@ We can say that, on average, the task estimation was accurate, since the total t
 	Story#8 took much more time than expected in performing code review, because an external library was added and it brought to the necessity of checking a lot of modifications.
 
 * Technical Debt management (i.e., analysis with SonarQube, evaluation of issues, remediation):
-	- Total hours estimated: 0.5
-	- Total hours spent: 0.5
+	- Total hours estimated: 0.50
+	- Total hours spent: 0.50
 	
 	Technical Debt management will be done in the next sprint. Analysis with SonarQube has been done to provide a view on the overall technical debt at the demo.
 
