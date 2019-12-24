@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :materials
   resources :principals
   resources :administrators
   resources :communications
@@ -29,6 +30,9 @@ Rails.application.routes.draw do
 
   get 'teachers/:id/assignments(/:school_class_id)', to: 'teachers#assignments', as: 'teacher_assignments'
   post 'teachers/:id/assignments/:school_class_id/subjects/:sub', to: 'teachers#assignments_per_subject'
+
+  get 'teachers/:id/materials(/:school_class_id)', to: 'teachers#materials', as: 'teacher_materials'
+  post 'teachers/:id/materials/:school_class_id/subjects/:sub', to: 'teachers#materials_per_subject'
 
   get 'parents/:id/students(/:stud)', to: 'parents#students', as: 'parent_marks'
   post 'parents/:id/students/:stud/subjects/:sub', to: 'parents#marks_per_subject'
