@@ -2,7 +2,7 @@
     $(document).ready( function() {
         $.ajax({
             type: 'POST',
-            url: "/teachers/<%=@teacher.id%>/materials/" + "<%= @school_class.id %>" + "/subjects/" + "<%= tab_materials.subject %>",
+            url: "/parents/<%=@parent.id%>/materials/" + "<%= @student.id %>" + "/subjects/" + "<%= tab_materials.subject %>",
             contentType: "text/javascript",
         }).done(function(response){
         });
@@ -16,8 +16,8 @@
         <th>Title</th>
         <th>Subject</th>
         <th>Creation date</th>
-        <th></th>
-        <th></th>
+        <th>Teacher</th>
+        <th>School Class</th>
         <th></th>
       </tr>
       </thead>

@@ -62,6 +62,29 @@ class ParentsController < ApplicationController
         @assignments = Assignment.where(school_class: s.school_class, subject: params[:sub])
     end
 
+    def materials
+        set_parent
+        @students = @parent.students
+        if params[:stud]
+            @student = @students.find(params[:stud])
+            @subjects = Material.where(school_class: @student.school_class).select(:subject).distinct
+        else
+            @student = @students.first
+            @subjects = Material.where(school_class: @student.school_class).select(:subject).distinct
+        end
+        respond_to do |format|
+            format.js
+            format.html
+        end
+    end
+
+    def materials_per_subject
+        set_parent
+        s = @parent.students.find(params[:stud])
+        @subject = params[:sub]
+        @materials = Material.where(school_class: s.school_class, subject: params[:sub])
+    end
+
     def communications
         set_parent
         if params[:expiry_date_select] && params[:expiry_date_select] == "Valid"
