@@ -1,0 +1,41 @@
+<%= form_with(model: @material) do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :subject %>
+<!--    ci va il readonly?-->
+    <%= f.text_field :subject, :value => @material.subject, :readonly => true, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :school_class %>
+    <%= f.text_field :school_class, :value => @material.school_class.class_to_s, :readonly => true, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :teacher %>
+     <%= f.text_field :teacher, :readonly => true, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :file %>
+    <%= f.file_field :file, class: 'form-control' %>
+  </div>
+  <br/>
+  <%= f.hidden_field :teacher_id, value: @material.teacher.id %>
+  <%= f.hidden_field :school_class_id, value: @material.school_class.id %>
+  <div class="row">
+    <div class="col-md-4"></div>
+      <div class="col-md-5">
+        <%= f.submit :class => 'btn btn-success' %>
+      </div>
+  </div>
+<% end %>
