@@ -14,10 +14,6 @@
     </div>
   </div>
   <div class="row">
-    <div class="form-group">
-      <label class="col-form-label">Description:</label>
-      <textarea class="form-control" id="message-text" readonly><%= material.description %></textarea>
-    </div>
     <div class="col-xs-12 col-md-6">
       <div class="form-group">
         <label class="col-form-label">Creation Date:</label>
@@ -39,9 +35,18 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+    <div class="form-group">
+      <label class="col-form-label">Description:</label>
+      <textarea class="form-control" id="message-text" readonly><%= material.description %></textarea>
+    </div>
+    </div>
+  </div>
   <% if material.file.url.present? %>
     <div class="form-group">
-      <label class="col-form-label">Support material: <%= material.file %></label>
+      <label class="col-form-label">Support material: </label>
+      <%= material.file %>
       <a href="<%= material.file.url%>" download>
         <button type="button" class="btn btn-primary">
           Download

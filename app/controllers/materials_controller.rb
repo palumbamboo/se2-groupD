@@ -36,7 +36,8 @@ class MaterialsController < ApplicationController
 
     respond_to do |format|
       if @material.save
-        format.html { redirect_to @material, notice: 'Material was successfully created.' }
+        format.js
+        format.html { redirect_to @material, notice: "Material created" }
         format.json { render :show, status: :created, location: @material }
       else
         format.html { render :new }
@@ -49,8 +50,9 @@ class MaterialsController < ApplicationController
   # PATCH/PUT /materials/1.json
   def update
     respond_to do |format|
-      if @material.update(material_params)
-        format.html { redirect_to @material, notice: 'Material was successfully updated.' }
+      if @material.update_attributes(mark_params)
+        format.js
+        format.html { redirect_to @material, notice: "Material updated" }
         format.json { render :show, status: :ok, location: @material }
       else
         format.html { render :edit }
@@ -62,10 +64,15 @@ class MaterialsController < ApplicationController
   # DELETE /materials/1
   # DELETE /materials/1.json
   def destroy
-    @material.destroy
     respond_to do |format|
-      format.html { redirect_to materials_url, notice: 'Material was successfully destroyed.' }
-      format.json { head :no_content }
+      if @material.destroy
+        format.js
+        format.html { redirect_to @material, notice: "Material deleted" }
+        format.json { render :show, status: :created, location: @material }
+      else
+        format.html { render :new }
+        format.json { render json: @material.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -77,7 +84,7 @@ class MaterialsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def material_params
-      params.require(:material).permit(:title, :description, :file, :subject)
+      params.require(:material).permit(:title, :description, :file, :subject, :teacher_id, :school_class_id)
     end
 
   def teacher_auth
