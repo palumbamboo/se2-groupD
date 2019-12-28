@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :materials
   resources :principals
   resources :administrators
   resources :communications
@@ -30,6 +31,9 @@ Rails.application.routes.draw do
   get 'teachers/:id/assignments(/:school_class_id)', to: 'teachers#assignments', as: 'teacher_assignments'
   post 'teachers/:id/assignments/:school_class_id/subjects/:sub', to: 'teachers#assignments_per_subject'
 
+  get 'teachers/:id/materials(/:school_class_id)', to: 'teachers#materials', as: 'teacher_materials'
+  post 'teachers/:id/materials/:school_class_id/subjects/:sub', to: 'teachers#materials_per_subject'
+
   get 'parents/:id/students(/:stud)', to: 'parents#students', as: 'parent_marks'
   post 'parents/:id/students/:stud/subjects/:sub', to: 'parents#marks_per_subject'
 
@@ -39,6 +43,9 @@ Rails.application.routes.draw do
   post 'parents/:id/assignments/:stud/subjects/:sub', to: 'parents#assignments_per_subject'
 
   get 'parents/:id/communications', to: 'parents#communications', as: 'parent_communications'
+
+  get 'parents/:id/materials(/:stud)', to: 'parents#materials', as: 'parent_materials'
+  post 'parents/:id/materials/:stud/subjects/:sub', to: 'parents#materials_per_subject'
 
   get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'

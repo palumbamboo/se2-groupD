@@ -1,0 +1,4 @@
+document.getElementById('edit-form_<%= @material.id %>').remove()
+$('#material-row_<%= @material.id %>').replaceWith("<%= j render @material %>")
+$('a').removeClass("disabled")
+$('.blur-filter').removeClass('blur-filter')

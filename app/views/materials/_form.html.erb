@@ -1,0 +1,46 @@
+<%= form_with(model: @material) do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :subject %>
+    <% if @material.subject %>
+      <%= f.text_field(:subject, :value => @material.subject, :class => 'form-control') %>
+  <% elsif @teacher %>
+      <%= f.select(:subject, @teacher.subjects, {}, {:class => 'custom-select'}) %>
+    <% end %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :school_class %>
+    <% if @teacher %>
+      <%= f.select(:school_class_id, @teacher.school_classes.map{ |sc| [sc.class_to_s, sc.id]}, {}, {:class => 'custom-select'}) %>
+    <% else %>
+      <%= f.text_field(:school_class_id, :value => @material.school_class, :class => 'form-control') %>
+  <% end %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :file %>
+    <% if @material.file %>
+      <%= f.file_field(:file, :value => @material.file, :class => 'form-control') %>
+    <% else %>
+      <%= f.file_field :file, class: 'form-control' %>
+    <% end %>
+  </div>
+  <br/>
+  <%= f.hidden_field :teacher_id, value: @teacher.id %>
+  <div class="row">
+    <div class="col-md-4"></div>
+      <div class="col-md-5">
+        <%= f.submit :class => 'btn btn-success' %>
+      </div>
+  </div>
+<% end %>

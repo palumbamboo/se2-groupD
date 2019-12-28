@@ -1,0 +1,8 @@
+<tr id="material-row_<%= material.id %>">
+  <td><%= material.title %></td>
+  <td><%= material.subject %></td>
+  <td><%= material.created_at.to_date.strftime("%d/%m/%Y") %></td>
+  <td><%= material.teacher.to_s %></td>
+  <td><%= material.school_class.class_to_s %></td>
+  <td><%= link_to 'Show', material_url(material), {remote:true, 'data-toggle' => "modal", 'data-target' => "#material-show-modal", class: 'btn btn-primary'} %></td>
+</tr>
