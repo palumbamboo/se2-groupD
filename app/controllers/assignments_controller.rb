@@ -29,7 +29,9 @@ class AssignmentsController < ApplicationController
     if params[:lecture_id]
       @lecture = Lecture.find(params[:lecture_id].to_i)
     end
-    @assignment = Assignment.new(school_class: @school_class, teacher: @teacher, lecture: @lecture)
+    if params[:school_class_id] && params[:teacher_id] && params[:lecture_id]
+      @assignment = Assignment.new(school_class: @school_class, teacher: @teacher, lecture: @lecture)
+    end
   end
 
 

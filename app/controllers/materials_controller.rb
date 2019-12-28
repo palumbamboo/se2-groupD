@@ -25,7 +25,9 @@ class MaterialsController < ApplicationController
     if params[:teacher_id]
       @teacher = Teacher.find(params[:teacher_id].to_i)
     end
-    @material = Material.new(school_class: @school_class, teacher: @teacher)
+    if params[:school_class_id] && params[:teacher_id]
+      @material = Material.new(school_class: @school_class, teacher: @teacher)
+    end
   end
 
   # GET /materials/1/edit
