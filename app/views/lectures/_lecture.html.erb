@@ -8,5 +8,7 @@
   <td><%= link_to 'Edit', edit_lecture_path(lecture), class: 'btn btn-secondary', id: "lecture-edit_#{lecture.id}", remote: true %></td>
   <% if lecture.start_time > (Time.now - 1.day) %>
     <td><%= link_to 'Delete', lecture_path(lecture), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "lecture-delete_#{lecture.id}", remote: true %></td>
+  <% else %>
+    <td><%= link_to 'Delete', lecture_path(lecture), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger disabled', id: "lecture-delete_#{lecture.id}", remote: true %></td>
   <% end %>
 </tr>
