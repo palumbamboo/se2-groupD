@@ -1,29 +1,43 @@
 FROM ruby:2.6.3
 
-RUN apt-get update -qq
-RUN apt-get -y install curl gnupg
-RUN curl -sL https://deb.nodesource.com/setup_13.x  | bash -
-RUN apt-get -y install nodejs postgresql-client git
-RUN npm install -g yarn
+# replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-# Create application folder
-RUN mkdir /studently
-# Change to the application's directory
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs ghostscript
+
+RUN mkdir -p /studently
+RUN mkdir -p /usr/local/nvm
 WORKDIR /studently
-COPY Gemfile /studently/Gemfile
-COPY Gemfile.lock /studently/Gemfile.lock
-COPY ./package.json /studently/package.json
-COPY ./tmp/db /studently/tmp/db
-RUN bundle install
-RUN yarn install
-# Copy application code
-COPY . /studently
 
-# Add a script to be executed every time the container starts.
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
+
+RUN node -v
+RUN npm -v
+
+# Copy the Gemfile as well as the Gemfile.lock and install
+# the RubyGems. This is a separate step so the dependencies
+# will be cached unless changes to one of those two files
+# are made.
+COPY Gemfile Gemfile.lock package.json yarn.lock ./
+RUN gem install bundler -v 1.17.2
+RUN bundle install --verbose --jobs 20 --retry 5
+
+RUN mkdir -p node_modules/node-sass/vendor/linux-x64-67
+RUN curl -L https://github.com/sass/node-sass/releases/download/v4.13.0/linux-x64-67_binding.node -o node_modules/node-sass/vendor/linux-x64-67/binding.node
+
+RUN npm install -g yarn
+RUN npm rebuild node-sass
+RUN yarn install --check-files
+
+# Copy the main application.
+COPY . ./
+
+# Expose port 3000 to the Docker host, so we can access it
+# from the outside.
 EXPOSE 3000
 
-# Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# The main command to run when the container starts. Also
+# tell the Rails dev server to bind to all interfaces by
+# default.
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
