@@ -12,7 +12,29 @@
     <li><%= link_to " Materials", teacher_materials_url, class: 'mdi mdi-library-books' %></li>
   </ul>
 <% end %>
-
-<p>
-  <strong>Work in progress :) </strong>
-</p>
+<div class="row">
+  <div class="col-md-2" style="padding-right: 0px">
+    <div class="avatar" style="position: relative; top: 0px; border-radius: 0px">
+      <img src="<%= image_url('avatar.png') %>" alt="Avatar">
+    </div>
+  </div>
+  <div class="col-md-4" style="text-align:left; padding-left:0px">
+  Name: <%= @teacher.to_s %> <br>
+  E-mail: <%= @teacher.user.email %> <br>
+  Role: Teacher <br>
+  </div>
+</div>
+<br>
+<div class="row">
+<div class="col-md-12" style="text-align:left">
+<br><br>
+<span class="mdi mdi-frequently-asked-questions"><b> FAQ</b></span><br>
+<dt style="margin-top:3%"><i>Where can I add marks to students?</i> </dt>
+<dd>You can go on <%= link_to " marks", teacher_marks_url, data: { turbolinks: false } %> page: here you can add one by one the marks.
+Or you can go on <%= link_to " lectures", teacher_lectures_url, data: { turbolinks: false } %> and add a mark related to a specified lecture.</dd>
+<dt style="margin-top:3%"><i>Where can I manage my lectures?</i> </dt>
+<dd> Here: <%= link_to " marks", teacher_lectures_url, data: { turbolinks: false } %>.</dd>
+<dt style="margin-top:3%"><i>Is it possible to enter supporting materials for my subjects?</i> </dt>
+<dd> Yes, you can go here: <%= link_to " supporting materials", teacher_materials_url, data: { turbolinks: false } %>.</dd>
+</div>
+</div>
