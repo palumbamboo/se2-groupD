@@ -32,7 +32,7 @@ class SchoolClassesController < ApplicationController
   end
 
   def file_import
-    set_school_class
+    @school_class = SchoolClass.find_by(id: params[:class_id]);
     @previous_students = @school_class.students
     accepted_formats = [".xls", ".xlsx"]
     uploaded_file = params[:class_file]
