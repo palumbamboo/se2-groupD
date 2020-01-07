@@ -14,6 +14,7 @@ class DefaultData
     Communication.delete_all
     Administrator.delete_all
     Principal.delete_all
+    Note.delete_all
     true
   end
 
@@ -26,12 +27,13 @@ class DefaultData
     result[:school_classes] = school_classes
     result[:lectures]       = lectures
     result[:students]       = students
-    result[:attendance]     = attendances
-    result[:mark]           = marks
-    result[:assignment]     = assignments
-    result[:communication]  = communications
-    result[:administrator]  = administrators
-    result[:principal]      = principals
+    result[:attendances]    = attendances
+    result[:marks]          = marks
+    result[:assignments]    = assignments
+    result[:communications] = communications
+    result[:administrators] = administrators
+    result[:principals]     = principals
+    result[:notes]          = notes
     result
   end
 
@@ -246,6 +248,12 @@ class DefaultData
   def principals
     result = []
     result << Principal.create(name: 'Giulia', surname: 'Principe', user: User.find_by(email: 'u9@p.it')).id
+    result.all?
+  end
+
+  def notes
+    result = []
+    result << Note.create(subject: 'Math', description: 'The student did not do the assignments', date: Time.new(2020, 1, 7, 10, 30), teacher: Teacher.first, student: Student.first, school_class: SchoolClass.find_by(number: 2, section: 'A')).id
     result.all?
   end
 
