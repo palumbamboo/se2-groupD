@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_24_132014) do
+ActiveRecord::Schema.define(version: 2020_01_07_153733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,20 @@ ActiveRecord::Schema.define(version: 2019_12_24_132014) do
     t.index ["teacher_id"], name: "index_materials_on_teacher_id"
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.string "subject"
+    t.string "description"
+    t.datetime "date"
+    t.bigint "teacher_id"
+    t.bigint "student_id"
+    t.bigint "school_class_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["school_class_id"], name: "index_notes_on_school_class_id"
+    t.index ["student_id"], name: "index_notes_on_student_id"
+    t.index ["teacher_id"], name: "index_notes_on_teacher_id"
+  end
+
   create_table "officers", force: :cascade do |t|
     t.string "name"
     t.string "surname"
@@ -162,6 +176,19 @@ ActiveRecord::Schema.define(version: 2019_12_24_132014) do
     t.bigint "user_id"
     t.string "subjects", default: [], array: true
     t.index ["user_id"], name: "index_teachers_on_user_id"
+  end
+
+  create_table "timetables", force: :cascade do |t|
+    t.string "subject"
+    t.integer "day_of_week"
+    t.time "start_time"
+    t.time "end_time"
+    t.bigint "teacher_id"
+    t.bigint "school_class_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["school_class_id"], name: "index_timetables_on_school_class_id"
+    t.index ["teacher_id"], name: "index_timetables_on_teacher_id"
   end
 
   create_table "users", force: :cascade do |t|

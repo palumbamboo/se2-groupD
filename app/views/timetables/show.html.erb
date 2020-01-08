@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @timetable.subject %>
+</p>
+
+<p>
+  <strong>Day of week:</strong>
+  <%= @timetable.day_of_week %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @timetable.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @timetable.end_time %>
+</p>
+
+<%= link_to 'Edit', edit_timetable_path(@timetable) %> |
+<%= link_to 'Back', timetables_path %>

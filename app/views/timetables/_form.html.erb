@@ -1,0 +1,37 @@
+<%= form_with(model: timetable, local: true) do |form| %>
+  <% if timetable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(timetable.errors.count, "error") %> prohibited this timetable from being saved:</h2>
+
+      <ul>
+        <% timetable.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :subject %>
+    <%= form.text_field :subject %>
+  </div>
+
+  <div class="field">
+    <%= form.label :day_of_week %>
+    <%= form.number_field :day_of_week %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.time_select :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.time_select :end_time %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

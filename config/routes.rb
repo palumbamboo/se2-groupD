@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :timetables
   resources :materials
   resources :principals
   resources :administrators
