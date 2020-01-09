@@ -49,6 +49,9 @@ Rails.application.routes.draw do
   get 'parents/:id/materials(/:stud)', to: 'parents#materials', as: 'parent_materials'
   post 'parents/:id/materials/:stud/subjects/:sub', to: 'parents#materials_per_subject'
 
+  get 'parents/:id/notes(/:stud)', to: 'parents#notes', as: 'parent_notes'
+  post 'parents/:id/notes/:stud/subjects/:sub', to: 'parents#notes_per_subject'
+
   get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'
 

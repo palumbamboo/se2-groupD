@@ -11,6 +11,7 @@
     <li><%= link_to " Attendances", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
     <li><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
     <li class="active"><%= link_to " Materials", parent_materials_url, class: 'mdi mdi-library-books' %></li>
+    <li><%= link_to " Notes", parent_notes_url(@parent), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
 <script type="text/javascript">

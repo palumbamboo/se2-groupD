@@ -84,6 +84,28 @@ class ParentsController < ApplicationController
         @subject = params[:sub]
         @materials = Material.where(school_class: s.school_class, subject: params[:sub])
     end
+    
+    def notes
+        set_parent
+        @students = @parent.students
+        if params[:stud]
+            @student = @students.find(params[:stud])
+            @subjects = Note.where(student_id: @student.id).select(:subject).distinct
+        else
+            @student = @students.first
+            @subjects = Note.where(student_id: @student.id).select(:subject).distinct
+        end
+        respond_to do |format|
+            format.js
+            format.html
+        end
+    end
+
+    def notes_per_subject
+        set_parent
+        @subject = params[:sub]
+        @notes = Note.where(student_id: params[:stud], subject: params[:sub])
+    end
 
     def communications
         set_parent

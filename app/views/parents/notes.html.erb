@@ -2,37 +2,40 @@
   <div class="sidebar-header">
     <h3>Welcome <%= @parent.to_s %>!</h3>
   </div>
-
-  <ul class="list-unstyled components">
+  <ul class="list-unstyled components" data-no-turbolink>
     <p>Parent page</p>
     <li><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
-    <li class="active"><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
+    <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
     <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
     <li><%= link_to " Attendances", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
     <li><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
     <li><%= link_to " Materials", parent_materials_url, class: 'mdi mdi-library-books' %></li>
-    <li><%= link_to " Notes", parent_notes_url(@parent), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Notes", parent_notes_url(@parent), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
 <script type="text/javascript">
-    function loadMarks(student_id){
+    function loadNotes(student_id){
         $.ajax({
             type: 'GET',
-            url: "/parents/<%= @parent.id%>/students/" + student_id,
+            url: "/parents/<%= @parent.id%>/notes/" + student_id,
             contentType: "text/javascript",
         }).done(function(response){
-            document.getElementById("subjects-tabs").firstChild.firstElementChild.classList.add("active");
-            document.getElementById("subjects-tabs-content").children[1].classList.add("show");
-            document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+            if (document.getElementById("subjects-tabs") != null && document.getElementById("subjects-tabs") != undefined && document.getElementById("subjects-tabs").children[0] != null && document.getElementById("subjects-tabs").children[0] != undefined) {
+                document.getElementById("subjects-tabs").firstChild.firstElementChild.classList.add("active");
+                document.getElementById("subjects-tabs-content").children[1].classList.add("show");
+                document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+            }
         });
     }
     $(document).ready(function() {
-        document.getElementById("subjects-tabs").children[0].children[0].classList.add("active");
-        document.getElementById("subjects-tabs-content").children[1].classList.add("show");
-        document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+        if (document.getElementById("subjects-tabs") != null && document.getElementById("subjects-tabs") != undefined && document.getElementById("subjects-tabs").children[0] != null && document.getElementById("subjects-tabs").children[0] != undefined) {
+            document.getElementById("subjects-tabs").children[0].children[0].classList.add("active");
+            document.getElementById("subjects-tabs-content").children[1].classList.add("show");
+            document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+        }
         document.getElementById("student_select").value = "<%= @student.id%>"
         document.getElementById("student_select").onchange = function(){
-            loadMarks(document.getElementById("student_select").value);
+            loadNotes(document.getElementById("student_select").value);
         };
     });
 </script>
@@ -53,5 +56,5 @@
   <%= render partial: 'subject', collection: @subjects %>
 </ul>
 <div class="tab-content" id="subjects-tabs-content">
-  <%= render partial: 'tab_marks', collection: @subjects %>
+  <%= render partial: 'tab_notes', collection: @subjects %>
 </div>
