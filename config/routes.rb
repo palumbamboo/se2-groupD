@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   get 'teachers/:id/lectures(/:school_class_id)', to: 'teachers#lectures', as: 'teacher_lectures'
   get 'teachers/:id/marks', to: 'teachers#marks', as: 'teacher_marks'
 
+  get 'teachers/:id/notes', to: 'teachers#notes', as: 'teacher_notes'
+
   get 'teachers/:id/assignments(/:school_class_id)', to: 'teachers#assignments', as: 'teacher_assignments'
   post 'teachers/:id/assignments/:school_class_id/subjects/:sub', to: 'teachers#assignments_per_subject'
 
