@@ -8,6 +8,15 @@
     <li class="active"><%= link_to " Home", principal_path(@principal), class: 'mdi mdi-view-dashboard' %></li>
   </ul>
 <% end %>
-
-<p>Work in progress :)</p>
-
+<div class="row">
+  <div class="col-md-2" style="padding-right: 0px">
+    <div class="avatar" style="position: relative; top: 0px; border-radius: 0px">
+      <img src="<%= image_url('avatar.png') %>" alt="Avatar">
+    </div>
+  </div>
+  <div class="col-md-4" style="text-align:left; padding-left:0px">
+  Name: <%= @principal.to_s %> <br>
+  E-mail: <%= @principal.user.email %> <br>
+  Role: Principal <br>
+  </div>
+</div>
