@@ -1,10 +1,14 @@
 <tr>
-  <td><%= attendance[:student_name] %></td>
+  <td id="<%= attendance[:student_id] %>"><%= attendance[:student_name] %></td>
   <td>
     <% if attendance[:attendance] %>
-      <input type="checkbox" class="toggle" checked data-toggle="toggle" data-on="Present" data-off="Absent" data-onstyle="success" data-offstyle="danger" data-width="100" id="<%= attendance[:student_id] %>">
+      <a id=<%= attendance[:student_id] %> tabindex="0" data-toggle="popover" title='Exit Time <a class="close" id=<%= attendance[:student_id] %>>&times;</a>' data-placement="right" data-content='<form><input type="time" id=<%= attendance[:student_id] %>></form><hr><i>First hour?</i><br><button id="<%= attendance[:student_id] %>" absence-button="true" style="background-color: #BD2130; color: white; margin-top: 5px">Absent</button>'>
+        <input type="checkbox" class="toggle" checked data-toggle="toggle" data-on="Present" data-off="Absent" data-onstyle="success" data-offstyle="danger" data-width="100" id="<%= attendance[:student_id] %>">
+      </a>
     <% else %>
-      <input type="checkbox" class="toggle" data-toggle="toggle" data-on="Present" data-off="Absent" data-onstyle="success" data-offstyle="danger" data-width="100" id="<%= attendance[:student_id] %>">
+      <a id=<%= attendance[:student_id] %> tabindex="0" data-toggle="popover" title='Entrance Time <a class="close") id=<%= attendance[:student_id] %>>&times;</a>' data-placement="right" data-content='<form><input type="time" id=<%= attendance[:student_id] %>></form>'>
+        <input type="checkbox" class="toggle" data-toggle="toggle" data-on="Present" data-off="Absent" data-placement="right" data-onstyle="success" data-offstyle="danger" data-width="100" id="<%= attendance[:student_id] %>">
+      </a>
     <% end %>
   </td>
   <td style="display:none;" id="student-id"> <%= attendance[:student_id] %> </td>
