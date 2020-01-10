@@ -1,6 +1,6 @@
 class OfficersController < ApplicationController
 
-  before_action :set_officer, only: [:show, :edit, :update, :destroy, :parents, :students, :communications]
+  before_action :set_officer, only: [:show, :edit, :update, :destroy, :parents, :students, :communications, :timetables]
   before_action :officer_auth
 
   # GET /officers
@@ -81,6 +81,21 @@ class OfficersController < ApplicationController
       @class = SchoolClass.available_classes.first
     end
     @students = @class.students
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def timetables
+    set_officer
+    @classes = SchoolClass.available_classes
+    if params[:class]
+      @class = SchoolClass.find(params[:class])
+    else
+      @class = SchoolClass.available_classes.first
+    end
+    @timetables = Timetable.where(school_class_id: @class.id)
     respond_to do |format|
       format.js
       format.html

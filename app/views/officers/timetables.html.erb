@@ -1,0 +1,75 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @officer.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Officer page</p>
+    <li><%= link_to " Home", officer_path(@officer), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li><%= link_to " Students", officer_enrollment_url(@officer), class: 'mdi mdi-folder-account-outline', data: { turbolinks: false } %></li>
+    <li><%= link_to " Parents", officer_parents_url(@officer), class: 'mdi mdi-human-male-girl', data: { turbolinks: false } %></li>
+    <li><%= link_to " Class composition", officer_classes_url(@officer), class: 'mdi mdi-account-group', data: { turbolinks: false } %></li>
+    <li><%= link_to " Communications", officer_communications_url(@officer), class: 'mdi mdi-text-to-speech', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Timetables", officer_timetables_url(@officer), class: 'mdi mdi-timetable', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+<script>
+    function loadClasses(class_id){
+        $.ajax({
+            type: 'GET',
+            url: "/officers/<%= @officer.id %>/timetables/" + class_id,
+            contentType: "text/javascript",
+        }).done(function(response){
+
+        });
+    };
+    function editClass(id_class){
+        $.ajax({
+            type: 'GET',
+            url: "/school_classes/" + id_class + "/edit",
+            contentType: "text/javascript",
+        }).done(function(response){
+
+        });
+    };
+    function updateClassWithFile(id_class){
+        $('#edittimetable').html("<%= j render partial: 'file', locals: {class: @class} %>");
+    }
+    $(document).ready(function() {
+        document.getElementById("class_select").value = "<%= @class.id %>";
+        document.getElementById("class_select").onchange = function(){
+            loadClasses(document.getElementById("class_select").value);
+        };
+        document.getElementById("upload_file").onclick = function(){
+            updateClassWithFile(document.getElementById("class_select").value);
+        }
+    });
+</script>
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <div class="input-group">
+        <%= select_tag :class_select, options_for_select(@classes.map{|s| [s.class_to_s, s.id]}), class: "custom-select", remote: true%>
+        <div class="input-group-append">
+          <div class="dropdown">
+            <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button" id="edit_class">
+              Edit
+            </button>
+            <div class="dropdown-content" style="position: absolute; z-index: 2">
+              <div class="dropdown-menu" aria-labelledby="edit_timetable">
+                <a class="dropdown-item" id="upload_file" style="cursor: pointer">Upload an excel file</a>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-danger" type="button" id="back" style="display: none">
+            Back
+          </button>
+        </div>
+      </div>
+    </li>
+    </li>
+  </ul>
+<% end %>
+<div id="edittimetable">
+  <%= render partial: 'timetables/timetable', locals: {class: @class} %>
+</div>
