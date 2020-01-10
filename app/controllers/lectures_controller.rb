@@ -74,20 +74,47 @@ class LecturesController < ApplicationController
     school_class = @lecture.school_class
     date         = @lecture.start_time
     absents = Student.where(id: params[:students_ids].dig(:absents) || [])
-    attendances = Attendance.where(student: absents, school_class: school_class).where('date BETWEEN ? AND ?', date.beginning_of_day, date).to_a
-    attendances.to_a.concat((absents - attendances.map(&:student)).map{ |s| Attendance.new(student: s, school_class: school_class, date: date) })
-    attendances.each{ |a| a.absence_type = "Absent" }
-    presents     = Attendance.where(student: Student.where(id: params[:students_ids][:presents]), school_class: school_class).where('date BETWEEN ? AND ?', date.beginning_of_day, date)
-    respond_to do |format|
-      if attendances.all?(&:save) && presents.delete_all
-        @updated = true
-        format.js
-        format.html
-      else
-        @updated = false
-        format.js
-        format.html
+
+    late_times = []
+    late_ids = []
+    if params[:students_ids].dig(:late)
+      params[:students_ids].dig(:late).each_value do |entry|
+        late_times[entry["id"].to_i] = entry["time"]
+        late_ids.push(entry["id"].to_i)
       end
+      late = Student.where(id: late_ids)
+      late.map do |l|
+        att_destroy = Attendance.where('date BETWEEN ? AND ?', date.beginning_of_day, date).find_by(student: l)
+        Attendance.destroy(att_destroy.id)
+
+        arr = late_times[l.id].split(':')
+        time = date.beginning_of_day + arr[0].to_i.hour + arr[1].to_i.minute
+
+        Attendance.create(date: Time.now, absence_type: 'Late', enters_at: time, student: l, school_class: school_class)
+      end
+    end
+
+    early_times = []
+    early_ids = []
+    if  params[:students_ids].dig(:early)
+      params[:students_ids].dig(:early).each_value do |entry|
+        early_times[entry["id"].to_i] = entry["time"]
+        early_ids.push(entry["id"].to_i)
+      end
+      early = Student.where(id: early_ids)
+      early.map do |e|
+        arr = early_times[e.id].split(':')
+        time = date.beginning_of_day + arr[0].to_i.hour + arr[1].to_i.minute
+        Attendance.create(date: Time.now, absence_type: 'Earl', exits_at: time, student: e, school_class: school_class)
+      end
+    end
+
+    absents.map{ |a| Attendance.create(date: Time.now, absence_type: 'Absent', student: Student.find(a.id), school_class: school_class) }
+
+    respond_to do |format|
+      @updated = true
+      format.js
+      format.html
     end
   end
 
