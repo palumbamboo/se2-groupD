@@ -12,6 +12,33 @@
     <li><%= link_to " Communications", officer_communications_url(@officer), class: 'mdi mdi-text-to-speech', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
-
-<p>Work in progress :)</p>
-
+<div class="row">
+  <div class="col-md-2" style="padding-right: 0px">
+    <div class="avatar" style="position: relative; top: 0px; border-radius: 0px">
+      <img src="<%= image_url('avatar.png') %>" alt="Avatar">
+    </div>
+  </div>
+  <div class="col-md-4" style="text-align:left; padding-left:0px">
+  Name: <%= @officer.to_s %> <br>
+  E-mail: <%= @officer.user.email %> <br>
+  Role: Officer <br>
+  </div>
+</div>
+<br>
+<div class="row">
+<div class="col-md-12" style="text-align:left">
+<br><br>
+<span class="mdi mdi-frequently-asked-questions"><b> FAQ</b></span><br>
+<dt style="margin-top:3%"><i>Where can I enroll students?</i> </dt>
+<dd> Here: <%= link_to " enroll students", officer_enrollment_url(@officer), data: { turbolinks: false } %>.<br></dd>
+<dt style="margin-top:3%"><i>Where can I enable access to parents?</i> </dt>
+<dd> Here: <%= link_to " enable access to parents", officer_parents_url(@officer), data: { turbolinks: false } %>.<br></dd>
+<dt style="margin-top:3%"><i>Where can I compose classes?</i> </dt>
+<dd> Here: <%= link_to " class composition", officer_classes_url(@officer), data: { turbolinks: false } %>.<br></dd>
+<dt style="margin-top:3%"><i>Is it possible to enter classes using an excel file?</i> </dt>
+<dd>Yes, it is. In the <%= link_to " class composition", officer_classes_url(@officer), data: { turbolinks: false } %> page, you have to
+click on "Edit", then a dropdown menu will appear and you have to select "Upload an excel file".</dd>
+<dt style="margin-top:3%"><i>Where can I publish communications?</i> </dt>
+<dd> Here: <%= link_to " communications", officer_communications_url(@officer), data: { turbolinks: false } %>.</dd>
+</div>
+</div>

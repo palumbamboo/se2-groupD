@@ -1,7 +1,7 @@
 <% content_for :navbar do %>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <%= link_to " Back to teacher view", teacher_lectures_path(@lecture.teacher, school_class_id: @lecture.school_class), class: "btn btn-primary mdi mdi-arrow-left", id: "back-to-teacher"%>
+      <%= link_to " Back", teacher_lectures_path(@lecture.teacher, school_class_id: @lecture.school_class), class: "btn btn-primary mdi mdi-arrow-left", id: "back-to-teacher"%>
     </li>
   </ul>
   <span class="navbar-brand"><%= @lecture.name %></span>

@@ -10,6 +10,26 @@
     <li><%= link_to " Add user", administrator_add_user_url(@administrator), class: 'mdi mdi-account-plus', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
-
-<p>Work in progress :)</p>
-
+<div class="row">
+  <div class="col-md-2" style="padding-right: 0px">
+    <div class="avatar" style="position: relative; top: 0px; border-radius: 0px">
+      <img src="<%= image_url('avatar.png') %>" alt="Avatar">
+    </div>
+  </div>
+  <div class="col-md-4" style="text-align:left; padding-left:0px">
+  Name: <%= @administrator.to_s %> <br>
+  E-mail: <%= @administrator.user.email %> <br>
+  Role: Administrator <br>
+  </div>
+</div>
+<br>
+<div class="row">
+<div class="col-md-12" style="text-align:left">
+<br><br>
+<span class="mdi mdi-frequently-asked-questions"><b> FAQ</b></span><br>
+<dt style="margin-top:3%"><i>Where can I add a new user?</i> </dt>
+<dd> Here: <%= link_to " new user", administrator_add_user_url(@administrator), data: { turbolinks: false} %>.</dd>
+<dt style="margin-top:3%"><i>Where can I see the whole users' list?</i> </dt>
+<dd> Here: <%= link_to " users", administrator_users_url(@administrator), data: { turbolinks: false } %>.</dd>
+</div>
+</div>
