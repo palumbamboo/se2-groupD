@@ -54,6 +54,11 @@ class TeachersController < ApplicationController
     @marks = @teacher.marks
   end
 
+  def notes
+    set_teacher
+    @notes = Note.where(teacher_id: params[:id])
+  end
+
   def assignments
     set_teacher
     @school_classes = @teacher.school_classes

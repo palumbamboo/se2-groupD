@@ -8,8 +8,9 @@
     <li><%= link_to " Marks", parent_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
     <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
     <li><%= link_to " Attendances", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
-    <li><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech', data: { turbolinks: false } %></li>
-    <li><%= link_to " Materials", parent_materials_url, class: 'mdi mdi-library-books', data: { turbolinks: false } %></li>
+    <li><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
+    <li><%= link_to " Materials", parent_materials_url, class: 'mdi mdi-library-books' %></li>
+    <li><%= link_to " Notes", parent_notes_url(@parent), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
 <script>
@@ -24,6 +25,10 @@
 
         document.getElementById("confirm_attendance_child").onclick = function(){
             window.open("/parents/<%= @parent.id %>/attendances/" + document.getElementById("student_select").value, "_self");
+        };
+
+        document.getElementById("confirm_notes_child").onclick = function(){
+            window.open("/parents/<%= @parent.id %>/notes/" + document.getElementById("student_select").value, "_self");
         };
     });
 </script>
@@ -65,6 +70,13 @@
 <div class="col-md-4"></div>
   <div class="col-md-4">
     <button class="btn btn-primary confirm_child" id="confirm_attendance_child" style="margin-top: 10%; width: 70%"><span class='mdi mdi-clock-check'> View attendance</span></button>
+  </div>
+  <br>
+</div>
+<div class="row">
+<div class="col-md-4"></div>
+  <div class="col-md-4">
+    <button class="btn btn-primary confirm_child" id="confirm_notes_child" style="margin-top: 10%; width: 70%"><span class='mdi mdi-email-alert'> View notes</span></button>
   </div>
   <br>
 </div>

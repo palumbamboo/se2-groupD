@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   get 'teachers/:id/lectures(/:school_class_id)', to: 'teachers#lectures', as: 'teacher_lectures'
   get 'teachers/:id/marks', to: 'teachers#marks', as: 'teacher_marks'
 
+  get 'teachers/:id/notes', to: 'teachers#notes', as: 'teacher_notes'
+
   get 'teachers/:id/assignments(/:school_class_id)', to: 'teachers#assignments', as: 'teacher_assignments'
   post 'teachers/:id/assignments/:school_class_id/subjects/:sub', to: 'teachers#assignments_per_subject'
 
@@ -48,6 +50,9 @@ Rails.application.routes.draw do
 
   get 'parents/:id/materials(/:stud)', to: 'parents#materials', as: 'parent_materials'
   post 'parents/:id/materials/:stud/subjects/:sub', to: 'parents#materials_per_subject'
+
+  get 'parents/:id/notes(/:stud)', to: 'parents#notes', as: 'parent_notes'
+  post 'parents/:id/notes/:stud/subjects/:sub', to: 'parents#notes_per_subject'
 
   get 'officers/:id/class_composition(/:class)', to: 'officers#class_composition', as: 'officer_classes'
   get 'officers/:id/parents', to: 'officers#parents', as: 'officer_parents'

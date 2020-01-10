@@ -9,7 +9,8 @@
     <li><%= link_to " Lectures", teacher_lectures_url, class:'mdi mdi-teach', data: { turbolinks: false } %></li>
     <li><%= link_to " Marks", teacher_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
     <li class="active"><%= link_to " Assignments", teacher_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
-    <li><%= link_to " Materials", teacher_materials_url, class: 'mdi mdi-library-books', data: { turbolinks: false } %></li>
+    <li><%= link_to " Materials", teacher_materials_url, class: 'mdi mdi-library-books' %></li>
+    <li><%= link_to " Notes", teacher_notes_url(@teacher), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
 <script type="text/javascript">
