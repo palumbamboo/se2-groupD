@@ -5,13 +5,13 @@
 </div>
 <div>
 <table>
-<th>Teacher</th>
-<th>Mark</th>
-<th>Subject</th>
-<th>Student</th>
-<th>Date</th>
-<th>Notes</th>
-<th></th>
+<th scope="col">Teacher</th>
+<th scope="col">Mark</th>
+<th scope="col">Subject</th>
+<th scope="col">Student</th>
+<th scope="col">Date</th>
+<th scope="col">Notes</th>
+<th scope="col"></th>
 <% @marks.each do |mark| %>
     <tr>
         <td><%= mark.teacher.surname %> <%= mark.teacher.name %></td>

@@ -5,15 +5,15 @@
 </div>
 <div>
   <table>
-    <th>Name</th>
-    <th>Start time</th>
-    <th>End time</th>
-    <th>Topics</th>
-    <th>Subject</th>
-    <th>Duration</th>
-    <th>Teacher</th>
-    <th>Class</th>
-    <th></th>
+    <th scope="col">Name</th>
+    <th scope="col">Start time</th>
+    <th scope="col">End time</th>
+    <th scope="col">Topics</th>
+    <th scope="col">Subject</th>
+    <th scope="col">Duration</th>
+    <th scope="col">Teacher</th>
+    <th scope="col">Class</th>
+    <th scope="col"></th>
     <% @lectures.each do |lecture| %>
       <tr>
         <td><%= lecture.name%></td>
