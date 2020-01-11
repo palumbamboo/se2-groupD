@@ -6,6 +6,9 @@ class SchoolClass < ApplicationRecord
   has_many :students
   has_many :assignments
 
+  validates :number, presence: true, format: { with: /\A[1-9]\z/, message: 'Invalid school class number' }
+  validates :section, presence: true, format: { with: /\A[A-Z]\z/, message: 'Invalid school class section' }
+
   def class_to_s
     "#{number}#{section.upcase}"
   end
