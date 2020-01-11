@@ -73,28 +73,17 @@ class TimetablesController < ApplicationController
       end
       wb = Roo::Excelx.new(file_path)
       sheet = wb.sheet(0)
-      all_subjects = [""] # bisogna inizializzarli gli array qua?
       @message = "ok"
       if(sheet.row(1) == ["Hours", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])    # check first header row
-        (2..sheet.last_row).map do |i|
-          (2..sheet.last_column).map do |j|
-            all_subjects[i][j] << sheet.cell(i, j) # i rappresenta l'ora, j rappresenta il giorno
-          end
-        end
-        if @message == "ok"
-          # prima voglio cancellare tutti le timetables per quella classe
-          # for j from 1 to 5 (giorni della settimana)
-          # for i from 1 to 5 (slot temporali)
-          # creo timetable con materia (scritta nel file), slot temporale, giorno, classe data dalla @school_class
-          (2..sheet.last_row).map do |i|
-            (2..sheet.last_column).map do |j|
-              if all_subject[i][j].any?
-                if i != 0
-                  teacher = Teacher.find_by(subject: all_subject[i][j], school_class_id: @school_class).first
-                  timetable = Timetable.create(subject: all_subject[i][j], day_of_week: j, slot_time: i, school_class_id: @school_class, teacher_id: teacher) # teacher id? Anche no
-                  timetable.save
-                end
-              end
+        Timetable.where(school_class: @school_class).delete_all
+        (2..sheet.last_row).map do |slot| # for slot from 1 to 5 (temporal slot)
+        (2..sheet.last_column).map do |day| # for day from 1 to 5 (day of the week)
+            if sheet.cell(slot, day) != ""
+              subject = sheet.cell(slot, day)
+              puts sheet.cell(slot,day)
+              teacher = Teacher.select{|t| t.school_classes.include?(@school_class) && t.subjects.include?(subject)}.first
+              timetable = Timetable.create(subject: subject, day_of_week: day-1, slot_time: slot-1, school_class: @school_class, teacher: teacher)
+              timetable.save
             end
           end
         end
@@ -118,6 +107,6 @@ class TimetablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def timetable_params
-      params.require(:timetable).permit(:subject, :day_of_week, :start_time, :end_time, :teacher_id, :school_class_id)
+      params.require(:timetable).permit(:subject, :day_of_week, :start_time, :end_time, :teacher, :school_class)
     end
 end
