@@ -1,7 +1,17 @@
 <%= form_with(model: @mark, local: true) do |f| %>
-  <div>
-    <%= f.label :student %>
-    <%= f.select(:student_id, Student.all.collect {|p| [ p.to_s, p.id ] }, {}, {:class => 'custom-select'})%>
+  <div class="row">
+    <div class="col">
+      <%= f.label :student %>
+      <%= f.select(:student_id, Student.all.collect {|p| [ p.to_s, p.id ] }, {}, {:class => 'custom-select'})%>
+    </div>
+    <div class="col">
+      <%= f.label :subject %>
+      <% if @subject %>
+        <%=  f.text_field :subject, @subject, readonly: true%>
+      <% else %>
+        <%= f.select(:subject, (@mark.teacher || @teacher).subjects, {}, {class: 'custom-select'}) %>
+      <% end %>
+    </div>
   </div>
   <br/>
   <div class="row">
@@ -12,7 +22,7 @@
     <div class="col">
       <%= f.label :date %>
       <% @date = @mark.date ? @mark.date : Date.today %>
-        <%= f.date_field(:date, :value => @date, :min => Date.new(2019, 9, 1), :max => Date.today, :class => 'form-control') %>
+      <%= f.date_field(:date, :value => @date, :min => Date.new(2019, 9, 1), :max => Date.today, :class => 'form-control') %>
     </div>
   </div>
   <br />
@@ -23,8 +33,8 @@
   <br /><br />
   <div class="row">
     <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <%= f.submit :class => 'btn btn-success' %>
-      </div>
+    <div class="col-md-4">
+      <%= f.submit :class => 'btn btn-success' %>
+    </div>
   </div>
 <% end %>
