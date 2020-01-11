@@ -22,21 +22,16 @@ class ParentsController < ApplicationController
         @students = @parent.students
         if params[:stud]
             @student = @parent.students.find(params[:stud])
-            @school_class = @student.school_class
-            @monday = Timetable.where(school_class_id: @school_class.id, day_of_week: '1')
-            @tuesday = Timetable.where(school_class_id: @school_class.id, day_of_week: '2')
-            @wednesday = Timetable.where(school_class_id: @school_class.id, day_of_week: '3')
-            @thursday = Timetable.where(school_class_id: @school_class.id, day_of_week: '4')
-            @friday = Timetable.where(school_class_id: @school_class.id, day_of_week: '5')
         else
             @student = @parent.students.first
-            @school_class = @student.school_class
-            @monday = Timetable.where(school_class_id: @school_class.id, day_of_week: '1')
-            @tuesday = Timetable.where(school_class_id: @school_class.id, day_of_week: '2')
-            @wednesday = Timetable.where(school_class_id: @school_class.id, day_of_week: '3')
-            @thursday = Timetable.where(school_class_id: @school_class.id, day_of_week: '4')
-            @friday = Timetable.where(school_class_id: @school_class.id, day_of_week: '5')
         end
+        @school_class = @student.school_class
+        @subjects = Timetable.where(school_class_id: @school_class.id).select(:subject).distinct
+        @monday = Timetable.where(school_class_id: @school_class.id, day_of_week: "1").select(:subject)
+        @tuesday = Timetable.where(school_class_id: @school_class.id, day_of_week: "2").select(:subject)
+        @wednesday = Timetable.where(school_class_id: @school_class.id, day_of_week: "3").select(:subject)
+        @thursday = Timetable.where(school_class_id: @school_class.id, day_of_week: "4").select(:subject)
+        @friday = Timetable.where(school_class_id: @school_class.id, day_of_week: "5").select(:subject)
     end
 
     def students
