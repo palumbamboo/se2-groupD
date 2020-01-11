@@ -108,8 +108,9 @@
             let distance = (screenWidth - 960) * 2.5; // get distance between screen width and given threshold
             let percentage = (distance > 0) ? distance / 100 : -1 * distance / 100; // compute percentage
 
-            document.getElementsByClassName('sidebar-offcanvas')[0].setAttribute('style', "opacity:" + percentage); // update sidebar opacity in function of percentage distance
+
             if( document.getElementsByClassName('navbar-fixed-top')[0] !== undefined ) { // if navbar exists
+                document.getElementsByClassName('sidebar-offcanvas')[0].setAttribute('style', "opacity:" + percentage); // update sidebar opacity in function of percentage distance
                 document.getElementsByClassName('navbar-fixed-top')[0].setAttribute('style', "opacity:" + percentage + "; height: 50px; background-color: #699AAC"); // update navbar opacity in function of percentage distance
             }
 
