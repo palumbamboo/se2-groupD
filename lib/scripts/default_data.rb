@@ -266,7 +266,7 @@ class DefaultData
 
   def timetables
     result = []
-    subjects = ["Math", "Math", "Geometry", "Geography", "Science", "History", "Biology", "Geometry", "Geometry", "English", "Science", "English", "Gym", "Religion"]
+    subjects = ["Math", "Math", "Geometry", "Biology", "Geography", "English", "Science", "History", "Biology", "Geometry", "Geometry", "English", "Science", "English", "Gym", "Religion"]
     i = 0
     (1..5).each do |day|
       (1..6).each do |slot|

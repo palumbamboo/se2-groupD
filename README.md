@@ -8,6 +8,8 @@
     - for development: 
     nodejs 13.1, yarn latest, postgres
 
+* To work in local with the application, you need to go to the config/database.yml file and comment the line ```host: db```
+
 * Database creation:
     - rails db:create
 
