@@ -1,22 +1,4 @@
-<%= form_with(model: @mark) do |f| %>
-  <div>
-    <%= f.label :teacher %>
-    <% if @teacher %>
-     <%= f.select(:teacher_id, [[@teacher.to_s, @teacher.id]], {}, {:class => 'custom-select'}) %>
-    <% else %>
-      <%= f.select(:teacher_id, Teacher.all.collect {|p| [ p.surname, p.id ]}, {}, {:class => 'custom-select'})%>
-    <% end %>
-  </div>
-  <br/>
-  <div>
-    <%= f.label :subject %>
-    <% if @teacher %>
-      <%= f.select(:subject, @teacher.subjects, {}, {:class => 'custom-select'}) %>
-    <% else %>
-      <%= f.text_field :subject, class: 'form-control' %>
-  <% end %>
-  </div>
-  <br/>
+<%= form_with(model: @mark, local: true) do |f| %>
   <div>
     <%= f.label :student %>
     <%= f.select(:student_id, Student.all.collect {|p| [ p.to_s, p.id ] }, {}, {:class => 'custom-select'})%>
