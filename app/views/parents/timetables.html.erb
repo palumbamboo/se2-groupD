@@ -1,0 +1,47 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @parent.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Parent page</p>
+    <li><%= link_to " Home", parent_path(@parent), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li><%= link_to " Assignments", parent_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
+    <li><%= link_to " Attendances", parent_attendances_url, class: 'mdi mdi-clock-check', data: { turbolinks: false } %></li>
+    <li><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
+    <li><%= link_to " Materials", parent_materials_url, class: 'mdi mdi-library-books' %></li>
+    <li><%= link_to " Notes", parent_notes_url(@parent), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Timetables", parent_timetables_url(@parent), class: 'mdi mdi-timetable', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+<script type="text/javascript">
+    function loadTimetables(student_id){
+        $.ajax({
+            type: 'GET',
+            url: "/parents/<%= @parent.id%>/timetables/" + student_id,
+            contentType: "text/javascript",
+        }).done(function(response){
+
+        });
+    }
+    $(document).ready(function() {
+        document.getElementById("student_select").value = "<%= @student.id%>"
+        document.getElementById("student_select").onchange = function(){
+            loadTimetables(document.getElementById("student_select").value);
+        };
+    });
+</script>
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><span class="mdi mdi-account-switch"></span></span>
+        </div>
+        <%= select_tag :student_select, options_for_select(@students.map{|s| [s.to_s, s.id]}), class: "custom-select", remote: true%>
+      </div>
+    </li>
+  </ul>
+<% end %>
+
+<%= render partial: 'timetables/timetable' %>

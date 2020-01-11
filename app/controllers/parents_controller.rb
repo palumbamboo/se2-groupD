@@ -17,6 +17,27 @@ class ParentsController < ApplicationController
         @parent = Parent.new
     end
 
+    def timetables
+        set_parent
+        @students = @parent.students
+        if params[:stud]
+            @student = @parent.students.find(params[:stud])
+        else
+            @student = @parent.students.first
+        end
+        @school_class = @student.school_class
+        @subjects = Timetable.where(school_class_id: @school_class.id).select(:subject).distinct
+        @monday = Timetable.where(school_class_id: @school_class.id, day_of_week: "1").select(:subject)
+        @tuesday = Timetable.where(school_class_id: @school_class.id, day_of_week: "2").select(:subject)
+        @wednesday = Timetable.where(school_class_id: @school_class.id, day_of_week: "3").select(:subject)
+        @thursday = Timetable.where(school_class_id: @school_class.id, day_of_week: "4").select(:subject)
+        @friday = Timetable.where(school_class_id: @school_class.id, day_of_week: "5").select(:subject)
+        respond_to do |format|
+            format.js
+            format.html
+        end
+    end
+
     def students
         set_parent
         @students = @parent.students

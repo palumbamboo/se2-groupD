@@ -12,6 +12,7 @@
     <li><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
     <li><%= link_to " Materials", parent_materials_url, class: 'mdi mdi-library-books' %></li>
     <li><%= link_to " Notes", parent_notes_url(@parent), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
+    <li><%= link_to " Timetables", parent_timetables_url(@parent), class: 'mdi mdi-timetable', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
 <script type="text/javascript">
@@ -21,15 +22,19 @@
             url: "/parents/<%= @parent.id%>/students/" + student_id,
             contentType: "text/javascript",
         }).done(function(response){
-            document.getElementById("subjects-tabs").firstChild.firstElementChild.classList.add("active");
-            document.getElementById("subjects-tabs-content").children[1].classList.add("show");
-            document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+            if (document.getElementById("subjects-tabs") != null && document.getElementById("subjects-tabs") != undefined && document.getElementById("subjects-tabs").children[0] != null && document.getElementById("subjects-tabs").children[0] != undefined) {
+              document.getElementById("subjects-tabs").firstChild.firstElementChild.classList.add("active");
+              document.getElementById("subjects-tabs-content").children[1].classList.add("show");
+              document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+            }
         });
     }
     $(document).ready(function() {
-        document.getElementById("subjects-tabs").children[0].children[0].classList.add("active");
-        document.getElementById("subjects-tabs-content").children[1].classList.add("show");
-        document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+        if (document.getElementById("subjects-tabs") != null && document.getElementById("subjects-tabs") != undefined && document.getElementById("subjects-tabs").children[0] != null && document.getElementById("subjects-tabs").children[0] != undefined) {
+          document.getElementById("subjects-tabs").children[0].children[0].classList.add("active");
+          document.getElementById("subjects-tabs-content").children[1].classList.add("show");
+          document.getElementById("subjects-tabs-content").children[1].classList.add("active");
+        }
         document.getElementById("student_select").value = "<%= @student.id%>"
         document.getElementById("student_select").onchange = function(){
             loadMarks(document.getElementById("student_select").value);
