@@ -266,10 +266,10 @@ class DefaultData
 
   def timetables
     result = []
-    subjects = ["Math", "Math", "Geometry", "Geography", "History", "Biology", "Geometry", "Geometry", "English", "English", "Gym", "Religion"]
+    subjects = ["Math", "Math", "Geometry", "Geography", "Science", "History", "Biology", "Geometry", "Geometry", "English", "Science", "English", "Gym", "Religion"]
     i = 0
     (1..5).each do |day|
-      (1..5).each do |slot|
+      (1..6).each do |slot|
         @subject = subjects[i]
         @school_class = SchoolClass.find_by(number: 2, section: 'A')
         @teacher = Teacher.select{|t| t.school_classes.include?(@school_class) && t.subjects.include?(@subject)}.first

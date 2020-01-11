@@ -21,7 +21,7 @@
             url: "/teachers/<%= @teacher.id %>/timetables/" + class_id,
             contentType: "text/javascript",
         }).done(function(response){
-
+          console.log(class_id);
         });
     };
     $(document).ready(function() {
@@ -40,6 +40,4 @@
     </li>
   </ul>
 <% end %>
-<div id="timetable">
-  <%#= render partial: 'timetable', locals: {class: @class} %>
-</div>
+<%= render partial: 'timetables/timetable' %>
