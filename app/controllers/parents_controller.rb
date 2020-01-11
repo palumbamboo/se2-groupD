@@ -32,6 +32,10 @@ class ParentsController < ApplicationController
         @wednesday = Timetable.where(school_class_id: @school_class.id, day_of_week: "3").select(:subject)
         @thursday = Timetable.where(school_class_id: @school_class.id, day_of_week: "4").select(:subject)
         @friday = Timetable.where(school_class_id: @school_class.id, day_of_week: "5").select(:subject)
+        respond_to do |format|
+            format.js
+            format.html
+        end
     end
 
     def students
