@@ -61,6 +61,50 @@ class TimetablesController < ApplicationController
     end
   end
 
+  def file_import
+    @school_class = SchoolClass.find_by(id: params[:class_id]);
+    accepted_formats = [".xls", ".xlsx"]
+    uploaded_file = params[:timetable_file]
+    file_path = Rails.root.join('tmp', uploaded_file.original_filename)
+    extension = File.extname(file_path)
+    if accepted_formats.include? extension    # if the file has the correct extension
+      File.open(file_path, 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
+      wb = Roo::Excelx.new(file_path)
+      sheet = wb.sheet(0)
+      all_subjects = [""] # bisogna inizializzarli gli array qua?
+      @message = "ok"
+      if(sheet.row(1) == ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])    # check first header row
+        (2..sheet.last_row).map do |i|
+          (2..sheet.last_column).map do |j|
+            all_subjects[i][j] << sheet.cell(i, j) # i rappresenta l'ora, j rappresenta il giorno
+          end
+        end
+        if @message == "ok"
+          # prima voglio cancellare tutti le timetables per quella classe
+          # for j from 1 to 5 (giorni della settimana)
+          # for i from 1 to 5 (slot temporali)
+          # creo timetable con materia (scritta nel file), slot temporale, giorno, classe data dalla @school_class
+          (2..sheet.last_row).map do |i|
+            (2..sheet.last_column).map do |j|
+              timetable = Timetable.create(subject: subject[i][j], day_of_week: j, slot_time: i, school_class: @school_class) # teacher id? Anche no
+              timetable.save
+            end
+          end
+        end
+      else
+        @message = "Wrong format of file. The file must have the first header row like this: \"Surname | Name | SSN\", and the following data rows must respect this order."
+      end
+      File.delete(file_path)
+    else
+      @message = "We're sorry, the file must have .xls or .xlsx extension."
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_timetable

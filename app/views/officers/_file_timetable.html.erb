@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-xs-12 col-md-6">
+    <div class="alert alert-success" role="alert" style="display: none" id="success_message">
+    </div>
+    <div class="alert alert-danger" role="alert" style="display: none" id="error_message">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-xs-12 col-md-6">
+    <%= form_with(url: {action: :file_import, controller: :timetables}, multipart: true, remote: true) do %>
+      <input type="hidden" name="class_id" id="class_id">
+      <div class="custom-file">
+        <%= file_field_tag 'timetable_file', accept: ".xls,.xlsx", class: "custom-file-input" %>
+        <label class="custom-file-label" for="inputGroupFile01">Choose file...</label>
+      </div>
+      <br><br>
+      <button type="submit" class="btn btn-success" id="file-confirm" disabled style="cursor: not-allowed"><span class="mdi mdi-check-bold"> Confirm</span></button>
+      <p><br>The file must be an excel file (extensions accepted: 'xls', 'xlsx').
+        The first row must match this format: "Monday | Tuesday | Wednesday | Thursday | Friday".
+        The following data rows must respect the above header.</p>
+    <% end %>
+  </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#class_id").attr("value", document.getElementById("class_select").value);
+        $("#back").click(function(){
+            $.ajax({
+                type: 'GET',
+                url: "timetables/" + document.getElementById("class_select").value,
+                contentType: "text/javascript",
+            }).done(function(){
+                $("#back").css("display", "none");
+            })
+        });
+        $("#back").css("display", "block");
+        $('#timetable_file').change(function(){
+            $('#file-confirm').css("cursor", "pointer");
+            $('#file-confirm').attr("disabled", false);
+            $('.custom-file-label').html($('#timetable_file')[0].files[0].name);
+        })
+    })
+</script>

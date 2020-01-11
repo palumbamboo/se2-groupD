@@ -15,6 +15,7 @@ class DefaultData
     Administrator.delete_all
     Principal.delete_all
     Note.delete_all
+    Timetable.delete_all
     true
   end
 
@@ -34,6 +35,7 @@ class DefaultData
     result[:administrators] = administrators
     result[:principals]     = principals
     result[:notes]          = notes
+    result[:timetables]     = timetables
     result
   end
 
@@ -48,6 +50,8 @@ class DefaultData
     result << User.create(email: 'u7@p.it', password: 'user7pass', password_changed: true).id
     result << User.create(email: 'u8@p.it', password: 'user8pass', password_changed: true).id # admin
     result << User.create(email: 'u9@p.it', password: 'user9pass', password_changed: true).id # principal
+    result << User.create(email: 'u10@p.it', password: 'user10pass', password_changed: true).id # principal
+    result << User.create(email: 'u11@p.it', password: 'user11pass', password_changed: true).id # principal
     result.all?
   end
 
@@ -56,6 +60,9 @@ class DefaultData
     result << Teacher.create(name: 'Giuseppe', surname: 'Musso', subjects: %w(Math Geometry), user: User.find_by(email: 'u1@p.it')).id
     result << Teacher.create(name: 'Maria', surname: 'Cerrato', subjects: %w(Science Biology), user: User.find_by(email: 'u2@p.it')).id
     result << Teacher.create(name: 'Andrea', surname: 'Ferrero', subjects: %w(History Geography), user: User.find_by(email: 'u3@p.it')).id
+    result << Teacher.create(name: 'Francesca', surname: 'Gallo', subjects: %w(English), user: User.find_by(email: 'u6@p.it')).id
+    result << Teacher.create(name: 'Ivano', surname: 'Spagna', subjects: %w(Religion), user: User.find_by(email: 'u10@p.it')).id
+    result << Teacher.create(name: 'Marinella', surname: 'Masini', subjects: %w(Gym), user: User.find_by(email: 'u11@p.it')).id
     result.all?
   end
 
@@ -255,6 +262,9 @@ class DefaultData
     result = []
     result << Note.create(subject: 'Math', description: 'The student did not do the assignments', date: Time.new(2020, 1, 7, 10, 30), teacher: Teacher.first, student: Student.first, school_class: SchoolClass.find_by(number: 2, section: 'A')).id
     result.all?
+  end
+
+  def timetables
   end
 
 end
