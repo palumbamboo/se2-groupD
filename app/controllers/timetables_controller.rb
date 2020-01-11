@@ -61,6 +61,44 @@ class TimetablesController < ApplicationController
     end
   end
 
+  def file_import
+    @school_class = SchoolClass.find_by(id: params[:class_id]);
+    accepted_formats = [".xls", ".xlsx"]
+    uploaded_file = params[:timetable_file]
+    file_path = Rails.root.join('tmp', uploaded_file.original_filename)
+    extension = File.extname(file_path)
+    if accepted_formats.include? extension    # if the file has the correct extension
+      File.open(file_path, 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
+      wb = Roo::Excelx.new(file_path)
+      sheet = wb.sheet(0)
+      @message = "ok"
+      if(sheet.row(1) == ["Hours", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])    # check first header row
+        Timetable.where(school_class: @school_class).delete_all
+        (2..sheet.last_row).map do |slot| # for slot from 1 to 5 (temporal slot)
+        (2..sheet.last_column).map do |day| # for day from 1 to 5 (day of the week)
+            if sheet.cell(slot, day) != ""
+              subject = sheet.cell(slot, day)
+              puts sheet.cell(slot,day)
+              teacher = Teacher.select{|t| t.school_classes.include?(@school_class) && t.subjects.include?(subject)}.first
+              timetable = Timetable.create(subject: subject, day_of_week: day-1, slot_time: slot-1, school_class: @school_class, teacher: teacher)
+              timetable.save
+            end
+          end
+        end
+      else
+        @message = "Wrong format of file. The file must have the first header row like this: \"Hours | Monday | Tuesday | Wednesday | Thursday | Friday\", and the following data rows must respect this order."
+      end
+      File.delete(file_path)
+    else
+      @message = "We're sorry, the file must have .xls or .xlsx extension."
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_timetable
@@ -69,6 +107,6 @@ class TimetablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def timetable_params
-      params.require(:timetable).permit(:subject, :day_of_week, :start_time, :end_time, :teacher_id, :school_class_id)
+      params.require(:timetable).permit(:subject, :day_of_week, :start_time, :end_time, :teacher, :school_class)
     end
 end
