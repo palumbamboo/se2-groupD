@@ -10,6 +10,7 @@ class AttendancesController < ApplicationController
   # GET /attendances/1
   # GET /attendances/1.json
   def show
+    # No implementation needed
   end
 
   # GET /attendances/new
@@ -19,6 +20,7 @@ class AttendancesController < ApplicationController
 
   # GET /attendances/1/edit
   def edit
+    # No implementation needed
   end
 
   # POST /attendances

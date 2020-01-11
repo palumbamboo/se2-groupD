@@ -24,7 +24,8 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe TimetablesController, type: :controller do
-
+  
+  SUCCESS = "returns a success response"
   # This should return the minimal set of attributes required to create a valid
   # Timetable. As you add validations to Timetable, be sure to
   # adjust the attributes here as well.
@@ -42,7 +43,7 @@ RSpec.describe TimetablesController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "returns a success response" do
+    it SUCCESS do
       Timetable.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
@@ -50,7 +51,7 @@ RSpec.describe TimetablesController, type: :controller do
   end
 
   describe "GET #show" do
-    it "returns a success response" do
+    it SUCCESS do
       timetable = Timetable.create! valid_attributes
       get :show, params: {id: timetable.to_param}, session: valid_session
       expect(response).to be_successful
@@ -58,14 +59,14 @@ RSpec.describe TimetablesController, type: :controller do
   end
 
   describe "GET #new" do
-    it "returns a success response" do
+    it SUCCESS do
       get :new, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe "GET #edit" do
-    it "returns a success response" do
+    it SUCCESS do
       timetable = Timetable.create! valid_attributes
       get :edit, params: {id: timetable.to_param}, session: valid_session
       expect(response).to be_successful

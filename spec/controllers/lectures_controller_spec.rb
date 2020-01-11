@@ -6,6 +6,10 @@ RSpec.describe LecturesController, type: :controller do
 
   describe "LecturesController:" do
 
+    INTRO_TO_INTEGRALS = "Intro to integrals"
+    12_11_2019 = "12/11/2019"
+    INTRO_TO_AREAS = "Intro to areas"
+
     # Clean tables #
     User.all.delete_all
     SchoolClass.delete_all
@@ -34,6 +38,7 @@ RSpec.describe LecturesController, type: :controller do
     lecture.save!
     ################
 
+
     context "Teacher logged" do
       login_user(user)
       it "should return index" do
@@ -54,9 +59,9 @@ RSpec.describe LecturesController, type: :controller do
       it "should create lecture" do
         post :create, params: {
             lecture: {
-                :name => "Intro to integrals",
-                :start_time => "12/11/2019",
-                :end_time => "12/11/2019",
+                :name => INTRO_TO_INTEGRALS,
+                :start_time => 12_11_2019,
+                :end_time => 12_11_2019,
                 :topics => "Integrals",
                 :subject => "Math",
                 :duration => 3,
@@ -65,7 +70,7 @@ RSpec.describe LecturesController, type: :controller do
             }
         }
         assert_response :redirect
-        expect(Lecture.last.name).to eq("Intro to integrals")
+        expect(Lecture.last.name).to eq(INTRO_TO_INTEGRALS)
       end
 
       it "should get edit" do
@@ -77,9 +82,9 @@ RSpec.describe LecturesController, type: :controller do
         put :update, params: {
             id: lecture.id,
             lecture: {
-                :name => "Intro to areas",
-                :start_time => "12/11/2019",
-                :end_time => "12/11/2019",
+                :name => INTRO_TO_AREAS,
+                :start_time => 12_11_2019,
+                :end_time => 12_11_2019,
                 :topics => "Areas",
                 :subject => "Math",
                 :duration => 3,
@@ -88,7 +93,7 @@ RSpec.describe LecturesController, type: :controller do
             }
         }
         assert_response :redirect
-        expect(lecture.reload.name).to eq("Intro to areas")
+        expect(lecture.reload.name).to eq(INTRO_TO_AREAS)
       end
       
       it "should destroy a lecture" do
@@ -118,9 +123,9 @@ RSpec.describe LecturesController, type: :controller do
       it "should not create lecture" do
         post :create, params: {
             lecture: {
-                :name => "Intro to integrals",
-                :start_time => "12/11/2019",
-                :end_time => "12/11/2019",
+                :name => INTRO_TO_INTEGRALS,
+                :start_time => 12_11_2019,
+                :end_time => 12_11_2019,
                 :topics => "Integrals",
                 :subject => "Math",
                 :duration => 3,
@@ -135,9 +140,9 @@ RSpec.describe LecturesController, type: :controller do
         put :update, params: {
             id: lecture.id,
             lecture: {
-                :name => "Intro to areas",
-                :start_time => "12/11/2019",
-                :end_time => "12/11/2019",
+                :name => INTRO_TO_AREAS,
+                :start_time => 12_11_2019,
+                :end_time => 12_11_2019,
                 :topics => "Areas",
                 :subject => "Math",
                 :duration => 3,

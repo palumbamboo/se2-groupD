@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe PrincipalsController, type: :routing do
+
+  FIRST_PRIN = "/principals/1"
+
   describe "routing" do
     it "routes to #index" do
       expect(:get => "/principals").to route_to("principals#index")
@@ -11,7 +14,7 @@ RSpec.describe PrincipalsController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/principals/1").to route_to("principals#show", :id => "1")
+      expect(:get => FIRST_PRIN).to route_to("principals#show", :id => "1")
     end
 
     it "routes to #edit" do
@@ -24,15 +27,15 @@ RSpec.describe PrincipalsController, type: :routing do
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/principals/1").to route_to("principals#update", :id => "1")
+      expect(:put => FIRST_PRIN).to route_to("principals#update", :id => "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/principals/1").to route_to("principals#update", :id => "1")
+      expect(:patch => FIRST_PRIN).to route_to("principals#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/principals/1").to route_to("principals#destroy", :id => "1")
+      expect(:delete => FIRST_PRIN).to route_to("principals#destroy", :id => "1")
     end
   end
 end

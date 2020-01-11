@@ -25,6 +25,8 @@ require 'rails_helper'
 
 RSpec.describe NotesController, type: :controller do
 
+  SUCCESS = "return a success response"
+
   # This should return the minimal set of attributes required to create a valid
   # Note. As you add validations to Note, be sure to
   # adjust the attributes here as well.
@@ -42,7 +44,7 @@ RSpec.describe NotesController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "returns a success response" do
+    it SUCCESS do
       Note.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
@@ -50,7 +52,7 @@ RSpec.describe NotesController, type: :controller do
   end
 
   describe "GET #show" do
-    it "returns a success response" do
+    it SUCCESS do
       note = Note.create! valid_attributes
       get :show, params: {id: note.to_param}, session: valid_session
       expect(response).to be_successful
@@ -58,14 +60,14 @@ RSpec.describe NotesController, type: :controller do
   end
 
   describe "GET #new" do
-    it "returns a success response" do
+    it SUCCESS do
       get :new, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe "GET #edit" do
-    it "returns a success response" do
+    it SUCCESS do
       note = Note.create! valid_attributes
       get :edit, params: {id: note.to_param}, session: valid_session
       expect(response).to be_successful

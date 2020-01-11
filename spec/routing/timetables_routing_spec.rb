@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe TimetablesController, type: :routing do
+
+  FIRST_TIME = "/timetables/1"
+
   describe "routing" do
     it "routes to #index" do
       expect(:get => "/timetables").to route_to("timetables#index")
@@ -11,7 +14,7 @@ RSpec.describe TimetablesController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/timetables/1").to route_to("timetables#show", :id => "1")
+      expect(:get => FIRST_TIME).to route_to("timetables#show", :id => "1")
     end
 
     it "routes to #edit" do
@@ -24,15 +27,15 @@ RSpec.describe TimetablesController, type: :routing do
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/timetables/1").to route_to("timetables#update", :id => "1")
+      expect(:put => FIRST_TIME).to route_to("timetables#update", :id => "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/timetables/1").to route_to("timetables#update", :id => "1")
+      expect(:patch => FIRST_TIME).to route_to("timetables#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/timetables/1").to route_to("timetables#destroy", :id => "1")
+      expect(:delete => FIRST_TIME).to route_to("timetables#destroy", :id => "1")
     end
   end
 end
