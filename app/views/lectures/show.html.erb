@@ -154,6 +154,13 @@
             elementToBeChecked.classList.contains('toggle-on') ? previousState = true : previousState = false; // save provious state in case the user changes his/her mind by pressing x button in popover
 
             let buttonID = elementToBeChecked.parentElement.parentElement.children[0].id; // retrieve studentID related to the pressed toggle
+
+            if(togglePressed == true) {
+                $('input[type=checkbox][id=' +buttonID+']').bootstrapToggle('toggle');
+                $('[data-toggle="popover"][id='+buttonID+']').popover('hide');
+                return;
+            }
+
             if($('[absence-button="true"][id='+buttonID+']')[0] !== undefined) { // if the popover shows an "Absent" button (because the toggle was moved from Present to Absent state)
                 $('[absence-button="true"][id='+buttonID+']')[0].onclick = function () { // when the user clicks on "Absent" button
                     $('[data-toggle="popover"]').popover('hide'); // hide the popover
