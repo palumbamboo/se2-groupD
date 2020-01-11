@@ -186,7 +186,7 @@
                 }
             }
 
-            if( elementToBeChecked.parentElement.parentElement.parentElement.getAttribute('toggled') == "true" ) { // when the user clicks on a toggle thathad alrady been clicked
+            if( elementToBeChecked.parentElement.parentElement.parentElement.getAttribute('toggled') == "true" ) { // when the user clicks on a toggle that had already been clicked
                 let id = elementToBeChecked.parentElement.parentElement.parentElement.id; // retrieve studentID related to the pressed toggle
                 if( elementToBeChecked.classList.contains('toggle-on') ) { // if the toggle has become on (and thus if, before pressing it, it was false) (it's just a matter of attributes, in the UI it is still off)
                     $('input[type="checkbox"][id=' + id +']').prop('checked', true).change(); // toggle it into "Present" state
@@ -210,7 +210,7 @@
                 return; // don't execute next lines
             }
 
-            if( togglePressed == true ) { // if the user clicks on a toggle after having clicked on the same toggle
+            if( togglePressed == true && buttonID == toggleID ) { // if the user clicks on a toggle after having clicked on the same toggle
                 $('[data-toggle="popover"]').popover('hide'); // hide the popover
                 togglePressed = false; // restore initial values for system state
                 toggleID = -1;
@@ -241,7 +241,7 @@
                     $('#lecture-error-modal').modal('show'); // don't allow popover hiding and show error modal page
                 }
             }
-            else if( $(e.target).is('.close') ) { // if the click was on the x icon in the topo right corner of the popover
+            else if( $(e.target).is('.close') ) { // if the click was on the x icon in the top right corner of the popover
                 let id = e.target.id; // retrieve studentID related to the pressed toggle
                 $('input[type="checkbox"][id=' + id +']').prop('checked', previousState).change(); // restore previous toggle state previously saved
                 closedPressed = true; // change system state accordingly
