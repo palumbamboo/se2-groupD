@@ -140,8 +140,7 @@
 
 function execute() {
     $('input[type=checkbox][data-toggle^=toggle]').bootstrapToggle(); // all checkbox are transformed into toggles
-    console.log("chiamato");
-    $('[data-toggle="popover"]').popover( // all clicks on toggle elements trigger the creation of a popover
+    $('[data-toggle="popover"]:not([disabled]):not(.disabled)').popover( // all clicks on toggle elements trigger the creation of a popover
         {
             html: true, // the text inside a popover is written in HTML
             container: 'body', // responsive when window is resizing
@@ -149,7 +148,7 @@ function execute() {
         }
     );
 
-    $('[data-toggle="popover"]').click(function (e) { // whenever the user clicks on a 'data-toggle' element
+    $('[data-toggle="popover"]:not([disabled]):not(.disabled)').click(function (e) { // whenever the user clicks on a 'data-toggle' element
         let elementToBeChecked = e.target; // get the element clicked
         elementToBeChecked.classList.contains('toggle-on') ? previousState = true : previousState = false; // save provious state in case the user changes his/her mind by pressing x button in popover
 
@@ -250,7 +249,7 @@ function execute() {
         let id = $('[data-toggle="popover"]')[i].id; // retrieve studentID related to the toggle
         $('[data-toggle="popover"][id=' + id + ']').on('hide.bs.popover', function () { // when the event about hiding its popover is fired
             if (id == toggleID && !closedPressed && timeChanged && togglePressed) { // if the toggle previously pressed was its own, if there was no x icon clicked, if the user correctly
-                // inserted time information and if the toggle was pressed before the event
+                                                                                    // inserted time information and if the toggle was pressed before the event
                 let tooltip = document.createElement('a'); // create a tooltip icon
                 tooltip.setAttribute('data-toggle', 'tooltip');
                 tooltip.setAttribute('data-placement', 'right');
@@ -296,7 +295,16 @@ function execute() {
       $(document).ready(function () {
           var today = new Date();
           var lecture_date = new Date("<%= @lecture.date.split('/').reverse.join('-') %>");
-          if(today > new Date(lecture_date.getTime() + 86400000) || today < new Date(lecture_date.getTime() - 86400000)) { disable_clickable() }
+          if(today > new Date(lecture_date.getTime() + 86400000) || today < new Date(lecture_date.getTime() - 86400000)) {
+              disable_clickable();
+              console.log($('[data-toggle="toggle"]:not(.disabled)').length);
+              if( $('[data-toggle="toggle"]:not(.disabled)').length == 0 ) {
+                  console.log("beccato!");
+                  $('[data-toggle="popover"].disabled').popover( // all clicks on toggle elements don't trigger the creation of a popover
+                      'disable'
+                  );
+              }
+          }
       });
       function disable_clickable() {
           $('a:not(#back-to-teacher, .nav-link)').addClass('disabled');
