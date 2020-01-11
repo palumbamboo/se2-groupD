@@ -17,13 +17,26 @@ class SchoolClass < ApplicationRecord
 
   def attendances date=Time.now
     puts date
-    absents = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, date)
-    attendances = (students.to_a - absents.map(&:student)).map{ |s|
+    absents = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, Time.now).where(absence_type: "Absent")
+    late = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, date).where('enters_at BETWEEN ? AND ?', date.beginning_of_day, Time.now).where(absence_type: "Late")
+    early = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, date).where('exits_at BETWEEN ? AND ?', date.beginning_of_day, Time.now).where(absence_type: "Earl")
+
+    attendances = absents.map(&:student).map{ |a|
+      { student_id: a.id, student_name: a.to_s, attendance: false }
+    }
+
+    attendances.concat early.map(&:student).map{ |e|
+      { student_id: e.id, student_name: e.to_s, attendance: false }
+    }
+
+    attendances.concat late.map(&:student).map{ |l|
+      { student_id: l.id, student_name: l.to_s, attendance: true }
+    }
+
+    attendances.concat (students.to_a - absents.map(&:student) - early.map(&:student) - late.map(&:student)).map{ |s|
       { student_id: s.id, student_name: s.to_s, attendance: true }
     }
-    attendances.concat(absents.map(&:student).map{ |s|
-      { student_id: s.id, student_name: s.to_s, attendance: false }
-    })
+
     attendances
   end
 
