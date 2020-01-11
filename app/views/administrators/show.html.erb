@@ -26,10 +26,12 @@
 <div class="row">
 <div class="col-md-12" style="text-align:left">
 <br><br>
-<span class="mdi mdi-frequently-asked-questions"><b> FAQ</b></span><br>
-<dt style="margin-top:3%"><i>Where can I add a new user?</i> </dt>
+<span class="mdi mdi-frequently-asked-questions"><strong> FAQ</strong></span><br>
+<dl>
+<dt style="margin-top:3%"><em>Where can I add a new user?</em> </dt>
 <dd> Here: <%= link_to " new user", administrator_add_user_url(@administrator), data: { turbolinks: false} %>.</dd>
-<dt style="margin-top:3%"><i>Where can I see the whole users' list?</i> </dt>
+<dt style="margin-top:3%"><em>Where can I see the whole users' list?</em> </dt>
 <dd> Here: <%= link_to " users", administrator_users_url(@administrator), data: { turbolinks: false } %>.</dd>
+</dl>
 </div>
 </div>

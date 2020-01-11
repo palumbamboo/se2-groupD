@@ -29,17 +29,19 @@
 <div class="row">
 <div class="col-md-12" style="text-align:left">
 <br><br>
-<span class="mdi mdi-frequently-asked-questions"><b> FAQ</b></span><br>
-<dt style="margin-top:3%"><i>Where can I enroll students?</i> </dt>
+<span class="mdi mdi-frequently-asked-questions"><strong> FAQ</strong></span><br>
+<dl>
+<dt style="margin-top:3%"><em>Where can I enroll students?</em> </dt>
 <dd> Here: <%= link_to " enroll students", officer_enrollment_url(@officer), data: { turbolinks: false } %>.<br></dd>
-<dt style="margin-top:3%"><i>Where can I enable access to parents?</i> </dt>
+<dt style="margin-top:3%"><em>Where can I enable access to parents?</em> </dt>
 <dd> Here: <%= link_to " enable access to parents", officer_parents_url(@officer), data: { turbolinks: false } %>.<br></dd>
-<dt style="margin-top:3%"><i>Where can I compose classes?</i> </dt>
+<dt style="margin-top:3%"><em>Where can I compose classes?</em> </dt>
 <dd> Here: <%= link_to " class composition", officer_classes_url(@officer), data: { turbolinks: false } %>.<br></dd>
-<dt style="margin-top:3%"><i>Is it possible to enter classes using an excel file?</i> </dt>
+<dt style="margin-top:3%"><em>Is it possible to enter classes using an excel file?</em> </dt>
 <dd>Yes, it is. In the <%= link_to " class composition", officer_classes_url(@officer), data: { turbolinks: false } %> page, you have to
 click on "Edit", then a dropdown menu will appear and you have to select "Upload an excel file".</dd>
-<dt style="margin-top:3%"><i>Where can I publish communications?</i> </dt>
+<dt style="margin-top:3%"><em>Where can I publish communications?</em> </dt>
 <dd> Here: <%= link_to " communications", officer_communications_url(@officer), data: { turbolinks: false } %>.</dd>
+</dl>
 </div>
 </div>
