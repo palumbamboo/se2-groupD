@@ -7,7 +7,7 @@ RSpec.describe LecturesController, type: :controller do
   describe "LecturesController:" do
 
     INTRO_TO_INTEGRALS = "Intro to integrals"
-    12_11_2019 = "12/11/2019"
+    DATE_12_11_2019 = "12/11/2019"
     INTRO_TO_AREAS = "Intro to areas"
 
     # Clean tables #
@@ -60,8 +60,8 @@ RSpec.describe LecturesController, type: :controller do
         post :create, params: {
             lecture: {
                 :name => INTRO_TO_INTEGRALS,
-                :start_time => 12_11_2019,
-                :end_time => 12_11_2019,
+                :start_time => DATE_12_11_2019,
+                :end_time => DATE_12_11_2019,
                 :topics => "Integrals",
                 :subject => "Math",
                 :duration => 3,
@@ -83,8 +83,8 @@ RSpec.describe LecturesController, type: :controller do
             id: lecture.id,
             lecture: {
                 :name => INTRO_TO_AREAS,
-                :start_time => 12_11_2019,
-                :end_time => 12_11_2019,
+                :start_time => DATE_12_11_2019,
+                :end_time => DATE_12_11_2019,
                 :topics => "Areas",
                 :subject => "Math",
                 :duration => 3,
@@ -124,8 +124,8 @@ RSpec.describe LecturesController, type: :controller do
         post :create, params: {
             lecture: {
                 :name => INTRO_TO_INTEGRALS,
-                :start_time => 12_11_2019,
-                :end_time => 12_11_2019,
+                :start_time => DATE_12_11_2019,
+                :end_time => DATE_12_11_2019,
                 :topics => "Integrals",
                 :subject => "Math",
                 :duration => 3,
@@ -141,8 +141,8 @@ RSpec.describe LecturesController, type: :controller do
             id: lecture.id,
             lecture: {
                 :name => INTRO_TO_AREAS,
-                :start_time => 12_11_2019,
-                :end_time => 12_11_2019,
+                :start_time => DATE_12_11_2019,
+                :end_time => DATE_12_11_2019,
                 :topics => "Areas",
                 :subject => "Math",
                 :duration => 3,
