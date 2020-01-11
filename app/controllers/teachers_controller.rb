@@ -106,6 +106,21 @@ class TeachersController < ApplicationController
     @materials = Material.where(school_class_id: sc.id, subject: params[:sub], teacher: @teacher)
   end
 
+  def timetables
+    set_teacher
+    @classes = SchoolClass.available_classes
+    if params[:class]
+      @class = SchoolClass.find(params[:class])
+    else
+      @class = SchoolClass.available_classes.first
+    end
+    @timetables = Timetable.where(school_class_id: @class.id, teacher_id: @teacher)
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
   private
   def set_teacher
     @teacher = Teacher.find(params[:id])

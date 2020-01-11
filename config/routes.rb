@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   get 'teachers/:id/assignments(/:school_class_id)', to: 'teachers#assignments', as: 'teacher_assignments'
   post 'teachers/:id/assignments/:school_class_id/subjects/:sub', to: 'teachers#assignments_per_subject'
 
+  get 'teachers/:id/timetables(/:school_class_id)', to: 'teachers#timetables', as: 'teacher_timetables'
+
   get 'teachers/:id/materials(/:school_class_id)', to: 'teachers#materials', as: 'teacher_materials'
   post 'teachers/:id/materials/:school_class_id/subjects/:sub', to: 'teachers#materials_per_subject'
 
@@ -61,7 +63,7 @@ Rails.application.routes.draw do
 
   get 'officers/:id/communications', to: 'officers#communications', as: 'officer_communications'
   get 'officers/:id/timetables(/:class)', to: 'officers#timetables', as: 'officer_timetables'
-  post 'timetables/:id/file_timetable', to: 'timetables#file_import' #corretto?
+  post 'timetables/:id/file_timetable', to: 'timetables#file_import'
 
   post 'school_classes/update/:id', to: 'school_classes#update'
   post 'school_classes/:id/file', to: 'school_classes#file_import'

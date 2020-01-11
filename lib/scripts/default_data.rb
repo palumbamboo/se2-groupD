@@ -265,6 +265,19 @@ class DefaultData
   end
 
   def timetables
+    result = []
+    subjects = ["Math", "Math", "Geometry", "Geography", "History", "Biology", "Geometry", "Geometry", "English", "English", "Gym", "Religion"]
+    i = 0
+    (1..5).each do |day|
+      (1..5).each do |slot|
+        @subject = subjects[i]
+        @school_class = SchoolClass.find_by(number: 2, section: 'A')
+        @teacher = Teacher.select{|t| t.school_classes.include?(@school_class) && t.subjects.include?(@subject)}.first
+        result << Timetable.create(subject: @subject, day_of_week: day, slot_time: slot, school_class: @school_class, teacher: @teacher)
+        i = (i + 1).modulo(subjects.length)
+      end
+    end
+    result.all?
   end
 
 end
