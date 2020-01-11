@@ -10,6 +10,10 @@ class Lecture < ApplicationRecord
   belongs_to :school_class
   has_many :assignments
 
+  validates :name, :topics, presence: true, format: { with: /\A[\w[:punct:]\s]*\z/, message: 'No special characters, only letters and numbers' }
+  validates :subject,       presence: true, inclusion: { in: SUBJECTS, message: 'Invalid subject' }
+  validates :school_class_id, :teacher_id, presence: true
+
   def date
     start_time.to_date.strftime("%d/%m/%Y")
   end
