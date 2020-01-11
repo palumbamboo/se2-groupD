@@ -18,10 +18,12 @@ class MarksController < ApplicationController
     def create
         @mark = Mark.new(mark_params)
         @mark.date = @mark.date.to_date
+        @teacher = Teacher.find(mark_params[:teacher_id])
+
         respond_to do |format|
             if @mark.save
                 format.js
-                format.html { redirect_to @mark, notice: "Mark created" }
+                format.html { redirect_to teacher_marks_url(@teacher), notice: "Mark created" }
                 format.json { render :show, status: :created, location: @mark }
             else
                 format.html { render :new }
