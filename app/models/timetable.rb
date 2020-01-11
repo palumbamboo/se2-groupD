@@ -1,8 +1,7 @@
 class Timetable < ApplicationRecord
   attribute :subject
   attribute :day_of_week, type: Integer
-  attribute :start_time, type: Time
-  attribute :end_time, type: Time
+  attribute :slot_time, type: Integer
 
   belongs_to :school_class
   belongs_to :teacher
@@ -16,7 +15,9 @@ class Timetable < ApplicationRecord
     super(value)
   end
 
-  def right_duration
-    errors.add(:end_time, 'End time must be greater than start_time') if start_time > end_time
+  def slot_time= value
+    raise ArgumentError, "Invalid value, use [1, 2, 3, 4, 5]" unless value.in?(1..5)
+
+    super(value)
   end
 end

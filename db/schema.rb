@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_153733) do
+ActiveRecord::Schema.define(version: 2020_01_11_141128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,12 +181,11 @@ ActiveRecord::Schema.define(version: 2020_01_07_153733) do
   create_table "timetables", force: :cascade do |t|
     t.string "subject"
     t.integer "day_of_week"
-    t.time "start_time"
-    t.time "end_time"
     t.bigint "teacher_id"
     t.bigint "school_class_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "slot_time"
     t.index ["school_class_id"], name: "index_timetables_on_school_class_id"
     t.index ["teacher_id"], name: "index_timetables_on_teacher_id"
   end

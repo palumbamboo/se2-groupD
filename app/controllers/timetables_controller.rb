@@ -75,7 +75,7 @@ class TimetablesController < ApplicationController
       sheet = wb.sheet(0)
       all_subjects = [""] # bisogna inizializzarli gli array qua?
       @message = "ok"
-      if(sheet.row(1) == ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])    # check first header row
+      if(sheet.row(1) == ["Hours", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])    # check first header row
         (2..sheet.last_row).map do |i|
           (2..sheet.last_column).map do |j|
             all_subjects[i][j] << sheet.cell(i, j) # i rappresenta l'ora, j rappresenta il giorno
@@ -88,13 +88,18 @@ class TimetablesController < ApplicationController
           # creo timetable con materia (scritta nel file), slot temporale, giorno, classe data dalla @school_class
           (2..sheet.last_row).map do |i|
             (2..sheet.last_column).map do |j|
-              timetable = Timetable.create(subject: subject[i][j], day_of_week: j, slot_time: i, school_class: @school_class) # teacher id? Anche no
-              timetable.save
+              if all_subject[i][j].any?
+                if i != 0
+                  teacher = Teacher.find_by(subject: all_subject[i][j], school_class_id: @school_class).first
+                  timetable = Timetable.create(subject: all_subject[i][j], day_of_week: j, slot_time: i, school_class_id: @school_class, teacher_id: teacher) # teacher id? Anche no
+                  timetable.save
+                end
+              end
             end
           end
         end
       else
-        @message = "Wrong format of file. The file must have the first header row like this: \"Surname | Name | SSN\", and the following data rows must respect this order."
+        @message = "Wrong format of file. The file must have the first header row like this: \"Hours | Monday | Tuesday | Wednesday | Thursday | Friday\", and the following data rows must respect this order."
       end
       File.delete(file_path)
     else

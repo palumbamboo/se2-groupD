@@ -59,6 +59,7 @@ Rails.application.routes.draw do
 
   get 'officers/:id/communications', to: 'officers#communications', as: 'officer_communications'
   get 'officers/:id/timetables(/:class)', to: 'officers#timetables', as: 'officer_timetables'
+  post 'timetables/:id/file_timetable', to: 'timetables#file_import' #corretto?
 
   post 'school_classes/update/:id', to: 'school_classes#update'
   post 'school_classes/:id/file', to: 'school_classes#file_import'
