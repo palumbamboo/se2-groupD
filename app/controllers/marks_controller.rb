@@ -17,8 +17,8 @@ class MarksController < ApplicationController
 
     def create
         @mark = Mark.new(mark_params)
-        @mark.date = @mark.date.to_date
-        @teacher = Teacher.find(mark_params[:teacher_id])
+        @teacher = Teacher.find(mark_params[:teacher_id] || current_user.teacher.id)
+        @mark.teacher = @teacher
 
         respond_to do |format|
             if @mark.save
@@ -26,7 +26,8 @@ class MarksController < ApplicationController
                 format.html { redirect_to teacher_marks_url(@teacher), notice: "Mark created" }
                 format.json { render :show, status: :created, location: @mark }
             else
-                format.html { render :new }
+                format.js
+                format.html { redirect_to teacher_marks_url(@teacher), alert: @mark.print_pretty_errors }
                 format.json { render json: @mark.errors, status: :unprocessable_entity }
             end
         end
@@ -43,7 +44,7 @@ class MarksController < ApplicationController
         respond_to do |format|
             if @mark.update_attributes(mark_params)
                 format.js
-                format.html { redirect_to @mark, notice: "Mark updated" }
+                format.html { redirect_to teacher_marks_url(@mark.teacher), notice: "Mark updated" }
                 format.json { render :show, status: :ok, location: @mark }
             else
                 format.html { render :edit }
@@ -58,10 +59,10 @@ class MarksController < ApplicationController
         respond_to do |format|
             if @mark.destroy
                 format.js
-                format.html { redirect_to @mark, notice: "Mark deleted" }
+                format.html { redirect_to teacher_marks_url(@mark.teacher), notice: "Mark correctly deleted" }
                 format.json { render :show, status: :created, location: @mark }
             else
-                format.html { render :new }
+                format.html { redirect_to teacher_marks_url(@mark.teacher), alert: "Mark can't be deleted!" }
                 format.json { render json: @mark.errors, status: :unprocessable_entity }
             end
         end
@@ -74,6 +75,9 @@ class MarksController < ApplicationController
     end
 
     def mark_params
-        params.require(:mark).permit(:id, :mark, :subject, :student_id, :teacher_id, :notes, :date)
+        p = params.require(:mark).permit(:id, :mark, :subject, :student_id, :teacher_id, :notes, :date)
+        p[:mark] = p[:mark].to_f
+        p[:date] = Date.parse(p[:date])
+        p
     end
 end

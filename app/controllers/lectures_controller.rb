@@ -15,15 +15,16 @@ class LecturesController < ApplicationController
   end
 
   def create
-    @lecture = Lecture.new(lecture_params.merge(start_time: Time.now))
+    @lecture = Lecture.new(lecture_params.merge(start_time: Time.now, duration: 1))
 
     respond_to do |format|
       if @lecture.save
         format.js
-        format.html { redirect_to @lecture, notice: "Lecture created" }
+        format.html { redirect_to teacher_lectures_url(@teacher), notice: "Lecture created" }
         format.json { render :show, status: :created, location: @lecture }
       else
-        format.html { render :new }
+        format.js
+        format.html { redirect_to teacher_lectures_url(@teacher), alert: @lecture.print_pretty_errors }
         format.json { render json: @lecture.errors, status: :unprocessable_entity }
       end
     end
@@ -60,10 +61,10 @@ class LecturesController < ApplicationController
     respond_to do |format|
       if @lecture.destroy
         format.js
-        format.html { redirect_to @lecture, notice: "Lecture deleted" }
+        format.html { redirect_to teacher_lectures_url(@lecture.teacher), notice: "Lecture deleted" }
         format.json { render :show, status: :ok, location: @lecture }
       else
-        format.html { render :new }
+        format.html { redirect_to teacher_lectures_url(@lecture.teacher), alert: "Lecture can't be deleted!"}
         format.json { render json: @lecture.errors, status: :unprocessable_entity }
       end
     end

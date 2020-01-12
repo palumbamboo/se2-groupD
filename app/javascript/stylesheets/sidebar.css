@@ -53,7 +53,7 @@
     color: white;
 }
 
-#logout-form {
+#logout-form, #back-form {
     text-align: center;
     background: none !important;
 }
