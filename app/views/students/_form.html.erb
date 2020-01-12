@@ -44,7 +44,7 @@
         </div>
         <br />
         <%= f.label "E-mail" %>
-        <%= text_field_tag :first_parent_email, @student.first_parent_email, :required => true, class: 'form-control', required: '' %>
+        <%= email_field_tag :first_parent_email, @student.first_parent_email, :required => true, class: 'form-control', required: '' %>
 <br />
 
 <br>
@@ -62,7 +62,7 @@
     </div>
     <br>
         <%= f.label "E-mail*" %>
-        <%= text_field_tag :second_parent_email, @student.second_parent_email, class: 'form-control' %>
+        <%= email_field_tag :second_parent_email, @student.second_parent_email, class: 'form-control' %>
 <br />
 <br /><br />
 <div class="row">
