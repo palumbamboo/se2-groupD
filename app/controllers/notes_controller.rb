@@ -41,7 +41,7 @@ class NotesController < ApplicationController
         format.html { redirect_to teacher_notes_url(@teacher), notice: 'Note was successfully created.' }
         format.json { render :show, status: :created, location: @note }
       else
-        format.html { render :new }
+        format.html { redirect_to teacher_notes_url(@teacher), alert: 'Something went wrong' }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
@@ -82,7 +82,9 @@ class NotesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def note_params
-    params.require(:note).permit(:subject, :description, :date, :school_class_id, :teacher_id, :student_id)
+    p = params.require(:note).permit(:subject, :description, :date, :school_class_id, :teacher_id, :student_id)
+    p[:date] = Date.parse(p[:date])
+    p
   end
 
   def teacher_auth

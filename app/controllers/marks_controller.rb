@@ -58,7 +58,6 @@ class MarksController < ApplicationController
 
         respond_to do |format|
             if @mark.destroy
-                format.js
                 format.html { redirect_to teacher_marks_url(@mark.teacher), notice: "Mark correctly deleted" }
                 format.json { render :show, status: :created, location: @mark }
             else
