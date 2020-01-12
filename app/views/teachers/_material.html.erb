@@ -2,7 +2,7 @@
   <td><%= material.title %></td>
   <td><%= material.subject %></td>
   <td><%= material.created_at.to_date.strftime("%d/%m/%Y") %></td>
-  <td><%= link_to 'Info', material_url(material), {remote:true, 'data-toggle' => "modal", 'data-target' => "#material-show-modal", class: 'btn btn-primary'} %></td>
-  <td><%= link_to 'Edit', edit_material_path(material), class: 'btn btn-primary', id: "material-edit_#{material.id}", remote: true %></td>
-  <td><%= link_to 'Delete', material_path(material), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "material-delete_#{material.id}", remote: true %></td>
+  <td><%= button_to 'Info', material_url(material), {method: :get, remote:true, 'data-toggle' => "modal", 'data-target' => "#material-show-modal", class: 'btn btn-primary'} %></td>
+  <td><%= button_to 'Edit', edit_material_path(material), method: :get, class: 'btn btn-primary', id: "material-edit_#{material.id}", remote: true %></td>
+  <td><%= button_to 'Delete', material_path(material), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "material-delete_#{material.id}", remote: true %></td>
 </tr>

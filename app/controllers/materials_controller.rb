@@ -42,11 +42,10 @@ class MaterialsController < ApplicationController
 
     respond_to do |format|
       if @material.save
-        format.js
-        format.html { redirect_to @material, notice: "Material created" }
+        format.html { redirect_to teacher_materials_url(@material.teacher), notice: "Material created" }
         format.json { render :show, status: :created, location: @material }
       else
-        format.html { render :new }
+        format.html { redirect_to teacher_materials_url(@material.teacher), alert: @material.print_pretty_errors }
         format.json { render json: @material.errors, status: :unprocessable_entity }
       end
     end
@@ -56,12 +55,11 @@ class MaterialsController < ApplicationController
   # PATCH/PUT /materials/1.json
   def update
     respond_to do |format|
-      if @material.update_attributes(mark_params)
-        format.js
-        format.html { redirect_to @material, notice: "Material updated" }
+      if @material.update_attributes(material_params)
+        format.html { redirect_to teacher_materials_url(@material.teacher), notice: "Material updated" }
         format.json { render :show, status: :ok, location: @material }
       else
-        format.html { render :edit }
+        format.html { redirect_to teacher_materials_url(@material.teacher), alert: @material.print_pretty_errors }
         format.json { render json: @material.errors, status: :unprocessable_entity }
       end
     end
@@ -72,11 +70,10 @@ class MaterialsController < ApplicationController
   def destroy
     respond_to do |format|
       if @material.destroy
-        format.js
-        format.html { redirect_to @material, notice: "Material deleted" }
+        format.html { redirect_to teacher_materials_url(@material.teacher), notice: "Material deleted" }
         format.json { render :show, status: :created, location: @material }
       else
-        format.html { render :new }
+        format.html { redirect_to teacher_materials_url(@material.teacher), alert: "Material can't be deleted" }
         format.json { render json: @material.errors, status: :unprocessable_entity }
       end
     end

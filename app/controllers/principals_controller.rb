@@ -36,10 +36,10 @@ class PrincipalsController < ApplicationController
       user.update(password: otp)
       OfficerMailer.with(user: user, current_pass: otp).credential_mail.deliver_now
       respond_to do |format|
-        format.js
+        format.html { redirect_to administrator_add_user_url(current_user.administrator.id), notice: 'Principal successfully created'}
       end
     else
-      render :new
+      format.html { redirect_to administrator_add_user_url(current_user.administrator.id), alert: @principal.print_pretty_errors}
     end
   end
 
