@@ -24,13 +24,13 @@
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description, class: 'form-control' %>
+    <%= form.text_area :description, class: 'form-control', required: '' %>
   </div>
 
 <div class="field">
     <%= form.label :date %>
     <% @date = @note.date ? @note.date.to_date : Date.today %>
-    <%= form.date_field(:date, :value => @date, :min => Date.new(2019, 9, 1), :max => Date.today, :class => 'form-control') %>
+    <%= form.date_field(:date, :value => @date, :min => Date.new(2019, 9, 1), :max => Date.today, :class => 'form-control', required: '') %>
 </div>
 <br><br>
 <div class="row">

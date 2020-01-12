@@ -21,7 +21,7 @@
     <br>
     <%= form_with(model: @lecture, id: "topics-edit") do |f| %>
       <div class="col-md-12">
-        <%= f.text_area :topics %>
+        <%= f.text_area :topics, required: '' %>
       </div>
 
       <div class="row">
@@ -294,6 +294,17 @@ function execute() {
           var today = new Date();
           var lecture_date = new Date("<%= @lecture.date.split('/').reverse.join('-') %>");
           if(today > new Date(lecture_date.getTime() + 86400000) || today < new Date(lecture_date.getTime() - 86400000)) { disable_clickable() }
+
+          $('textarea[id="lecture_topics"]')[0].onkeyup = function () {
+              if( $('textarea[id="lecture_topics"]')[0].value.length == 0 ) {
+                  $('[data-disable-with="Update Topics"]')[0].classList.add('disabled')
+                  document.getElementById('submit-topics-edit').disabled = true;
+              }
+              else {
+                  $('[data-disable-with="Update Topics"]')[0].classList.remove('disabled')
+                  document.getElementById('submit-topics-edit').disabled = false;
+              }
+          };
       });
       function disable_clickable() {
           $('a:not(#back-to-teacher, .nav-link)').addClass('disabled');

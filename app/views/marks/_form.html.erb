@@ -25,18 +25,18 @@
   <div class="row">
     <div class="col">
       <%= f.label :mark %>
-      <%= f.number_field :mark, step: 0.5, class: 'form-control' %>
+      <%= f.number_field :mark, step: 0.5, class: 'form-control', required: '' %>
     </div>
     <div class="col">
       <%= f.label :date %>
       <% @date = @mark.date ? @mark.date : Date.today %>
-        <%= f.date_field(:date, :value => @date, :min => Date.new(2019, 9, 1), :max => Date.today, :class => 'form-control') %>
+        <%= f.date_field(:date, :value => @date, :min => Date.new(2019, 9, 1), :max => Date.today, :class => 'form-control', :required => '') %>
     </div>
   </div>
   <br />
   <div>
     <%= f.label :notes %>
-    <%= f.text_area :notes, class: 'form-control' %>
+    <%= f.text_area :notes, class: 'form-control', required: '' %>
   </div>
   <br /><br />
   <div class="row">
