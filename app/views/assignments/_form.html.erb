@@ -16,18 +16,18 @@
   </div>
   <br/>
   <div>
-    <%= f.label :school_class %>
-    <%= f.text_field :school_class, :value => @assignment.school_class.class_to_s, :readonly => true, class: 'form-control' %>
+    <%= f.label :school_class_id %>
+    <%= f.text_field :school_class_id, :value => @assignment.school_class.id, :readonly => true, class: 'form-control' %>
   </div>
   <br/>
   <div>
-    <%= f.label :teacher %>
-     <%= f.text_field :teacher, :readonly => true, class: 'form-control' %>
+    <%= f.label :teacher_id %>
+     <%= f.text_field :teacher_id, :value => @assignment.teacher.id, :readonly => true, class: 'form-control' %>
   </div>
   <br/>
   <div>
-    <%= f.label :lecture %>
-    <%= f.text_field :lecture, :readonly => true, class: 'form-control' %>
+    <%= f.label :lecture_id %>
+    <%= f.text_field :lecture_id, :value => @assignment.lecture.id, :readonly => true, class: 'form-control' %>
   </div>
   <br/>
   <div>
@@ -40,9 +40,6 @@
     <%= f.file_field :file, class: 'form-control' %>
   </div>
   <br/>
-  <%= f.hidden_field :teacher_id, value: @assignment.teacher.id %>
-  <%= f.hidden_field :school_class_id, value: @assignment.school_class.id %>
-  <%= f.hidden_field :lecture_id, value: @assignment.lecture.id %>
   <div class="row">
     <div class="col-md-4"></div>
       <div class="col-md-5">
