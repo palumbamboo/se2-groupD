@@ -1,7 +1,7 @@
 if(document.getElementById('communication-row_<%= @communication.id %>')) {
     var not_disabled = [];
     document.getElementById('communication-row_<%= @communication.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @communication.id %>'><td colspan=6><%= j render 'form', communication: @communication %></td></tr>")
-    not_disabled = $('input:not(:disabled)');
+    not_disabled = $("input[type='submit'][name!='commit']:not(:disabled)");
     not_disabled.attr("disabled", true);
     not_disabled.addClass("disabled");
     $('#communication-edit_<%= @communication.id %>').replaceWith("<a class='btn btn-warning' id='undo-edit-communication_<%= @communication.id %>'>Undo</a>")
