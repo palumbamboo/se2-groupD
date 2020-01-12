@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -134,7 +134,7 @@
                         parent_navbar.insertBefore(navbar, parent_navbar.firstChild);
                     }
                 }
-                if( $('.sidebar-offcanvas')[0].classList.contains('active') ) { // if sidebar is active
+                if( $('.sidebar-offcanvas')[0] && $('.sidebar-offcanvas')[0].classList.contains('active') ) { // if sidebar is active
                     $('.sidebar-offcanvas').toggleClass('active'); // set sidebar inactive
                 }
             }

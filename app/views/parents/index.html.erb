@@ -5,10 +5,11 @@
 </div>
 <div>
   <table>
-    <th>Name</th>
-    <th>Surname</th>
-    <th>E-mail</th>
-    <th></th>
+  <caption></caption>
+    <th scope="col">Name</th>
+    <th scope="col">Surname</th>
+    <th scope="col">E-mail</th>
+    <th scope="col"></th>
     <% @parents.each do |parent| %>
       <tr>
         <td><%= parent.name %></td>
