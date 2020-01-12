@@ -148,7 +148,10 @@ function execute() {
         }
     );
 
-    $('[data-toggle="popover"]:not([disabled]):not(.disabled)').click(function (e) { // whenever the user clicks on a 'data-toggle' element
+    $('[data-toggle="popover"]:not(.disabled)').click(function (e) { // whenever the user clicks on a 'data-toggle' element
+        if( e.target.parentElement.parentElement.children[0].classList.contains('disabled') ) { // if the input tag is disabled
+            return; // don't react to clicks
+        }
         let elementToBeChecked = e.target; // get the element clicked
         elementToBeChecked.classList.contains('toggle-on') ? previousState = true : previousState = false; // save provious state in case the user changes his/her mind by pressing x button in popover
 
@@ -234,7 +237,11 @@ function execute() {
             // (so he/she wants the popover to disappear and save the changes)
             if (timeChanged == true) { // if the user has inserted data about time entrance or time exit
                 $('[data-toggle="popover"]').popover('hide'); // allow popover hiding
-            } else { // otherwise
+            }
+            else if(togglePressed == false) {
+                // ignore click because togglePressed = false
+            }
+            else { // otherwise
                 $('#lecture-error-modal').modal('show'); // don't allow popover hiding and show error modal page
             }
         } else if ($(e.target).is('.close')) { // if the click was on the x icon in the top right corner of the popover
@@ -297,12 +304,16 @@ function execute() {
           var lecture_date = new Date("<%= @lecture.date.split('/').reverse.join('-') %>");
           if(today > new Date(lecture_date.getTime() + 86400000) || today < new Date(lecture_date.getTime() - 86400000)) {
               disable_clickable();
-              console.log($('[data-toggle="toggle"]:not(.disabled)').length);
               if( $('[data-toggle="toggle"]:not(.disabled)').length == 0 ) {
-                  console.log("beccato!");
-                  $('[data-toggle="popover"].disabled').popover( // all clicks on toggle elements don't trigger the creation of a popover
-                      'disable'
-                  );
+                  try {
+                      $('[data-toggle="popover"].disabled').popover( // all clicks on toggle elements don't trigger the creation of a popover
+                          'disable'
+                      );
+                  }
+                  catch (e) {
+                      location.reload(); // in order to show disalbled toggles you have to reaload the page
+                  }
+
               }
           }
       });

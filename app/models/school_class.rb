@@ -20,9 +20,9 @@ class SchoolClass < ApplicationRecord
 
   def attendances date=Time.now
     if date.day == Time.now.day
-      end_time = Time.now.gmtime
+      end_time = Time.now+1.hour
     else
-      end_time = date.gmtime
+      end_time = date+1.hour
     end
     absents = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, end_time).where(absence_type: "Absent")
     late = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, end_time).where('enters_at BETWEEN ? AND ?', date.beginning_of_day, end_time).where(absence_type: "Late")
