@@ -29,6 +29,7 @@ class StudentsController < ApplicationController
             first_parent.user = first_parent_user
             first_parent.students << @student # Attach the parent to the current student and viceversa
             if first_parent.save
+                puts "Parent created"
             else   
                 puts first_parent.errors.full_messages #For debugging purposes    
             end
@@ -40,6 +41,7 @@ class StudentsController < ApplicationController
             second_parent.user = second_parent_user
             second_parent.students << @student
             if second_parent.save
+                puts "Parent created"
             else   
                 puts second_parent.errors.full_messages #For debugging purposes    
             end

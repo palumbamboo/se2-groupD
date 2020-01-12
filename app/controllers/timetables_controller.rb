@@ -10,6 +10,7 @@ class TimetablesController < ApplicationController
   # GET /timetables/1
   # GET /timetables/1.json
   def show
+    # No implementation needed
   end
 
   # GET /timetables/new
@@ -19,6 +20,7 @@ class TimetablesController < ApplicationController
 
   # GET /timetables/1/edit
   def edit
+    # No implementation needed
   end
 
   # POST /timetables

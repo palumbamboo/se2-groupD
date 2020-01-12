@@ -12,6 +12,7 @@ class OfficersController < ApplicationController
   # GET /officers/1
   # GET /officers/1.json
   def show
+    # No implementation needed
   end
 
   # GET /officers/new
@@ -21,6 +22,7 @@ class OfficersController < ApplicationController
 
   # GET /officers/1/edit
   def edit
+    # No implementation needed
   end
 
   # POST /officers

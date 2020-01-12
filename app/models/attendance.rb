@@ -25,6 +25,6 @@ class Attendance < ApplicationRecord
     exits_at.strftime("%H:%M:%S")
   end
 
-  # absence_type should be one of {"Absent", "Late", "Earl"} -> TODO: force input data to be like this
-  # TODO: check constraint that if type=absent, enters_at and exits_at fields are null
+  # absence_type should be one of {"Absent", "Late", "Earl"} -> force input data to be like this
+  # check constraint that if type=absent, enters_at and exits_at fields are null
 end

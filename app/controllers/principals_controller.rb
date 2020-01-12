@@ -11,6 +11,7 @@ class PrincipalsController < ApplicationController
   # GET /principals/1
   # GET /principals/1.json
   def show
+    # No implementation needed
   end
 
   # GET /principals/new
@@ -20,6 +21,7 @@ class PrincipalsController < ApplicationController
 
   # GET /principals/1/edit
   def edit
+    # No implementation needed
   end
 
   # POST /principals

@@ -5,10 +5,11 @@
 </div>
 <div>
   <table>
-    <th>Class</th>
-    <th>Teachers</th>
-    <th>Students</th>
-    <th></th>
+    <caption></caption>
+    <th scope="col">Class</th>
+    <th scope="col">Teachers</th>
+    <th scope="col">Students</th>
+    <th scope="col"></th>
     <% @school_classes.each do |sc| %>
       <tr>
         <td><%= sc.class_to_s %></td>

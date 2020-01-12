@@ -41,7 +41,7 @@ class DefaultData
 
   def users
     result = []
-    result << User.create(email: 'u1@p.it', password: 'user1pass', password_changed: true).id
+    result << User.create(email: USER_1, password: 'user1pass', password_changed: true).id
     result << User.create(email: 'u2@p.it', password: 'user2pass').id
     result << User.create(email: 'u3@p.it', password: 'user3pass', password_changed: true).id
     result << User.create(email: 'u4@p.it', password: 'user4pass').id
@@ -57,7 +57,7 @@ class DefaultData
 
   def teachers
     result = []
-    result << Teacher.create(name: 'Giuseppe', surname: 'Musso', subjects: %w(Math Geometry), user: User.find_by(email: 'u1@p.it')).id
+    result << Teacher.create(name: 'Giuseppe', surname: 'Musso', subjects: %w(Math Geometry), user: User.find_by(email: USER_1)).id
     result << Teacher.create(name: 'Maria', surname: 'Cerrato', subjects: %w(Science Biology), user: User.find_by(email: 'u2@p.it')).id
     result << Teacher.create(name: 'Andrea', surname: 'Ferrero', subjects: %w(History Geography), user: User.find_by(email: 'u3@p.it')).id
     result << Teacher.create(name: 'Francesca', surname: 'Gallo', subjects: %w(English), user: User.find_by(email: 'u6@p.it')).id
@@ -68,7 +68,7 @@ class DefaultData
 
   def parents
     result = []
-    result << Parent.create(name: 'Giuseppe', surname: 'Musso', user: User.find_by(email: 'u1@p.it')).id
+    result << Parent.create(name: 'Giuseppe', surname: 'Musso', user: User.find_by(email: USER_1)).id
     result << Parent.create(name: 'Marco', surname: 'Viarengo', user: User.find_by(email: 'u4@p.it')).id
     result << Parent.create(name: 'Anna', surname: 'Bianchi', user: User.find_by(email: 'u5@p.it')).id
     result << Parent.create(name: 'Francesca', surname: 'Gallo', user: User.find_by(email: 'u6@p.it')).id
@@ -92,27 +92,27 @@ class DefaultData
 
   def lectures
     result = []
-    result << Lecture.create(name: 'Lecture 1', start_time: Time.now - 3.day, topics: 'Sum operation', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 2', start_time: Time.now - 2.day, topics: 'Subtraction operation', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 3', start_time: Time.now - 1.day, topics: 'Multiplication operation', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 1', start_time: Time.now - 1.day, topics: 'Fractions', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 1', start_time: Time.now - 3.day, topics: 'Square', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 2', start_time: Time.now - 2.day, topics: 'Triangle', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 3', start_time: Time.now - 1.day, topics: 'Circle', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
+    result << Lecture.create(name: LECTURE_1, start_time: Time.now - 3.day, topics: SUM_OPERATION, subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_2, start_time: Time.now - 2.day, topics: 'Subtraction operation', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_3, start_time: Time.now - 1.day, topics: 'Multiplication operation', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_1, start_time: Time.now - 1.day, topics: 'Fractions', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_1, start_time: Time.now - 3.day, topics: 'Square', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_2, start_time: Time.now - 2.day, topics: 'Triangle', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
+    result << Lecture.create(name: LECTURE_3, start_time: Time.now - 1.day, topics: 'Circle', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
 
-    result << Lecture.create(name: 'Lecture 1', start_time: Time.now - 3.day, topics: 'Atoms', subject: 'Science', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 2', start_time: Time.now - 2.day, topics: 'Light', subject: 'Science', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 3', start_time: Time.now - 1.day, topics: 'Molecules', subject: 'Science', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 1', start_time: Time.now - 3.day, topics: 'Digestive system', subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 2', start_time: Time.now - 2.day, topics: 'Respiratory system', subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 3', start_time: Time.now - 1.day, topics: 'Heart', subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_1, start_time: Time.now - 3.day, topics: 'Atoms', subject: 'Science', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_2, start_time: Time.now - 2.day, topics: 'Light', subject: 'Science', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_3, start_time: Time.now - 1.day, topics: 'Molecules', subject: 'Science', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 1, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_1, start_time: Time.now - 3.day, topics: DIGESTIVE_SYSTEM, subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_2, start_time: Time.now - 2.day, topics: 'Respiratory system', subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
+    result << Lecture.create(name: LECTURE_3, start_time: Time.now - 1.day, topics: 'Heart', subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'), duration: 1).id
 
-    result << Lecture.create(name: 'Lecture 1', start_time: Time.now - 3.day, topics: 'Prehistory', subject: 'History', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 2', start_time: Time.now - 2.day, topics: 'Egyptian Empire', subject: 'History', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 3', start_time: Time.now - 1.day, topics: 'Roman Empire', subject: 'History', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 1', start_time: Time.now - 3.day, topics: 'Italy', subject: 'Geography', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 2', start_time: Time.now - 2.day, topics: 'France', subject: 'Geography', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
-    result << Lecture.create(name: 'Lecture 3', start_time: Time.now - 1.day, topics: 'Germany', subject: 'Geography', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
+    result << Lecture.create(name: LECTURE_1, start_time: Time.now - 3.day, topics: 'Prehistory', subject: 'History', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
+    result << Lecture.create(name: LECTURE_2, start_time: Time.now - 2.day, topics: 'Egyptian Empire', subject: 'History', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
+    result << Lecture.create(name: LECTURE_3, start_time: Time.now - 1.day, topics: 'Roman Empire', subject: 'History', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
+    result << Lecture.create(name: LECTURE_1, start_time: Time.now - 3.day, topics: 'Italy', subject: 'Geography', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
+    result << Lecture.create(name: LECTURE_2, start_time: Time.now - 2.day, topics: 'France', subject: 'Geography', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
+    result << Lecture.create(name: LECTURE_3, start_time: Time.now - 1.day, topics: 'Germany', subject: 'Geography', teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero'), school_class: SchoolClass.find_by(number: 1, section: 'B'), duration: 1).id
     result.all?
   end
   
@@ -175,40 +175,40 @@ class DefaultData
   def marks
     result = []
     # Roberto Musso
-    result << Mark.create(mark: 10, subject: 'Math', date: Date.new(2019, 10, 24), notes: "Oral examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
-    result << Mark.create(mark: 8, subject: 'Geometry', date: Date.new(2019, 10, 22), notes: "Oral examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
-    result << Mark.create(mark: 7, subject: 'Science', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 8, subject: 'Science', date: Date.new(2019, 9, 10), notes: "Written examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 7, subject: 'Biology', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 5.5, subject: 'History', date: Date.new(2019, 11, 21), notes: "Written examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
-    result << Mark.create(mark: 6, subject: 'Geography', date: Date.new(2019, 11, 15), notes: "Oral examination", student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
+    result << Mark.create(mark: 10, subject: 'Math', date: Date.new(2019, 10, 24), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
+    result << Mark.create(mark: 8, subject: 'Geometry', date: Date.new(2019, 10, 22), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
+    result << Mark.create(mark: 7, subject: 'Science', date: Date.new(2019, 9, 21), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 8, subject: 'Science', date: Date.new(2019, 9, 10), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 7, subject: 'Biology', date: Date.new(2019, 9, 21), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 5.5, subject: 'History', date: Date.new(2019, 11, 21), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
+    result << Mark.create(mark: 6, subject: 'Geography', date: Date.new(2019, 11, 15), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Roberto', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
 
     # Elena Musso
-    result << Mark.create(mark: 8.5, subject: 'Math', date: Date.new(2019, 10, 23), notes: "Oral examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
-    result << Mark.create(mark: 7, subject: 'Geometry', date: Date.new(2019, 10, 21), notes: "Oral examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
-    result << Mark.create(mark: 7, subject: 'Science', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 10, subject: 'Science', date: Date.new(2019, 9, 15), notes: "Written examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 7, subject: 'Biology', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 9, subject: 'History', date: Date.new(2019, 11, 25), notes: "Written examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
-    result << Mark.create(mark: 4, subject: 'Geography', date: Date.new(2019, 11, 14), notes: "Oral examination", student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
+    result << Mark.create(mark: 8.5, subject: 'Math', date: Date.new(2019, 10, 23), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
+    result << Mark.create(mark: 7, subject: 'Geometry', date: Date.new(2019, 10, 21), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
+    result << Mark.create(mark: 7, subject: 'Science', date: Date.new(2019, 9, 21), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 10, subject: 'Science', date: Date.new(2019, 9, 15), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 7, subject: 'Biology', date: Date.new(2019, 9, 21), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 9, subject: 'History', date: Date.new(2019, 11, 25), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
+    result << Mark.create(mark: 4, subject: 'Geography', date: Date.new(2019, 11, 14), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Elena', surname: 'Musso'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
 
     # Luigi Gamba
-    result << Mark.create(mark: 9, subject: 'Math', date: Date.new(2019, 10, 11), notes: "Oral examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
-    result << Mark.create(mark: 9, subject: 'Geometry', date: Date.new(2019, 10, 12), notes: "Oral examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
-    result << Mark.create(mark: 6, subject: 'Science', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 6, subject: 'Science', date: Date.new(2019, 9, 10), notes: "Written examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 8, subject: 'Biology', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 7, subject: 'History', date: Date.new(2019, 11, 21), notes: "Written examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
-    result << Mark.create(mark: 6, subject: 'Geography', date: Date.new(2019, 11, 15), notes: "Oral examination", student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
+    result << Mark.create(mark: 9, subject: 'Math', date: Date.new(2019, 10, 11), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
+    result << Mark.create(mark: 9, subject: 'Geometry', date: Date.new(2019, 10, 12), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
+    result << Mark.create(mark: 6, subject: 'Science', date: Date.new(2019, 9, 21), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 6, subject: 'Science', date: Date.new(2019, 9, 10), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 8, subject: 'Biology', date: Date.new(2019, 9, 21), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 7, subject: 'History', date: Date.new(2019, 11, 21), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
+    result << Mark.create(mark: 6, subject: 'Geography', date: Date.new(2019, 11, 15), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Luigi', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
 
     # Stefano Gamba
-    result << Mark.create(mark: 10, subject: 'Math', date: Date.new(2019, 10, 15), notes: "Oral examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
-    result << Mark.create(mark: 8, subject: 'Geometry', date: Date.new(2019, 10, 17), notes: "Oral examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
-    result << Mark.create(mark: 6, subject: 'Science', date: Date.new(2019, 9, 21), notes: "Written examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 6.5, subject: 'Biology', date: Date.new(2019, 9, 15), notes: "Written examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 7, subject: 'Biology', date: Date.new(2019, 9, 25), notes: "Written examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
-    result << Mark.create(mark: 4, subject: 'Geography', date: Date.new(2019, 11, 7), notes: "Written examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
-    result << Mark.create(mark: 5, subject: 'Geography', date: Date.new(2019, 11, 20), notes: "Oral examination", student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
+    result << Mark.create(mark: 10, subject: 'Math', date: Date.new(2019, 10, 15), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
+    result << Mark.create(mark: 8, subject: 'Geometry', date: Date.new(2019, 10, 17), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso')).id
+    result << Mark.create(mark: 6, subject: 'Science', date: Date.new(2019, 9, 21), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 6.5, subject: 'Biology', date: Date.new(2019, 9, 15), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 7, subject: 'Biology', date: Date.new(2019, 9, 25), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato')).id
+    result << Mark.create(mark: 4, subject: 'Geography', date: Date.new(2019, 11, 7), notes: WRITTEN_EXAMINATION, student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
+    result << Mark.create(mark: 5, subject: 'Geography', date: Date.new(2019, 11, 20), notes: ORAL_EXAMINATION, student: Student.find_by(name: 'Stefano', surname: 'Gamba'), teacher: Teacher.find_by(name: 'Andrea', surname: 'Ferrero')).id
 
     # Chiara Saracco
     # Angela Nebiolo
@@ -219,17 +219,17 @@ class DefaultData
   def assignments
     result = []
 
-    result << Assignment.create(name: 'Math: ex. 1, 2, 3', expiry_date: Date.new(2019, 12, 24), subject: 'Math', description: 'Zanichelli: Pag 100, ex 1, 2, 3.', school_class: SchoolClass.find_by(number: 1, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Sum operation', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'))).id
-    result << Assignment.create(name: 'Math: ex. 4, 5, 6', expiry_date: Date.new(2019, 12, 23), subject: 'Math', description: 'Zanichelli: Pag 150, ex 4, 5, 6', school_class: SchoolClass.find_by(number: 1, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Sum operation', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'))).id
+    result << Assignment.create(name: 'Math: ex. 1, 2, 3', expiry_date: Date.new(2019, 12, 24), subject: 'Math', description: 'Zanichelli: Pag 100, ex 1, 2, 3.', school_class: SchoolClass.find_by(number: 1, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: LECTURE_1, topics: SUM_OPERATION, subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'))).id
+    result << Assignment.create(name: 'Math: ex. 4, 5, 6', expiry_date: Date.new(2019, 12, 23), subject: 'Math', description: 'Zanichelli: Pag 150, ex 4, 5, 6', school_class: SchoolClass.find_by(number: 1, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: LECTURE_1, topics: SUM_OPERATION, subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 1, section: 'A'))).id
 
-    result << Assignment.create(name: 'Math: ex. 19, 20', expiry_date: Date.new(2019, 12, 24), subject: 'Math', description: 'Zanichelli II: Pag 100, ex 19, 20.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Fractions', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
-    result << Assignment.create(name: 'Math: ex. 21', expiry_date: Date.new(2019, 12, 23), subject: 'Math', description: 'Zanichelli II: Pag 100, ex 21.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Fractions', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
+    result << Assignment.create(name: 'Math: ex. 19, 20', expiry_date: Date.new(2019, 12, 24), subject: 'Math', description: 'Zanichelli II: Pag 100, ex 19, 20.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: LECTURE_1, topics: 'Fractions', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
+    result << Assignment.create(name: 'Math: ex. 21', expiry_date: Date.new(2019, 12, 23), subject: 'Math', description: 'Zanichelli II: Pag 100, ex 21.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: LECTURE_1, topics: 'Fractions', subject: 'Math', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
 
-    result << Assignment.create(name: 'Geometry: ex. 19, 20', expiry_date: Date.new(2019, 12, 21), subject: 'Geometry', description: 'Geomag II: Pag 100, ex 19, 20.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Square', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
-    result << Assignment.create(name: 'Geometry: ex. 21', expiry_date: Date.new(2019, 12, 20), subject: 'Geometry', description: 'Geomag II: Pag 100, ex 21.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Square', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
+    result << Assignment.create(name: 'Geometry: ex. 19, 20', expiry_date: Date.new(2019, 12, 21), subject: 'Geometry', description: 'Geomag II: Pag 100, ex 19, 20.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: LECTURE_1, topics: 'Square', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
+    result << Assignment.create(name: 'Geometry: ex. 21', expiry_date: Date.new(2019, 12, 20), subject: 'Geometry', description: 'Geomag II: Pag 100, ex 21.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), lecture: Lecture.find_by(name: LECTURE_1, topics: 'Square', subject: 'Geometry', teacher: Teacher.find_by(name: 'Giuseppe', surname: 'Musso'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
 
-    result << Assignment.create(name: 'Biology: ex. 2', expiry_date: Date.new(2019, 12, 19), subject: 'Biology', description: 'BioBook: Pag 100, ex 2, please write down the entire procedure.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Digestive system', subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
-    result << Assignment.create(name: 'Biology: ex. 11', expiry_date: Date.new(2019, 12, 11), subject: 'Biology', description: 'BioBook: Pag 105, ex 11, please write down the entire procedure.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), lecture: Lecture.find_by(name: 'Lecture 1', topics: 'Digestive system', subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
+    result << Assignment.create(name: 'Biology: ex. 2', expiry_date: Date.new(2019, 12, 19), subject: 'Biology', description: 'BioBook: Pag 100, ex 2, please write down the entire procedure.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), lecture: Lecture.find_by(name: LECTURE_1, topics: DIGESTIVE_SYSTEM, subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
+    result << Assignment.create(name: 'Biology: ex. 11', expiry_date: Date.new(2019, 12, 11), subject: 'Biology', description: 'BioBook: Pag 105, ex 11, please write down the entire procedure.', school_class: SchoolClass.find_by(number: 2, section: 'A'), teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), lecture: Lecture.find_by(name: LECTURE_1, topics: DIGESTIVE_SYSTEM, subject: 'Biology', teacher: Teacher.find_by(name: 'Maria', surname: 'Cerrato'), school_class: SchoolClass.find_by(number: 2, section: 'A'))).id
 
     result.all?
   end

@@ -24,7 +24,7 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe MaterialsController, type: :controller do
-
+  SUCCESS = "return a success response"
   # This should return the minimal set of attributes required to create a valid
   # Material. As you add validations to Material, be sure to
   # adjust the attributes here as well.
@@ -42,7 +42,7 @@ RSpec.describe MaterialsController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "returns a success response" do
+    it SUCCESS do
       Material.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
@@ -50,7 +50,7 @@ RSpec.describe MaterialsController, type: :controller do
   end
 
   describe "GET #show" do
-    it "returns a success response" do
+    it SUCCESS do
       material = Material.create! valid_attributes
       get :show, params: {id: material.to_param}, session: valid_session
       expect(response).to be_successful
@@ -58,14 +58,14 @@ RSpec.describe MaterialsController, type: :controller do
   end
 
   describe "GET #new" do
-    it "returns a success response" do
+    it SUCCESS do
       get :new, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe "GET #edit" do
-    it "returns a success response" do
+    it SUCCESS do
       material = Material.create! valid_attributes
       get :edit, params: {id: material.to_param}, session: valid_session
       expect(response).to be_successful

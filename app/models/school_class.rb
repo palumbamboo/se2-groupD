@@ -20,9 +20,10 @@ class SchoolClass < ApplicationRecord
 
   def attendances date=Time.now
     puts date
-    absents = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where(absence_type: "Absent")
-    late = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where('enters_at BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where(absence_type: "Late")
-    early = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where('exits_at BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where(absence_type: "Earl")
+    query = 'date BETWEEN ? AND ?'
+    absents = Attendance.where(school_class: self).where(query, date.beginning_of_day, Time.now.gmtime).where(absence_type: "Absent")
+    late = Attendance.where(school_class: self).where(query, date.beginning_of_day, Time.now.gmtime).where('enters_at BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where(absence_type: "Late")
+    early = Attendance.where(school_class: self).where(query, date.beginning_of_day, Time.now.gmtime).where('exits_at BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where(absence_type: "Earl")
 
     attendances = absents.map(&:student).map{ |a|
       { student_id: a.id, student_name: a.to_s, attendance: false }
