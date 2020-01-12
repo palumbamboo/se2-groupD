@@ -91,7 +91,7 @@ class LecturesController < ApplicationController
         arr = late_times[l.id].split(':')
         time = date.beginning_of_day + arr[0].to_i.hour + arr[1].to_i.minute
 
-        Attendance.create(date: Time.now, absence_type: 'Late', enters_at: time, student: l, school_class: school_class)
+        Attendance.create(date: Time.now+1.hour, absence_type: 'Late', enters_at: time, student: l, school_class: school_class)
       end
     end
 
@@ -106,11 +106,11 @@ class LecturesController < ApplicationController
       early.map do |e|
         arr = early_times[e.id].split(':')
         time = date.beginning_of_day + arr[0].to_i.hour + arr[1].to_i.minute
-        Attendance.create(date: Time.now, absence_type: 'Earl', exits_at: time, student: e, school_class: school_class)
+        Attendance.create(date: Time.now+1.hour, absence_type: 'Earl', exits_at: time, student: e, school_class: school_class)
       end
     end
 
-    absents.map{ |a| Attendance.create(date: Time.now, absence_type: 'Absent', student: Student.find(a.id), school_class: school_class) }
+    absents.map{ |a| Attendance.create(date: Time.now+1.hour, absence_type: 'Absent', student: Student.find(a.id), school_class: school_class) }
 
     respond_to do |format|
       @updated = true
