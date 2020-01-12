@@ -11,6 +11,7 @@
     <li><%= link_to " Assignments", teacher_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
     <li><%= link_to " Materials", teacher_materials_url, class: 'mdi mdi-library-books' %></li>
     <li class="active"><%= link_to " Notes", teacher_notes_url(@teacher), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
+    <li><%= link_to " Timetables", teacher_timetables_url(@teacher), class: 'mdi mdi-timetable', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
 

@@ -95,7 +95,12 @@ class OfficersController < ApplicationController
     else
       @class = SchoolClass.available_classes.first
     end
-    @timetables = Timetable.where(school_class_id: @class.id)
+    @subjects = Timetable.where(school_class_id: @class.id).select(:subject).distinct
+    @monday = Timetable.where(school_class_id: @class.id, day_of_week: "1").select(:subject)
+    @tuesday = Timetable.where(school_class_id: @class.id, day_of_week: "2").select(:subject)
+    @wednesday = Timetable.where(school_class_id: @class.id, day_of_week: "3").select(:subject)
+    @thursday = Timetable.where(school_class_id: @class.id, day_of_week: "4").select(:subject)
+    @friday = Timetable.where(school_class_id: @class.id, day_of_week: "5").select(:subject)
     respond_to do |format|
       format.js
       format.html

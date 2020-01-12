@@ -1,0 +1,43 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @teacher.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Teacher page</p>
+    <li><%= link_to " Home", teacher_path(@teacher), class: 'mdi mdi-view-dashboard' %></li>
+    <li><%= link_to " Lectures", teacher_lectures_url, class:'mdi mdi-teach' %></li>
+    <li><%= link_to " Marks", teacher_marks_url, class: 'mdi mdi-bookmark' %></li>
+    <li><%= link_to " Assignments", teacher_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
+    <li><%= link_to " Materials", teacher_materials_url, class: 'mdi mdi-library-books' %></li>
+    <li><%= link_to " Notes", teacher_notes_url(@teacher), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Timetables", teacher_timetables_url(@teacher), class: 'mdi mdi-timetable', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+<script>
+    function loadClasses(class_id){
+        $.ajax({
+            type: 'GET',
+            url: "/teachers/<%= @teacher.id %>/timetables/" + class_id,
+            contentType: "text/javascript",
+        }).done(function(response){
+
+        });
+    };
+    $(document).ready(function() {
+        document.getElementById("class_select").value = "<%= @class.id %>";
+        document.getElementById("class_select").onchange = function(){
+            loadClasses(document.getElementById("class_select").value);
+        };
+    });
+</script>
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <div class="input-group">
+        <%= select_tag :class_select, options_for_select(@classes.map{|s| [s.class_to_s, s.id]}), class: "custom-select", remote: true%>
+        </div>
+    </li>
+  </ul>
+<% end %>
+<%= render partial: 'timetables/timetable' %>
