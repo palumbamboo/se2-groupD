@@ -1,12 +1,14 @@
 if(document.getElementById('mark-row_<%= @mark.id %>')) {
+    var not_disabled = [];
     document.getElementById('mark-row_<%= @mark.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @mark.id %>'><td colspan=6><%= j render 'form', mark: @mark %></td></tr>")
-    $('a').addClass("disabled")
+    not_disabled = $('a:not(.disabled)');
+    $('a:not(.disabled)').addClass("disabled");
     $('#mark-edit_<%= @mark.id %>').replaceWith("<a class='btn btn-warning' id='undo-edit-mark_<%= @mark.id %>'>Undo</a>")
     $('tr:not(#edit-form_<%= @mark.id %>, #mark-row_<%= @mark.id %>)').addClass('blur-filter')
 
     $('#undo-edit-mark_<%= @mark.id %>').click(function (e) {
         e.preventDefault();
-        $('a').removeClass("disabled");
+        not_disabled.removeClass("disabled");
         $('.blur-filter').removeClass('blur-filter');
         document.getElementById('edit-form_<%= @mark.id %>').remove()
         $('#mark-row_<%= @mark.id %>').replaceWith("<%= j render @mark %>")

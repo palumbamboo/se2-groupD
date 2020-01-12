@@ -1,12 +1,14 @@
 if(document.getElementById('lecture-row_<%= @lecture.id %>')) {
+    var not_disabled = [];
     document.getElementById('lecture-row_<%= @lecture.id %>').insertAdjacentHTML('afterend', "<tr id='edit-form_<%= @lecture.id %>'><td colspan=6><%= j render 'form', lecture: @lecture %></td></tr>")
-    $('a').addClass("disabled")
+    not_disabled = $('a:not(.disabled)');
+    $('a:not(.disabled)').addClass("disabled");
     $('#lecture-edit_<%= @lecture.id %>').replaceWith("<a class='btn btn-warning' id='undo-edit-lecture_<%= @lecture.id %>'>Undo</a>")
     $('tr:not(#edit-form_<%= @lecture.id %>,#lecture-row_<%= @lecture.id %>)').addClass('blur-filter')
 
     $('#undo-edit-lecture_<%= @lecture.id %>').click(function (e) {
         e.preventDefault();
-        $('a').removeClass("disabled");
+        not_disabled.removeClass("disabled");
         $('.blur-filter').removeClass('blur-filter');
         document.getElementById('edit-form_<%= @lecture.id %>').remove()
         $('#lecture-row_<%= @lecture.id %>').replaceWith("<%= j render @lecture %>")
