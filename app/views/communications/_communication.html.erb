@@ -2,7 +2,7 @@
   <td><%= communication.title %></td>
   <td><%= communication.start_date %></td>
   <td><%= communication.expiry_date %></td>
-  <td><%= button_to 'Show', communication_url(communication), {method: :get, remote:true, 'data-toggle' => "modal", 'data-target' => "#communication-show-modal", class: 'btn btn-primary btn-sm'} %></td>
+  <td><%= button_to 'Show', communication_url(communication), {method: :get, remote:true, 'data-toggle' => "modal", 'data-target' => "#communication-show-modal", class: 'btn btn-primary'} %></td>
   <% if communication.expiry_date > (Time.now - 1.day) %>
     <td><%= button_to 'Edit', edit_communication_path(communication), method: :get, class: 'btn btn-primary', id: "communication-edit_#{communication.id}", remote: true %></td>
     <td><%= button_to 'Delete', communication_path(communication), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "communication-delete_#{communication.id}", remote: true %></td>

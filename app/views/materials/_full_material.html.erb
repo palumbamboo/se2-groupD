@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12 col-md-6">
+    <div class="col-xs-12 col-md-12">
     <div class="form-group">
       <label class="col-form-label">Description:</label>
       <textarea class="form-control" id="message-text" readonly><%= material.description %></textarea>
@@ -46,8 +46,9 @@
   <% if material.file.url.present? %>
     <div class="form-group">
       <label class="col-form-label">Support material: </label>
-      <%= material.file %>
+      <input type="text" class="form-control" value="<%= File.basename(material.file.url) %>" readonly>
       <a href="<%= material.file.url%>" download>
+        <br>
         <button type="button" class="btn btn-primary">
           Download
         </button>
