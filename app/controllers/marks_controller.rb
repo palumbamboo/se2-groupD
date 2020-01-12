@@ -23,11 +23,11 @@ class MarksController < ApplicationController
         respond_to do |format|
             if @mark.save
                 format.js
-                format.html { redirect_to teacher_marks_url(@teacher), notice: "Mark created" }
+                format.html { redirect_to request.referer, notice: "Mark created" }
                 format.json { render :show, status: :created, location: @mark }
             else
                 format.js
-                format.html { redirect_to teacher_marks_url(@teacher), alert: @mark.print_pretty_errors }
+                format.html { redirect_to request.referer, alert: @mark.print_pretty_errors }
                 format.json { render json: @mark.errors, status: :unprocessable_entity }
             end
         end
@@ -43,7 +43,7 @@ class MarksController < ApplicationController
 
         respond_to do |format|
             if @mark.update_attributes(mark_params)
-                format.html { redirect_to teacher_marks_url(@mark.teacher), notice: "Mark updated" }
+                format.html { redirect_to request.referer, notice: "Mark updated" }
                 format.json { render :show, status: :ok, location: @mark }
             else
                 format.html { render :edit }
@@ -57,10 +57,10 @@ class MarksController < ApplicationController
 
         respond_to do |format|
             if @mark.destroy
-                format.html { redirect_to teacher_marks_url(@mark.teacher), notice: "Mark correctly deleted" }
+                format.html { redirect_to request.referer, notice: "Mark correctly deleted" }
                 format.json { render :show, status: :created, location: @mark }
             else
-                format.html { redirect_to teacher_marks_url(@mark.teacher), alert: "Mark can't be deleted!" }
+                format.html { redirect_to request.referer, alert: "Mark can't be deleted!" }
                 format.json { render json: @mark.errors, status: :unprocessable_entity }
             end
         end

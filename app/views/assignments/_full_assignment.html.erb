@@ -48,7 +48,9 @@
   <% if assignment.file.url.present? %>
     <div class="form-group">
       <label class="col-form-label">Additional material:</label>
+      <input type="text" class="form-control" value="<%= File.basename(assignment.file.url) %>" readonly>
         <a href="<%= assignment.file.url%>" download>
+          <br>
           <button type="button" class="btn btn-primary">
             Download
           </button>
