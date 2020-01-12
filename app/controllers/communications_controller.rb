@@ -31,10 +31,10 @@ class CommunicationsController < ApplicationController
     respond_to do |format|
       if @communication.save
         format.js
-        format.html { redirect_to @communication, notice: 'Communication was successfully created.' }
+        format.html { redirect_to officer_communications_url(current_user.officer.id), notice: 'Communication was successfully created.' }
         format.json { render :show, status: :created, location: @communication }
       else
-        format.html { render :new }
+        format.html { redirect_to officer_communications_url(current_user.officer.id), alert: @communication.print_pretty_errors }
         format.json { render json: @communication.errors, status: :unprocessable_entity }
       end
     end
@@ -48,10 +48,10 @@ class CommunicationsController < ApplicationController
     respond_to do |format|
       if @communication.update(communication_params)
         format.js
-        format.html { redirect_to @communication, notice: 'Communication was successfully updated.' }
+        format.html { redirect_to officer_communications_url(current_user.officer.id), notice: 'Communication was successfully updated.' }
         format.json { render :show, status: :ok, location: @communication }
       else
-        format.html { render :edit }
+        format.html { redirect_to officer_communications_url(current_user.officer.id), alert: @communication.print_pretty_errors }
         format.json { render json: @communication.errors, status: :unprocessable_entity }
       end
     end
@@ -65,10 +65,10 @@ class CommunicationsController < ApplicationController
     respond_to do |format|
       if @communication.destroy
         format.js
-        format.html { redirect_to @communication, notice: 'Communication was successfully deleted.' }
+        format.html { redirect_to officer_communications_url(current_user.officer.id), notice: 'Communication was successfully deleted.' }
         format.json { render :show, status: :ok, location: @communication }
       else
-        format.html { render :new }
+        format.html { redirect_to officer_communications_url(current_user.officer.id), alert: "Communication can't be destroyed" }
         format.json { render json: @communication.errors, status: :unprocessable_entity }
       end
     end
@@ -82,7 +82,10 @@ class CommunicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def communication_params
-      params.require(:communication).permit(:title, :start_date, :expiry_date, :description, :attachment)
+      p = params.require(:communication).permit(:title, :start_date, :expiry_date, :description, :attachment)
+      p[:expiry_date] = Date.parse(p[:expiry_date])
+      p[:start_date] = Date.parse(p[:start_date])
+      p
     end
 
   def officer_auth
