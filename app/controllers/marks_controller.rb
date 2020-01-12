@@ -43,7 +43,6 @@ class MarksController < ApplicationController
 
         respond_to do |format|
             if @mark.update_attributes(mark_params)
-                format.js
                 format.html { redirect_to teacher_marks_url(@mark.teacher), notice: "Mark updated" }
                 format.json { render :show, status: :ok, location: @mark }
             else

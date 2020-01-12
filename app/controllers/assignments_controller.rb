@@ -46,7 +46,7 @@ class AssignmentsController < ApplicationController
         format.html { redirect_to @assignment.lecture, notice: 'Assignment was successfully created.' }
         format.json { render :show, status: :created, location: @assignment }
       else
-        format.html { redirect_to @assignment.lecture, alert: @assignment.errors }
+        format.html { redirect_to @assignment.lecture, alert: @assignment.print_pretty_errors }
         format.json { render json: @assignment.errors, status: :unprocessable_entity }
       end
     end
