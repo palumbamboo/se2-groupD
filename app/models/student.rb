@@ -12,7 +12,7 @@ class Student < ApplicationRecord
   validates :name, :surname, presence: true, format: { with: /\A[a-zA-Z'-]*\z/, message: 'No special characters, only letters' }
   validates :enrollment_date, presence: true, inclusion: { in: FIRST_ACADEMIC_YEAR..END_OF_THE_YEAR, message: "Enrollment date must be between first year #{FIRST_ACADEMIC_YEAR.year} and #{END_OF_THE_YEAR.year}" }
   validates :fiscal_code, presence: true, format: { with: /\A[\w]*\z/, message: 'No special characters, only letters and numbers' }
-  validates :birth_date, :school_class_id, presence: true
+  validates :birth_date, presence: true
 
 
   def to_s
