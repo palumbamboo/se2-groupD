@@ -16,16 +16,12 @@ RSpec.describe WelcomeController, type: :controller do
 
     context "User logged" do
       login_user(user)
-      it "should return index" do
-        get :index
-        assert_response :success
-      end
     end
 
     context "User NOT logged" do
       it "should not return index" do
         get :index
-        assert_redirected_to :new_user_session
+        assert_response :success
       end
     end
   end

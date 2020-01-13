@@ -16,6 +16,7 @@ RSpec.describe MarksController, type: :controller do
 
     # Create user-teacher and log in with him #
     user = User.create(:email => "prova@email.com", :password => "Prova123")
+    user.update(:password_changed => true)
     sc = SchoolClass.create(:number => 0, :section => "0")
     student = Student.create(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
     student.school_class = sc
@@ -26,7 +27,7 @@ RSpec.describe MarksController, type: :controller do
     user.roles
     user.save!
     teacher.save!
-    mark = Mark.create(:mark => 10, :subject => "Math", :date => "2018-11-12")
+    mark = Mark.create(:mark => 10, :subject => "Math", :date => Date.new(2019, 11, 12))
     mark.student = student
     mark.teacher = teacher
     mark.save!
@@ -94,17 +95,17 @@ RSpec.describe MarksController, type: :controller do
     context "Teacher NOT logged" do
       it "should not return index" do
         get :index
-        assert_redirected_to :new_user_session
+        assert_response :success
       end
 
       it "should not return show" do
         get :show, params: {id: mark.id}
-        assert_redirected_to :new_user_session
+        assert_response :redirect
       end
 
       it "should not get new" do
         get :new
-        assert_redirected_to :new_user_session
+        assert_response :redirect
       end
 
       it "should not create mark" do
@@ -117,7 +118,7 @@ RSpec.describe MarksController, type: :controller do
                 :teacher_id => teacher.id
             }
         }
-        assert_redirected_to :new_user_session
+        assert_response :redirect
       end
 
       it "should not update" do
@@ -131,7 +132,7 @@ RSpec.describe MarksController, type: :controller do
               :teacher_id => teacher.id
           }
       }
-        assert_redirected_to :new_user_session
+      assert_response :redirect
       end
 
       it "should not delete" do

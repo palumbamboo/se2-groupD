@@ -32,7 +32,7 @@ RSpec.describe LecturesController, type: :controller do
     user.roles
     user.save!
     teacher.save!
-    lecture = Lecture.create(:name => "Intro to derivatives", :start_time => "11/11/2019", :end_time => "11/11/2019", :topics => "Derivatives", :subject => "Math", :duration => 2)
+    lecture = Lecture.create(:name => "Intro to derivatives", :start_time => Date.new(2019, 11, 11), :topics => "Derivatives", :subject => "Math", :duration => 2)
     lecture.teacher = teacher
     lecture.school_class = sc
     lecture.save!
@@ -66,7 +66,7 @@ RSpec.describe LecturesController, type: :controller do
                 :subject => "Math",
                 :duration => 3,
                 :school_class_id => sc.id,
-                :teacher_id => teacher.id
+                :teacher_id => user.teacher.id
             }
         }
         assert_response :redirect

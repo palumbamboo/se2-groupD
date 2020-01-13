@@ -27,17 +27,17 @@ RSpec.describe AssignmentsController, type: :controller do
     user_t.save!
     teacher.save!
     
-    mark = Mark.create(:mark => 10, :subject => "Math", :date => "2018-11-12")
+    mark = Mark.create(:mark => 10, :subject => "Math", :date => Date.new(2019, 11, 12))
     mark.student = student
     mark.teacher = teacher
     mark.save!
     
-    lecture = Lecture.create(:name => "Lecture 1", :start_time => Time.now, :end_time => Time.now + 1.hour, :duration => 1)
+    lecture = Lecture.create(:name => "Lecture 1", :start_time => Time.now, :duration => 1, :topics => "Prova", :subject => "Math")
     lecture.teacher = teacher
     lecture.school_class = sc
     lecture.save!
     
-    assignment = Assignment.create(:name => "Assignment", :expiry_date => Date.today + 1.day, :subject => "Math")
+    assignment = Assignment.create(:name => "Assignment", :expiry_date => Date.today + 1.day, :subject => "Math", :description => "Homework")
     assignment.school_class = sc
     assignment.teacher = teacher
     assignment.lecture = lecture
@@ -45,7 +45,7 @@ RSpec.describe AssignmentsController, type: :controller do
     ##########
 
 
-    context "Parent logged" do
+    context "Teacher logged" do
       login_user(user_t)
       it "should return index" do
         get :index
@@ -66,7 +66,8 @@ RSpec.describe AssignmentsController, type: :controller do
         put :update, params: {
             id: assignment.id,
             assignment: {
-                :name => "Assignment1"
+                :name => "Assignment1",
+                :expiry_date => Date.new(2020, 1, 10)
             }
         }
         assert_response :redirect

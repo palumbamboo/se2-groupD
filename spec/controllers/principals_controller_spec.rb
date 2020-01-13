@@ -33,13 +33,13 @@ RSpec.describe PrincipalsController, type: :controller do
         put :update, params: {
             id: user.principal.id,
             principal: {
-                :name => "Princ1",
+                :name => "PrincNew",
                 :surname => "Test",
                 :user_id => user.id
             }
         }
         assert_response :redirect
-        expect(user.principal.reload.name).to eq("Princ1")
+        expect(user.principal.reload.name).to eq("PrincNew")
       end
 
       it "should destroy a principal" do

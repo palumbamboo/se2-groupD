@@ -27,7 +27,7 @@ RSpec.describe ParentsController, type: :controller do
     user_t.roles
     user_t.save!
     teacher.save!
-    mark = Mark.create(:mark => 10, :subject => "Math", :date => "2018-11-12")
+    mark = Mark.create(:mark => 10, :subject => "Math", :date => Date.new(2019, 11, 12))
     mark.student = student
     mark.teacher = teacher
     mark.save!
@@ -67,6 +67,38 @@ RSpec.describe ParentsController, type: :controller do
         get :edit, params: {id: parent.id}
         assert_response :success
       end
+
+      it "should get timetables" do
+        get :timetables, params: {id: parent.id}
+        assert_response :success
+      end
+
+      it "should get assignments" do
+        get :assignments, params: {id: parent.id}
+        assert_response :success
+      end
+
+      it "should get materials" do
+        get :materials, params: {id: parent.id}
+        assert_response :success
+      end
+
+      it "should get notes" do
+        get :notes, params: {id: parent.id}
+        assert_response :success
+      end
+
+      it "should get communications" do
+        get :communications, params: {id: parent.id}
+        assert_response :success
+      end
+
+      it "should get attendances" do
+        get :attendances, params: {id: parent.id}
+        assert_response :success
+      end
+
+
 
       it "should update a parent" do
         put :update, params: {

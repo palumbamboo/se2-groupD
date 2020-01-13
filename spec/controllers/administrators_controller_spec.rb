@@ -33,13 +33,14 @@ RSpec.describe AdministratorsController, type: :controller do
         put :update, params: {
             id: user.administrator.id,
             administrator: {
-                :name => "Admin1",
+                :name => "AdminNew",
                 :surname => "Test",
                 :user_id => user.id
             }
         }
         assert_response :redirect
-        expect(user.administrator.reload.name).to eq("Admin1")
+        user.administrator.reload
+        expect(user.administrator.name).to eq("AdminNew")
       end
 
       it "should destroy an administrator" do
