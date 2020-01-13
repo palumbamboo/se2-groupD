@@ -116,11 +116,11 @@ class TeachersController < ApplicationController
     else
       @class = SchoolClass.available_classes.first
     end
-    @monday = Timetable.where(school_class_id: @class.id, day_of_week: "1", teacher_id: @teacher.id).select(:subject)
-    @tuesday = Timetable.where(school_class_id: @class.id, day_of_week: "2", teacher_id: @teacher.id).select(:subject)
-    @wednesday = Timetable.where(school_class_id: @class.id, day_of_week: "3", teacher_id: @teacher.id).select(:subject)
-    @thursday = Timetable.where(school_class_id: @class.id, day_of_week: "4", teacher_id: @teacher.id).select(:subject)
-    @friday = Timetable.where(school_class_id: @class.id, day_of_week: "5", teacher_id: @teacher.id).select(:subject)
+    @monday = Timetable.where(school_class_id: @class.id, day_of_week: "1")
+    @tuesday = Timetable.where(school_class_id: @class.id, day_of_week: "2")
+    @wednesday = Timetable.where(school_class_id: @class.id, day_of_week: "3")
+    @thursday = Timetable.where(school_class_id: @class.id, day_of_week: "4")
+    @friday = Timetable.where(school_class_id: @class.id, day_of_week: "5")
     respond_to do |format|
       format.js
       format.html

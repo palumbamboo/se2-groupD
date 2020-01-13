@@ -1,0 +1,78 @@
+<div style="overflow: auto">
+    <table class="table table-sm" id="timetable">
+    <tr>
+        <th></th>
+        <th scope="col">Monday</th>
+        <th scope="col">Tuesday</th>
+        <th scope="col">Wednesday</th>
+        <th scope="col">Thursday</th>
+        <th scope="col">Friday</th>
+    </tr>
+    <tr>
+        <th scope="row">08:00 - 09:00</th>
+        <td><%= @monday[0] && @monday[0].teacher.id == @teacher.id ? @monday[0].subject : "/"%></td>
+        <td><%= @tuesday[0] && @tuesday[0].teacher.id == @teacher.id ? @tuesday[0].subject : "/"%></td>
+        <td><%= @wednesday[0] && @wednesday[0].teacher.id == @teacher.id ? @wednesday[0].subject : "/"%></td>
+        <td><%= @thursday[0] && @thursday[0].teacher.id == @teacher.id ? @thursday[0].subject : "/"%></td>
+        <td><%= @friday[0] && @friday[0].teacher.id == @teacher.id ? @friday[0].subject : "/"%></td>
+    </tr>
+    <tr>
+        <th scope="row">09:00 - 10:00</th>
+      <td><%= @monday[1] && @monday[1].teacher.id == @teacher.id ? @monday[1].subject : "/"%></td>
+      <td><%= @tuesday[1] && @tuesday[1].teacher.id == @teacher.id ? @tuesday[1].subject : "/"%></td>
+      <td><%= @wednesday[1] && @wednesday[1].teacher.id == @teacher.id ? @wednesday[1].subject : "/"%></td>
+      <td><%= @thursday[1] && @thursday[1].teacher.id == @teacher.id ? @thursday[1].subject : "/"%></td>
+      <td><%= @friday[1] && @friday[1].teacher.id == @teacher.id ? @friday[1].subject : "/"%></td>
+    </tr>
+    <tr>
+        <th scope="row">10:00 - 11:00</th>
+      <td><%= @monday[2] && @monday[2].teacher.id == @teacher.id ? @monday[2].subject : "/"%></td>
+      <td><%= @tuesday[2] && @tuesday[2].teacher.id == @teacher.id ? @tuesday[2].subject : "/"%></td>
+      <td><%= @wednesday[2] && @wednesday[2].teacher.id == @teacher.id ? @wednesday[2].subject : "/"%></td>
+      <td><%= @thursday[2] && @thursday[2].teacher.id == @teacher.id ? @thursday[2].subject : "/"%></td>
+      <td><%= @friday[2] && @friday[2].teacher.id == @teacher.id ? @friday[2].subject : "/"%></td>
+    </tr>
+        <tr>
+        <th scope="row">11:00 - 12:00</th>
+          <td><%= @monday[3] && @monday[3].teacher.id == @teacher.id ? @monday[3].subject : "/"%></td>
+          <td><%= @tuesday[3] && @tuesday[3].teacher.id == @teacher.id ? @tuesday[3].subject : "/"%></td>
+          <td><%= @wednesday[3] && @wednesday[3].teacher.id == @teacher.id ? @wednesday[3].subject : "/"%></td>
+          <td><%= @thursday[3] && @thursday[3].teacher.id == @teacher.id ? @thursday[3].subject : "/"%></td>
+          <td><%= @friday[3] && @friday[3].teacher.id == @teacher.id ? @friday[3].subject : "/"%></td>
+    </tr>
+    <tr>
+        <th scope="row">12:00 - 13:00</th>
+      <td><%= @monday[4] && @monday[4].teacher.id == @teacher.id ? @monday[4].subject : "/"%></td>
+      <td><%= @tuesday[4] && @tuesday[4].teacher.id == @teacher.id ? @tuesday[4].subject : "/"%></td>
+      <td><%= @wednesday[4] && @wednesday[4].teacher.id == @teacher.id ? @wednesday[4].subject : "/"%></td>
+      <td><%= @thursday[4] && @thursday[4].teacher.id == @teacher.id ? @thursday[4].subject : "/"%></td>
+      <td><%= @friday[4] && @friday[4].teacher.id == @teacher.id ? @friday[4].subject : "/"%></td>
+    </tr>
+    <tr>
+        <th scope="row">13:00 - 14:00</th>
+      <td><%= @monday[5] && @monday[5].teacher.id == @teacher.id ? @monday[5].subject : "/"%></td>
+      <td><%= @tuesday[5] && @tuesday[5].teacher.id == @teacher.id ? @tuesday[5].subject : "/"%></td>
+      <td><%= @wednesday[5] && @wednesday[5].teacher.id == @teacher.id ? @wednesday[5].subject : "/"%></td>
+      <td><%= @thursday[5] && @thursday[5].teacher.id == @teacher.id ? @thursday[5].subject : "/"%></td>
+      <td><%= @friday[5] && @friday[5].teacher.id == @teacher.id ? @friday[5].subject : "/"%></td>
+    </tr>
+    </table>
+</div>
+<script>
+$(document).ready(function(){
+    var subjects = JSON.parse('<%= raw @subjects.to_json %>');
+    var colors = JSON.parse('<%= raw @colors.to_json %>');
+    var len = subjects.length;
+    $("td").css("color", "black");
+    for(let i = 0; i < len; i++){
+        $("td:contains("+subjects[i]+")").css("background-color", colors[i]);
+    };
+})
+</script>
+<style>
+.table td, th {
+    padding: 15px;
+    border-right: 2px solid white;
+    border-top: 2px solid white !important;
+}
+</style>
