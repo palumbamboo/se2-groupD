@@ -58,3 +58,21 @@
     </tr>
     </table>
 </div>
+<script>
+$(document).ready(function(){
+    var subjects = JSON.parse('<%= raw @subjects.to_json %>');
+    var colors = JSON.parse('<%= raw @colors.to_json %>');
+    var len = subjects.length;
+    $("td").css("color", "black");
+    for(let i = 0; i < len; i++){
+        $("td:contains("+subjects[i]+")").css("background-color", colors[i]);
+    };
+})
+</script>
+<style>
+.table td, th {
+    padding: 15px;
+    border-right: 2px solid white;
+    border-top: 2px solid white !important;
+}
+</style>

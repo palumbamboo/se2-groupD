@@ -20,13 +20,14 @@ class ParentsController < ApplicationController
     def timetables
         set_parent
         @students = @parent.students
+        @subjects = SUBJECTS
+        @colors = COLORS
         if params[:stud]
             @student = @parent.students.find(params[:stud])
         else
             @student = @parent.students.first
         end
         @school_class = @student.school_class
-        @subjects = Timetable.where(school_class_id: @school_class.id).select(:subject).distinct
         @monday = Timetable.where(school_class_id: @school_class.id, day_of_week: "1").select(:subject)
         @tuesday = Timetable.where(school_class_id: @school_class.id, day_of_week: "2").select(:subject)
         @wednesday = Timetable.where(school_class_id: @school_class.id, day_of_week: "3").select(:subject)

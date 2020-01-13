@@ -4,13 +4,7 @@ if("<%= @message %>" == "ok"){
     $("#success_message").css("display", "block");
     $("#file-confirm").attr("disabled", true);
     setTimeout(function(){
-        $.ajax({
-                type: 'GET',
-                url: "class_composition/" + "<%= @school_class.id %>", 
-                contentType: "text/javascript",
-                }).done(function(){
-                    $("#back").css("display", "none");
-                })
+        window.open("/officers/" + "<%= @officer.id %>" + "/class_composition/" + "<%= @school_class.id %>", "_self");
         }, 3000);
 }
 else{
