@@ -1,12 +1,12 @@
 <%= form_with(model: @material) do |f| %>
   <div>
     <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.text_field :title, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
     <%= f.label :description %>
-    <%= f.text_field :description, class: 'form-control' %>
+    <%= f.text_field :description, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>

@@ -1,24 +1,24 @@
 <%= form_with(model: @communication, local: true) do |f| %>
   <div>
     <%= f.label "Title"%>
-    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.text_field :title, class: 'form-control', required: '' %>
   </div>
   <br />
   <div>
     <%= f.label :start_date %>
     <% @date = @communication.start_date ? @communication.start_date : Date.today %>
-    <%= f.date_field :start_date, :value => @date, :min => Date.new(2019, 9, 1), :max => Date.today, class: 'form-control' %>
+    <%= f.date_field :start_date, :value => @date, :min => Date.new(2019, 9, 1), :max => Date.today, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
     <%= f.label :expiry_date %>
     <% @date = @communication.expiry_date ? @communication.expiry_date : Date.today+1.day %>
-    <%= f.date_field :expiry_date, :value => @date, :min => Date.today, :max => Date.new(2020, 9, 30), class: 'form-control' %>
+    <%= f.date_field :expiry_date, :value => @date, :min => Date.today, :max => Date.new(2020, 9, 30), class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
     <%= f.label :description %>
-    <%= f.text_area :description, class: 'form-control' %>
+    <%= f.text_area :description, class: 'form-control', required: '' %>
   </div>
   <br />
   <div>

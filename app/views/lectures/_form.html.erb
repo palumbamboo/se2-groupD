@@ -4,7 +4,7 @@
   </div>
   <div>
     <%= f.label "Lecture name"%>
-    <%= f.text_field :name, class: 'form-control' %>
+    <%= f.text_field :name, class: 'form-control', required: '' %>
   </div>
   <br />
   <div>
@@ -14,7 +14,7 @@
   <br/>
   <div>
     <%= f.label "Lecture topic"%>
-    <%= f.text_field :topics, class: 'form-control' %>
+    <%= f.text_field :topics, class: 'form-control', required: '' %>
   </div>
   <br />
   <div>
@@ -22,7 +22,7 @@
       <%= f.label "School class: #{@lecture.school_class.class_to_s}" %>
       <%= f.hidden_field :school_class_id, value: @lecture.school_class.id %>
     <% else %>
-      <%= f.label :school_class %>
+      <%= f.label :school_class, required: '' %>
       <%= f.select :school_class_id, @teacher.school_classes.map{ |c| [c.class_to_s, c.id]}, {}, { :class => 'custom-select'} %>
     <% end %>
   </div>

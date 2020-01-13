@@ -4,23 +4,23 @@
 <div class="row">
     <div class="col-xs-12 col-md-4">
         <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control' %>
+        <%= f.text_field :name, class: 'form-control', required: '' %>
     </div>
     <div class="col-xs-12 col-md-4">
         <%= f.label :surname %>
-        <%= f.text_field :surname, class: 'form-control' %>
+        <%= f.text_field :surname, class: 'form-control', required: '' %>
     </div>
     <div class="col-xs-12 col-md-4">
         <%= f.label :birth_date %>
-        <%= f.date_field(:birth_date, start_year: (Date.today - 20.years).year, end_year: Date.today.year, class: 'form-control') %>
+        <%= f.date_field(:birth_date, start_year: (Date.today - 20.years).year, end_year: Date.today.year, class: 'form-control', required: '') %>
     </div>
 </div>
 <br />
         <%= f.label :fiscal_code %>
-        <%= f.text_field :fiscal_code, class: 'form-control' %>
+        <%= f.text_field :fiscal_code, class: 'form-control', required: '' %>
 <br />
         <%= f.label :enrollment_date %>
-        <%= f.date_field(:enrollment_date, start_year: (Date.today - 10.years).year, end_year: Date.today.year, class: 'form-control') %>
+        <%= f.date_field(:enrollment_date, start_year: (Date.today - 10.years).year, end_year: Date.today.year, class: 'form-control', required: '') %>
 <br />
 <br />
 <% if action_name == "edit" %>
@@ -35,16 +35,16 @@
         <div class="row">
             <div class="col-xs-12 col-md-6">
                 <%= f.label "Name" %>
-                <%= text_field_tag :first_parent_name, @student.first_parent_name, :required => true, class: 'form-control' %>
+                <%= text_field_tag :first_parent_name, @student.first_parent_name, :required => true, class: 'form-control', required: '' %>
             </div>
             <div class="col-xs-12 col-md-6">
                 <%= f.label "Surname" %>
-                <%= text_field_tag :first_parent_surname, @student.first_parent_surname, :required => true, class: 'form-control' %>
+                <%= text_field_tag :first_parent_surname, @student.first_parent_surname, :required => true, class: 'form-control', required: '' %>
             </div>
         </div>
         <br />
         <%= f.label "E-mail" %>
-        <%= text_field_tag :first_parent_email, @student.first_parent_email, :required => true, class: 'form-control' %>
+        <%= email_field_tag :first_parent_email, @student.first_parent_email, :required => true, class: 'form-control', required: '' %>
 <br />
 
 <br>
@@ -62,7 +62,7 @@
     </div>
     <br>
         <%= f.label "E-mail*" %>
-        <%= text_field_tag :second_parent_email, @student.second_parent_email, class: 'form-control' %>
+        <%= email_field_tag :second_parent_email, @student.second_parent_email, class: 'form-control' %>
 <br />
 <br /><br />
 <div class="row">

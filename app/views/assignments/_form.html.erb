@@ -1,28 +1,28 @@
 <%= form_with(model: @assignment, local: true) do |f| %>
   <div>
     <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
+    <%= f.text_field :name, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
     <%= f.label :expiry_date %>
       <% @date = @assignment.expiry_date ? @assignment.expiry_date.to_date : Date.today+1.day %>
-    <%= f.date_field :expiry_date, :value => @date, :min => Date.today+1.day, :max => Date.new(2020, 9, 30), class: 'form-control' %>
+    <%= f.date_field :expiry_date, :value => @date, :min => Date.today+1.day, :max => Date.new(2020, 9, 30), class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
     <%= f.label :school_class %>
-    <%= f.text_field :school_class, :value => @assignment.school_class.class_to_s, :readonly => true, class: 'form-control' %>
+    <%= f.text_field :school_class, :value => @assignment.school_class.class_to_s, :readonly => true, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
     <%= f.label :subject %>
-    <%= f.text_field :subject, :value => @assignment.lecture.subject, :readonly => true, class: 'form-control' %>
+    <%= f.text_field :subject, :value => @assignment.lecture.subject, :readonly => true, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
     <%= f.label :lecture %>
-    <%= f.text_field :lecture, :value => @assignment.lecture.name, :readonly => true, class: 'form-control' %>
+    <%= f.text_field :lecture, :value => @assignment.lecture.name, :readonly => true, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
