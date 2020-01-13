@@ -41,7 +41,10 @@
   
   We suggest to access with users 1, 7, 8, 9 since more default data are available for those users.
   
-* For testing some stories (the ones related to the upload of Excel files), some useful files are provided inside the **examples** directory (a specific readme inside that folder is provided).
+* For testing stories related to the upload of Excel files, some useful files are provided inside the **examples** directory (a specific readme inside that folder is provided).
+
+* For testing stories related to sending an email to the user (creation of internal accounts and enabling access to parents) you need to use MailSpons. You need to ask to be invited to the team. An email will be sent to your email address with indications for creating a MailSpons account. 
+MailSpons can be found at the following link: https://mailspons.com/. This happens because we use MailSpons as a SMTP pool, which intercepts the email. So the email does not reach the proper destination. We used MailSpons in order to use fake email for all the users.
 
 * How to run the test suite:
     * launch tests with "rails test test/models/nameofclass_test.rb" for model tests
