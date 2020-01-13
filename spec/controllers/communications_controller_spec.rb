@@ -18,7 +18,7 @@ RSpec.describe CommunicationsController, type: :controller do
     user.save!
     officer.save!
 
-    comm = Communication.create(:title => "CommTest", :start_date => Date.today, :expiry_date => Date.today + 10.days)
+    comm = Communication.create(:title => "CommTest", :description => "Comm", :start_date => Date.today, :expiry_date => Date.today + 10.days)
     ##########
 
 
@@ -38,7 +38,10 @@ RSpec.describe CommunicationsController, type: :controller do
       it "should create a communication" do
         post :create, params: {
           communication: {
-              :title => "Comm1"
+              :title => "Comm1",
+              :start_date => Date.today,
+              :description => "Comm1",
+              :expiry_date => Date.today + 20.days
           }
       }
       assert_response :redirect
@@ -49,7 +52,9 @@ RSpec.describe CommunicationsController, type: :controller do
         put :update, params: {
             id: comm.id,
             communication: {
-                :title => "Comm1"
+                :title => "Comm1",
+                :start_date => Date.today,
+                :expiry_date => Date.today + 20.days
             }
         }
         assert_response :redirect
@@ -80,7 +85,9 @@ RSpec.describe CommunicationsController, type: :controller do
         put :update, params: {
             id: comm.id,
             communication: {
-                :title => "Comm2"
+                :title => "Comm2",
+                :start_date => Date.today,
+                :expiry_date => Date.today + 20.days
             }
         }
         expect(response.status).to eq(302)

@@ -28,15 +28,15 @@ RSpec.describe TeachersController, type: :controller do
     user.roles
     user.save!
     teacher.save!
-    mark = Mark.create(:mark => 10, :subject => "Math", :date => "2018-11-12")
+    mark = Mark.create(:mark => 10, :subject => "Math", :date => Date.new(2019, 11, 12))
     mark.student = student
     mark.teacher = teacher
     mark.save!
-    lecture = Lecture.create(:name => "Lecture 1", :start_time => Time.now, :end_time => Time.now + 1.hour, :duration => 1)
+    lecture = Lecture.create(:name => "Lecture 1", :start_time => Time.now, :duration => 1, :topics => "Prova", :subject => "Math")
     lecture.teacher = teacher
     lecture.school_class = sc
     lecture.save!
-    assignment = Assignment.create(:name => "Assignment", :expiry_date => Date.today + 1.day, :subject => "Math")
+    assignment = Assignment.create(:name => "Assignment", :expiry_date => Date.today + 1.day, :subject => "Math", :description => "Homework")
     assignment.school_class = sc
     assignment.teacher = teacher
     assignment.lecture = lecture
@@ -48,7 +48,7 @@ RSpec.describe TeachersController, type: :controller do
       login_user(user)
       it "should return index" do
         get :index
-        assert_response :success
+        assert_response :redirect
       end
 
       it "should return show" do
@@ -70,6 +70,22 @@ RSpec.describe TeachersController, type: :controller do
         get :assignments, params: {id: teacher.id, school_class_id: sc.id}
         assert_response :success
       end
+
+      it "should return notes" do
+        get :notes, params: {id: teacher.id}
+        assert_response :success
+      end
+
+      it "should return materials" do
+        get :materials, params: {id: teacher.id}
+        assert_response :success
+      end
+
+      it "should return timetables" do
+        get :timetables, params: {id: teacher.id, school_class_id: sc.id}
+        assert_response :success
+      end
+
     end
 
     context "Teacher NOT logged" do

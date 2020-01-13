@@ -27,14 +27,14 @@ RSpec.describe AttendancesController, type: :controller do
     user_t.save!
     teacher.save!
     
-    attendance = Attendance.new(:date => Date.today, :absence_type => "absent")
+    attendance = Attendance.new(:date => Date.today, :absence_type => "Absent")
     attendance.student = student
     attendance.school_class = sc
     attendance.save!
     ##########
 
 
-    context "Parent logged" do
+    context "Teacher logged" do
       login_user(user_t)
       it "should return index" do
         get :index
@@ -51,15 +51,16 @@ RSpec.describe AttendancesController, type: :controller do
         assert_response :success
       end
 
-      it "should update an assignment" do
+      it "should update an attendance" do
         put :update, params: {
             id: attendance.id,
             attendance: {
-                :absence_type => "late_entrance"
+                :date => Date.yesterday,
+                :absence_type => "Absent"
             }
         }
-        assert_response :redirect
-        expect(attendance.reload.absence_type).to eq("late_entrance")
+        assert_response :success
+        expect(attendance.reload.absence_type).to eq("Absent")
       end
 
       it "should destroy an assignment" do

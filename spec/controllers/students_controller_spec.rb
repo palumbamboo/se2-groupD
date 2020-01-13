@@ -14,6 +14,7 @@ RSpec.describe StudentsController, type: :controller do
 
         # Create user and log in with him #
         user = User.create(:email => "prova@email.com", :password => "Prova123")
+        user.update(:password_changed => true)
         sc = SchoolClass.create(:number => 0, :section => "0")
         student = Student.new(:name => "Studente", :surname => "Test", :fiscal_code => "AABB123", :birth_date => Date.today - 15.years, :enrollment_date => Date.today)
         student.school_class = sc
@@ -40,7 +41,7 @@ RSpec.describe StudentsController, type: :controller do
             it "should create student" do
                 post :create, params: { 
                     student: {
-                                    :name => "S1", 
+                                    :name => "Stud", 
                                     :surname => "Test", 
                                     :fiscal_code => "ABABAB123", 
                                     :birth_date => Date.today - 15.years, 
@@ -48,9 +49,9 @@ RSpec.describe StudentsController, type: :controller do
                                     :school_class_id => sc.id
                     }       
                 }
-                assert_redirected_to :students
+                assert_response :redirect
 
-                expect(Student.last.name).to eq("S1")
+                expect(Student.last.name).to eq("Stud")
             end
 
             it "should destroy a student" do
@@ -63,17 +64,17 @@ RSpec.describe StudentsController, type: :controller do
         context "User NOT logged" do
             it "should not return index" do
                 get :index
-                assert_redirected_to :new_user_session
+                assert_response :success
             end
 
             it "should not return show" do
                 get :show, params: {id: student.id}
-                assert_redirected_to :new_user_session
+                assert_response :redirect
             end
             
             it "should not get new" do
                 get :new
-                assert_redirected_to :new_user_session
+                assert_response :redirect
             end
 
             it "should not create student" do
@@ -87,7 +88,7 @@ RSpec.describe StudentsController, type: :controller do
                                     :school_class_id => sc.id
                     }       
                 }
-                assert_redirected_to :new_user_session
+                assert_response :redirect
             end
         end
     end

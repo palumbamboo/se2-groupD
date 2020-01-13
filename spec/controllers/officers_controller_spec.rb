@@ -42,11 +42,6 @@ RSpec.describe OfficersController, type: :controller do
 
     context "Officer logged" do
       login_user(user)
-      it "should return index" do
-        get :index
-        assert_response :success
-      end
-
       it "should enable" do
         old_password = user_p.encrypted_password
         post :enable, params: { id: Officer.first.id, parent: user_p.parent.id}
@@ -80,6 +75,16 @@ RSpec.describe OfficersController, type: :controller do
         assert_response :success
       end
 
+      it "should return students" do
+        get :students, params: {id: user.officer.id, class: sc.id}
+        assert_response :success
+      end
+
+      it "should return timetables" do
+        get :timetables, params: {id: user.officer.id}
+        assert_response :success
+      end
+
       it "should destroy an officer" do
         o = Officer.first
         delete :destroy, params: {id: o.id}
@@ -90,11 +95,6 @@ RSpec.describe OfficersController, type: :controller do
     end
 
     context "Officer NOT logged" do
-      it "should not return index" do
-        get :index
-        expect(response.status).to eq(200)
-      end
-
       it "should not create officer" do
         post :create, params: {
             officer: {

@@ -30,7 +30,7 @@ class TimetablesController < ApplicationController
 
     respond_to do |format|
       if @timetable.save
-        format.html { redirect_to @timetable, notice: 'Timetable was successfully created.' }
+        format.html { redirect_to timetables_url(@timetable), notice: 'Timetable was successfully created.' }
         format.json { render :show, status: :created, location: @timetable }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class TimetablesController < ApplicationController
   def update
     respond_to do |format|
       if @timetable.update(timetable_params)
-        format.html { redirect_to @timetable, notice: 'Timetable was successfully updated.' }
+        format.html { redirect_to timetables(@timetable), notice: 'Timetable was successfully updated.' }
         format.json { render :show, status: :ok, location: @timetable }
       else
         format.html { render :edit }
@@ -109,6 +109,6 @@ class TimetablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def timetable_params
-      params.require(:timetable).permit(:subject, :day_of_week, :start_time, :end_time, :teacher, :school_class)
+      params.require(:timetable).permit(:subject, :day_of_week, :slot_time, :teacher_id, :school_class_id)
     end
 end

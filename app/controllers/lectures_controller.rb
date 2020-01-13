@@ -15,6 +15,7 @@ class LecturesController < ApplicationController
   end
 
   def create
+    @teacher = Teacher.find(lecture_params[:teacher_id])
     @lecture = Lecture.new(lecture_params.merge(start_time: Time.now, duration: 1))
 
     respond_to do |format|

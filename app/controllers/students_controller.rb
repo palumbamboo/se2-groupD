@@ -11,6 +11,7 @@ class StudentsController < ApplicationController
     def new
         @student = Student.new
         respond_to do |format|
+            format.html
             format.js
         end
     end
@@ -49,6 +50,7 @@ class StudentsController < ApplicationController
         if @student.save
             respond_to do |format|
                 format.js
+                format.html { redirect_to students_url, notice: 'Student created' }
             end
         else
             render :new 
