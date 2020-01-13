@@ -47,8 +47,8 @@
 MailSpons can be found at the following link: https://mailspons.com/. This happens because we use MailSpons as a SMTP pool, which intercepts the email. So the email does not reach the proper destination. We used MailSpons in order to use fake email for all the users.
 
 * How to run the test suite:
-    * launch tests with "rails test test/models/nameofclass_test.rb" for model tests
-    * launch tests with "rails test/controllers/nameofclass_test.rb" for controller tests
+    * launch unit tests with "rails test test/models/nameofclass\_test.rb" for model tests (e.g. for the unit test related to class Student, the file needed is "student\_test.rb")
+    * launch tests with "bundle exec rspec spec/controllers/nameofcontroller_spec.rb" for controller tests (e.g. for the controller related to class Student, the file needed is "students\_controller\_spec.rb")
 
 * Docker build instructions:
     - to build the application, you need to go to the config/database.yml file and uncomment the line ```host: db```
