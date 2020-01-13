@@ -307,25 +307,24 @@ function execute() {
               disable_clickable()
 
               $('textarea[id="lecture_topics"]')[0].onkeyup = function () {
-                  if( $('textarea[id="lecture_topics"]')[0].value.length == 0 ) {
+                  if ($('textarea[id="lecture_topics"]')[0].value.length == 0) {
                       $('[data-disable-with="Update Topics"]')[0].classList.add('disabled')
                       document.getElementById('submit-topics-edit').disabled = true;
-                  }
-                  else {
+                  } else {
                       $('[data-disable-with="Update Topics"]')[0].classList.remove('disabled')
                       document.getElementById('submit-topics-edit').disabled = false;
                   }
               };
-          
+
               if( $('[data-toggle="toggle"]:not(.disabled)').length == 0 ) {
                   try {
                       $('[data-toggle="popover"].disabled').popover( // all clicks on toggle elements don't trigger the creation of a popover
                           'disable'
                       );
-                  }
-                  catch (e) {
+                  } catch (e) {
                       location.reload(); // in order to show disalbled toggles you have to reaload the page
                   }
+              }
           }
       });
       function disable_clickable() {
