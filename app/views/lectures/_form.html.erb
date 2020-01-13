@@ -1,6 +1,6 @@
 <%= form_with(model: @lecture) do |f| %>
   <div>
-    <%= f.label "Teacher: #{@teacher.to_s}" %>
+    <%= f.label "Teacher:#{@teacher.to_s}" %>
   </div>
   <div>
     <%= f.label "Lecture name"%>
@@ -20,6 +20,7 @@
   <div>
     <% if @lecture.school_class %>
       <%= f.label "School class: #{@lecture.school_class.class_to_s}" %>
+      <%= f.hidden_field :school_class_id, value: @lecture.school_class.id %>
     <% else %>
       <%= f.label :school_class, required: '' %>
       <%= f.select :school_class_id, @teacher.school_classes.map{ |c| [c.class_to_s, c.id]}, {}, { :class => 'custom-select'} %>
@@ -28,7 +29,6 @@
   <br />
   <br /><br />
   <%= f.hidden_field :teacher_id, value: @teacher.id %>
-  <%= f.hidden_field :school_class_id, value: @lecture.school_class.id %>
   <div class="row">
     <div class="col-md-4"></div>
       <div class="col-md-4">

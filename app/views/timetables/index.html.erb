@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Timetables</h1>
+
+<table>
+  <caption></caption>
+  <thead>
+    <tr>
+      <th scope="col">Subject</th>
+      <th scope="col">Day of week</th>
+      <th scope="col">Start time</th>
+      <th scope="col">End time</th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @timetables.each do |timetable| %>
+      <tr>
+        <td><%= timetable.subject %></td>
+        <td><%= timetable.day_of_week %></td>
+        <td><%= timetable.start_time %></td>
+        <td><%= timetable.end_time %></td>
+        <td><%= link_to 'Show', timetable %></td>
+        <td><%= link_to 'Edit', edit_timetable_path(timetable) %></td>
+        <td><%= link_to 'Destroy', timetable, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Timetable', new_timetable_path %>

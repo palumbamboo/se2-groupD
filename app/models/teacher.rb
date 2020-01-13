@@ -10,7 +10,14 @@ class Teacher < ApplicationRecord
   has_many :lectures
   has_many :marks
 
+  validates :name, :surname, presence: true, format: { with: /\A[a-zA-Z'-]*\z/, message: 'No special characters, only letters' }
+  validate :valid_subjects
+
   def to_s
     "#{name&.capitalize} #{surname&.capitalize}"
+  end
+
+  def valid_subjects
+    subjects.all?{ |s| s.in?(SUBJECTS) } && subjects.size > 0
   end
 end

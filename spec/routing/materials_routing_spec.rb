@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe MaterialsController, type: :routing do
+
+  FIRST_MAT = "/materials/1"
+
   describe "routing" do
     it "routes to #index" do
       expect(:get => "/materials").to route_to("materials#index")
@@ -11,7 +14,7 @@ RSpec.describe MaterialsController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/materials/1").to route_to("materials#show", :id => "1")
+      expect(:get => FIRST_MAT).to route_to("materials#show", :id => "1")
     end
 
     it "routes to #edit" do
@@ -24,15 +27,15 @@ RSpec.describe MaterialsController, type: :routing do
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/materials/1").to route_to("materials#update", :id => "1")
+      expect(:put => FIRST_MAT).to route_to("materials#update", :id => "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/materials/1").to route_to("materials#update", :id => "1")
+      expect(:patch => FIRST_MAT).to route_to("materials#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/materials/1").to route_to("materials#destroy", :id => "1")
+      expect(:delete => FIRST_MAT).to route_to("materials#destroy", :id => "1")
     end
   end
 end

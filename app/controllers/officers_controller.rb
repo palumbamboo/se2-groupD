@@ -12,6 +12,7 @@ class OfficersController < ApplicationController
   # GET /officers/1
   # GET /officers/1.json
   def show
+    # No implementation needed
   end
 
   # GET /officers/new
@@ -21,6 +22,7 @@ class OfficersController < ApplicationController
 
   # GET /officers/1/edit
   def edit
+    # No implementation needed
   end
 
   # POST /officers
@@ -36,9 +38,10 @@ class OfficersController < ApplicationController
       OfficerMailer.with(user: user, current_pass: otp).credential_mail.deliver_now
       respond_to do |format|
         format.js
+        format.html { redirect_to administrator_add_user_url(current_user.administrator.id), notice: 'Officer successfully created'}
       end
     else
-      render :new
+      format.html { redirect_to administrator_add_user_url(current_user.administrator.id), alert: @officer.print_pretty_errors}
     end
   end
 
@@ -95,7 +98,12 @@ class OfficersController < ApplicationController
     else
       @class = SchoolClass.available_classes.first
     end
-    @timetables = Timetable.where(school_class_id: @class.id)
+    @subjects = Timetable.where(school_class_id: @class.id).select(:subject).distinct
+    @monday = Timetable.where(school_class_id: @class.id, day_of_week: "1").select(:subject)
+    @tuesday = Timetable.where(school_class_id: @class.id, day_of_week: "2").select(:subject)
+    @wednesday = Timetable.where(school_class_id: @class.id, day_of_week: "3").select(:subject)
+    @thursday = Timetable.where(school_class_id: @class.id, day_of_week: "4").select(:subject)
+    @friday = Timetable.where(school_class_id: @class.id, day_of_week: "5").select(:subject)
     respond_to do |format|
       format.js
       format.html

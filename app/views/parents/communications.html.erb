@@ -12,6 +12,7 @@
     <li class="active"><%= link_to " Communications", parent_communications_url(@parent), class: 'mdi mdi-text-to-speech' %></li>
     <li><%= link_to " Materials", parent_materials_url, class: 'mdi mdi-library-books' %></li>
     <li><%= link_to " Notes", parent_notes_url(@parent), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
+    <li><%= link_to " Timetables", parent_timetables_url(@parent), class: 'mdi mdi-timetable', data: { turbolinks: false } %></li>
   </ul>
 <% end %>
 
@@ -25,12 +26,13 @@
 <% end %>
 <div style="overflow: auto">
 <table id="communications" data-sortable="true" class="table table-striped table-sm">
+  <caption></caption>
   <thead>
   <tr>
-    <th>Title</th>
-    <th>Start Time</th>
-    <th>Expiry Time</th>
-    <th></th>
+    <th scope="col">Title</th>
+    <th scope="col">Start Time</th>
+    <th scope="col">Expiry Time</th>
+    <th scope="col"></th>
   </tr>
   </thead>
   <tbody id="communications-body">

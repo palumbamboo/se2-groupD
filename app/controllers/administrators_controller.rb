@@ -21,6 +21,7 @@ class AdministratorsController < ApplicationController
 
   # GET /administrators/1/edit
   def edit
+    # No implementation needed
   end
 
   def users
@@ -28,6 +29,7 @@ class AdministratorsController < ApplicationController
   end
 
   def add_user
+    # No implementation needed
   end
 
   # POST /administrators

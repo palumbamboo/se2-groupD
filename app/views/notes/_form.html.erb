@@ -1,4 +1,4 @@
-<%= form_with(model: note, local: true) do |form| %>
+<%= form_with(model: @note, local: true) do |form| %>
 
   <% if @teacher %>
   <%= form.hidden_field :teacher_id, :value => @teacher.id %>

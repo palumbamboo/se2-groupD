@@ -6,6 +6,9 @@ class SchoolClass < ApplicationRecord
   has_many :students
   has_many :assignments
 
+  validates :number, presence: true, format: { with: /\A[1-9]\z/, message: 'Invalid school class number' }
+  validates :section, presence: true, format: { with: /\A[A-Z]\z/, message: 'Invalid school class section' }
+
   def class_to_s
     "#{number}#{section.upcase}"
   end
@@ -16,10 +19,14 @@ class SchoolClass < ApplicationRecord
   end
 
   def attendances date=Time.now
-    puts date
-    absents = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where(absence_type: "Absent")
-    late = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where('enters_at BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where(absence_type: "Late")
-    early = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where('exits_at BETWEEN ? AND ?', date.beginning_of_day, Time.now.gmtime).where(absence_type: "Earl")
+    if date.day == Time.now.day
+      end_time = Time.now+1.hour
+    else
+      end_time = date+1.hour
+    end
+    absents = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, end_time).where(absence_type: "Absent")
+    late = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, end_time).where('enters_at BETWEEN ? AND ?', date.beginning_of_day, end_time).where(absence_type: "Late")
+    early = Attendance.where(school_class: self).where('date BETWEEN ? AND ?', date.beginning_of_day, end_time).where('exits_at BETWEEN ? AND ?', date.beginning_of_day, end_time).where(absence_type: "Earl")
 
     attendances = absents.map(&:student).map{ |a|
       { student_id: a.id, student_name: a.to_s, attendance: false }

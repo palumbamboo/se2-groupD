@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe CommunicationsController, type: :routing do
+
+  FIRST_COMM = "/communications/1"
+
   describe "routing" do
     it "routes to #index" do
       expect(:get => "/communications").to route_to("communications#index")
@@ -11,7 +14,7 @@ RSpec.describe CommunicationsController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/communications/1").to route_to("communications#show", :id => "1")
+      expect(:get => FIRST_COMM).to route_to("communications#show", :id => "1")
     end
 
     it "routes to #edit" do
@@ -24,15 +27,15 @@ RSpec.describe CommunicationsController, type: :routing do
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/communications/1").to route_to("communications#update", :id => "1")
+      expect(:put => FIRST_COMM).to route_to("communications#update", :id => "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/communications/1").to route_to("communications#update", :id => "1")
+      expect(:patch => FIRST_COMM).to route_to("communications#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/communications/1").to route_to("communications#destroy", :id => "1")
+      expect(:delete => FIRST_COMM).to route_to("communications#destroy", :id => "1")
     end
   end
 end

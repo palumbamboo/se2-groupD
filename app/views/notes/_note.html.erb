@@ -4,10 +4,10 @@
   <td><%= note.subject %></td>
   <td><%= note.student %></td>
   <td><%= note.date.strftime("%d/%m/%Y") %></td>
-  <td><%= link_to 'Edit', edit_note_path(note), class: 'btn btn-primary', id: "note-edit_#{note.id}", remote: true %></td>
+  <td><%= button_to 'Edit', edit_note_path(note), method: :get, class: 'btn btn-primary', id: "note-edit_#{note.id}", remote: true %></td>
   <% if note.created_at > (Time.now - 1.day) %>
-    <td><%= link_to 'Delete', note_path(note), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "note-delete_#{note.id}", remote: true %></td>
+    <td><%= button_to 'Delete', note_path(note), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "note-delete_#{note.id}", remote: true %></td>
   <% else %>
-    <td><%= link_to 'Delete', note_path(note), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger disabled', id: "note-delete_#{note.id}", remote: true %></td>
+    <td><%= button_to 'Delete', note_path(note), disabled: true, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger disabled', id: "note-delete_#{note.id}", remote: true %></td>
   <% end %>
 </tr>

@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe AssignmentsController, type: :routing do
+  
+  FIRST_ASSIGNMENT = "/assignments/1"
   describe "routing" do
     it "routes to #index" do
       expect(:get => "/assignments").to route_to("assignments#index")
@@ -11,7 +13,7 @@ RSpec.describe AssignmentsController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/assignments/1").to route_to("assignments#show", :id => "1")
+      expect(:get => FIRST_ASSIGNMENT).to route_to("assignments#show", :id => "1")
     end
 
     it "routes to #edit" do
@@ -24,15 +26,15 @@ RSpec.describe AssignmentsController, type: :routing do
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/assignments/1").to route_to("assignments#update", :id => "1")
+      expect(:put => FIRST_ASSIGNMENT).to route_to("assignments#update", :id => "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/assignments/1").to route_to("assignments#update", :id => "1")
+      expect(:patch => FIRST_ASSIGNMENT).to route_to("assignments#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/assignments/1").to route_to("assignments#destroy", :id => "1")
+      expect(:delete => FIRST_ASSIGNMENT).to route_to("assignments#destroy", :id => "1")
     end
   end
 end

@@ -2,12 +2,15 @@
   <td><%= assignment.name %></td>
   <td><%= assignment.pretty_expiry_date %></td>
   <td><%= assignment.subject %></td>
+  <td><%= assignment.school_class.class_to_s %></td>
+  <td><%= assignment.teacher.to_s %></td>
   <td><%= assignment.lecture.name %></td>
-  <td><%= link_to 'Info', assignment_url(assignment), {remote:true, 'data-toggle' => "modal", 'data-target' => "#assignment-show-modal", class: 'btn btn-primary'} %></td>
-  <td><%= link_to 'Edit', edit_assignment_path(assignment), class: 'btn btn-primary', id: "assignment-edit_#{assignment.id}", remote: true %></td>
-  <% if assignment.created_at > (Time.now - 1.day) %>
-    <td><%= link_to 'Delete', assignment_path(assignment), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "assignment-delete_#{assignment.id}", remote: true %></td>
+  <td><%= button_to 'Info', assignment_url(assignment), {method: :get, remote:true, 'data-toggle' => "modal", 'data-target' => "#assignment-show-modal", class: 'btn btn-primary'} %></td>
+  <% if assignment.expiry_date > (Time.now - 1.day) %>
+    <td><%= button_to 'Edit', edit_assignment_path(assignment), method: :get, class: 'btn btn-primary', id: "assignment-edit_#{assignment.id}", remote: true %></td>
+    <td><%= button_to 'Delete', assignment_path(assignment), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger', id: "assignment-delete_#{assignment.id}", remote: true %></td>
   <% else %>
-    <td><%= link_to 'Delete', assignment_path(assignment), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger disabled', id: "assignment-delete_#{assignment.id}", remote: true %></td>
+    <td><%= button_to 'Edit', edit_assignment_path(assignment), disabled: true, method: :get, class: 'btn btn-primary disabled', id: "assignment-edit_#{assignment.id}", remote: true %></td>
+    <td><%= button_to 'Delete', assignment_path(assignment), disabled: true, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger disabled', id: "assignment-delete_#{assignment.id}", remote: true %></td>
   <% end %>
 </tr>

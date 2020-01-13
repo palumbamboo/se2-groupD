@@ -15,15 +15,16 @@ class LecturesController < ApplicationController
   end
 
   def create
-    @lecture = Lecture.new(lecture_params.merge(start_time: Time.now))
+    @lecture = Lecture.new(lecture_params.merge(start_time: Time.now, duration: 1))
 
     respond_to do |format|
       if @lecture.save
         format.js
-        format.html { redirect_to @lecture, notice: "Lecture created" }
+        format.html { redirect_to teacher_lectures_url(@teacher), notice: "Lecture created" }
         format.json { render :show, status: :created, location: @lecture }
       else
-        format.html { render :new }
+        format.js
+        format.html { redirect_to teacher_lectures_url(@teacher), alert: @lecture.print_pretty_errors }
         format.json { render json: @lecture.errors, status: :unprocessable_entity }
       end
     end
@@ -60,10 +61,10 @@ class LecturesController < ApplicationController
     respond_to do |format|
       if @lecture.destroy
         format.js
-        format.html { redirect_to @lecture, notice: "Lecture deleted" }
+        format.html { redirect_to teacher_lectures_url(@lecture.teacher), notice: "Lecture deleted" }
         format.json { render :show, status: :ok, location: @lecture }
       else
-        format.html { render :new }
+        format.html { redirect_to teacher_lectures_url(@lecture.teacher), alert: "Lecture can't be deleted!"}
         format.json { render json: @lecture.errors, status: :unprocessable_entity }
       end
     end
@@ -90,7 +91,7 @@ class LecturesController < ApplicationController
         arr = late_times[l.id].split(':')
         time = date.beginning_of_day + arr[0].to_i.hour + arr[1].to_i.minute
 
-        Attendance.create(date: Time.now, absence_type: 'Late', enters_at: time, student: l, school_class: school_class)
+        Attendance.create(date: Time.now+1.hour, absence_type: 'Late', enters_at: time, student: l, school_class: school_class)
       end
     end
 
@@ -105,11 +106,11 @@ class LecturesController < ApplicationController
       early.map do |e|
         arr = early_times[e.id].split(':')
         time = date.beginning_of_day + arr[0].to_i.hour + arr[1].to_i.minute
-        Attendance.create(date: Time.now, absence_type: 'Earl', exits_at: time, student: e, school_class: school_class)
+        Attendance.create(date: Time.now+1.hour, absence_type: 'Earl', exits_at: time, student: e, school_class: school_class)
       end
     end
 
-    absents.map{ |a| Attendance.create(date: Time.now, absence_type: 'Absent', student: Student.find(a.id), school_class: school_class) }
+    absents.map{ |a| Attendance.create(date: Time.now+1.hour, absence_type: 'Absent', student: Student.find(a.id), school_class: school_class) }
 
     respond_to do |format|
       @updated = true

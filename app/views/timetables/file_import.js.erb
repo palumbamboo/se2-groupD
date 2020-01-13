@@ -7,7 +7,7 @@ if("<%= @message %>" == "ok"){
         $.ajax({
                 type: 'GET',
                 url: "timetables/" + "<%= @school_class.id %>",
-                contentType: "text/javascript",
+                contentType: "text/javascript"
                 }).done(function(){
                     $("#back").css("display", "none");
                 })

@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe AttendancesController, type: :routing do
+
+  FIRST_ATTENDANCE = "/attendances/1"
+
   describe "routing" do
     it "routes to #index" do
       expect(:get => "/attendances").to route_to("attendances#index")
@@ -11,7 +14,7 @@ RSpec.describe AttendancesController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/attendances/1").to route_to("attendances#show", :id => "1")
+      expect(:get => FIRST_ATTENDANCE).to route_to("attendances#show", :id => "1")
     end
 
     it "routes to #edit" do
@@ -24,15 +27,15 @@ RSpec.describe AttendancesController, type: :routing do
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/attendances/1").to route_to("attendances#update", :id => "1")
+      expect(:put => FIRST_ATTENDANCE).to route_to("attendances#update", :id => "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/attendances/1").to route_to("attendances#update", :id => "1")
+      expect(:patch => FIRST_ATTENDANCE).to route_to("attendances#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/attendances/1").to route_to("attendances#destroy", :id => "1")
+      expect(:delete => FIRST_ATTENDANCE).to route_to("attendances#destroy", :id => "1")
     end
   end
 end

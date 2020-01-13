@@ -10,12 +10,11 @@ class Timetable < ApplicationRecord
 
   def day_of_week= value
     raise ArgumentError, "Invalid value, use [1, 2, 3, 4, 5]" unless value.in?(1..5)
-
     super(value)
   end
 
   def slot_time= value
-    raise ArgumentError, "Invalid value, use [1, 2, 3, 4, 5]" unless value.in?(1..5)
+    raise ArgumentError, "Invalid value, use [1, 2, 3, 4, 5, 6]" unless value.in?(1..6)
 
     super(value)
   end

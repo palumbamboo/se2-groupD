@@ -1,4 +1,4 @@
-<%= form_with(model: @assignment) do |f| %>
+<%= form_with(model: @assignment, local: true) do |f| %>
   <div>
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control', required: '' %>
@@ -11,23 +11,18 @@
   </div>
   <br/>
   <div>
-    <%= f.label :subject %>
-    <%= f.text_field :subject, :value => @assignment.lecture.subject, :readonly => true, class: 'form-control', required: '' %>
-  </div>
-  <br/>
-  <div>
     <%= f.label :school_class %>
     <%= f.text_field :school_class, :value => @assignment.school_class.class_to_s, :readonly => true, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
-    <%= f.label :teacher %>
-     <%= f.text_field :teacher, :readonly => true, class: 'form-control', required: '' %>
+    <%= f.label :subject %>
+    <%= f.text_field :subject, :value => @assignment.lecture.subject, :readonly => true, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
     <%= f.label :lecture %>
-    <%= f.text_field :lecture, :readonly => true, class: 'form-control', required: '' %>
+    <%= f.text_field :lecture, :value => @assignment.lecture.name, :readonly => true, class: 'form-control', required: '' %>
   </div>
   <br/>
   <div>
@@ -39,6 +34,7 @@
     <%= f.label :file %>
     <%= f.file_field :file, class: 'form-control' %>
   </div>
+  <br/>
   <br/>
   <%= f.hidden_field :teacher_id, value: @assignment.teacher.id %>
   <%= f.hidden_field :school_class_id, value: @assignment.school_class.id %>

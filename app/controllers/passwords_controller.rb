@@ -4,6 +4,7 @@ class PasswordsController < ApplicationController
   layout 'welcome'
 
   def edit
+    # No implementation needed
   end
 
   def update

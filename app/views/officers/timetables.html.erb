@@ -23,15 +23,6 @@
 
         });
     };
-    function editClass(id_class){
-        $.ajax({
-            type: 'GET',
-            url: "/timetables/" + id_class + "/edit",
-            contentType: "text/javascript",
-        }).done(function(response){
-
-        });
-    };
     function updateClassWithFile(id_class){
         $('#edittimetable').html("<%= j render partial: 'file_timetable', locals: {class: @class} %>");
     }
@@ -67,9 +58,8 @@
         </div>
       </div>
     </li>
-    </li>
   </ul>
 <% end %>
 <div id="edittimetable">
-  <%= render partial: 'timetable', locals: {class: @class} %>
+  <%= render partial: 'timetables/timetable', locals: {class: @class} %>
 </div>

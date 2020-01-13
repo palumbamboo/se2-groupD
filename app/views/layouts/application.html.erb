@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,7 +46,7 @@
       <% end %>
     <% if user_signed_in? %>
       <ul class="list-unstyled components">
-        <li><%= button_to destroy_user_session_path, method: :delete, id: 'logout-button', :form => { :id => "logout-form" }, class: 'btn btn-link' do %>
+        <li><%= button_to destroy_user_session_path, method: :delete, id: 'back-button', :form => { :id => "back-form" }, class: 'btn btn-link' do %>
             <i class="mdi mdi-logout"></i> Logout
           <% end %>
         </li>
@@ -83,7 +83,7 @@
 
         setTimeout(function(){
             $('#message').fadeOut(150);
-        }, 1000);
+        }, 3000);
 
         document.getElementById("page-content").addEventListener("click", function() { // when user clicks on body element
             if( $('.sidebar-offcanvas')[0].classList.contains('active') ) { // if sidebar is active
@@ -134,7 +134,7 @@
                         parent_navbar.insertBefore(navbar, parent_navbar.firstChild);
                     }
                 }
-                if( $('.sidebar-offcanvas')[0].classList.contains('active') ) { // if sidebar is active
+                if( $('.sidebar-offcanvas')[0] && $('.sidebar-offcanvas')[0].classList.contains('active') ) { // if sidebar is active
                     $('.sidebar-offcanvas').toggleClass('active'); // set sidebar inactive
                 }
             }
