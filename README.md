@@ -40,6 +40,8 @@
   | 11 | u11@p.it | user9pass | no | teacher |
   
   We suggest to access with users 1, 7, 8, 9 since more default data are available for those users.
+  
+* For testing some stories (the ones related to the upload of Excel files), some useful files are provided inside the **examples** directory (a specific readme inside that folder is provided).
 
 * How to run the test suite:
     * launch tests with "rails test test/models/nameofclass_test.rb" for model tests
