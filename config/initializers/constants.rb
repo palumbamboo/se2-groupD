@@ -1,4 +1,5 @@
 SUBJECTS = %w(Math Geometry Geography History English Gym Biology Religion Science)
+COLORS = %w(#E8BADA #9CFFAF #E8E782 #FFD58F #CC7A89 #85BBFF #FF6C52 #A6D645 #8F77FF)
 
 FIRST_ACADEMIC_YEAR = Date.new(2010, 9, 1).freeze
 ACADEMIC_YEAR = '2019/2020'.freeze

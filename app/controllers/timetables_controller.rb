@@ -30,7 +30,7 @@ class TimetablesController < ApplicationController
 
     respond_to do |format|
       if @timetable.save
-        format.html { redirect_to timetables_url(@timetable), notice: 'Timetable was successfully created.' }
+        format.html { redirect_to request.referer, notice: 'Timetable was successfully created.' }
         format.json { render :show, status: :created, location: @timetable }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class TimetablesController < ApplicationController
   def update
     respond_to do |format|
       if @timetable.update(timetable_params)
-        format.html { redirect_to timetables(@timetable), notice: 'Timetable was successfully updated.' }
+        format.html { redirect_to request.referer, notice: 'Timetable was successfully updated.' }
         format.json { render :show, status: :ok, location: @timetable }
       else
         format.html { render :edit }
@@ -65,6 +65,7 @@ class TimetablesController < ApplicationController
 
   def file_import
     @school_class = SchoolClass.find_by(id: params[:class_id]);
+    @officer = current_user.officer
     accepted_formats = [".xls", ".xlsx"]
     uploaded_file = params[:timetable_file]
     file_path = Rails.root.join('tmp', uploaded_file.original_filename)
@@ -84,6 +85,11 @@ class TimetablesController < ApplicationController
               subject = sheet.cell(slot, day)
               puts sheet.cell(slot,day)
               teacher = Teacher.select{|t| t.school_classes.include?(@school_class) && t.subjects.include?(subject)}.first
+              puts "Subject: "
+              puts subject
+              puts "Teacher: "
+              puts teacher
+              puts "fine"
               timetable = Timetable.create(subject: subject, day_of_week: day-1, slot_time: slot-1, school_class: @school_class, teacher: teacher)
               timetable.save
             end

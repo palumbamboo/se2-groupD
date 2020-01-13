@@ -93,12 +93,13 @@ class OfficersController < ApplicationController
   def timetables
     set_officer
     @classes = SchoolClass.available_classes
+    @colors = COLORS
+    @subjects = SUBJECTS
     if params[:class]
       @class = SchoolClass.find(params[:class])
     else
       @class = SchoolClass.available_classes.first
     end
-    @subjects = Timetable.where(school_class_id: @class.id).select(:subject).distinct
     @monday = Timetable.where(school_class_id: @class.id, day_of_week: "1").select(:subject)
     @tuesday = Timetable.where(school_class_id: @class.id, day_of_week: "2").select(:subject)
     @wednesday = Timetable.where(school_class_id: @class.id, day_of_week: "3").select(:subject)
