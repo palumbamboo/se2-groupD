@@ -30,7 +30,7 @@ $(document).ready(function(){
     $("#back").click(function(){
         $.ajax({
         type: 'GET',
-        url: "class_composition/" + document.getElementById("class_select").value, 
+        url: "/officers/<%= @officer.id %>/class_composition/" + document.getElementById("class_select").value, 
         contentType: "text/javascript",
         }).done(function(){
             $("#back").css("display", "none");

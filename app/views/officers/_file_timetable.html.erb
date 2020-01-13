@@ -30,7 +30,7 @@
         $("#back").click(function(){
             $.ajax({
                 type: 'GET',
-                url: "timetables/" + document.getElementById("class_select").value,
+                url: "/officers/<%= @officer.id %>/timetables/" + document.getElementById("class_select").value,
                 contentType: "text/javascript",
             }).done(function(){
                 $("#back").css("display", "none");

@@ -28,7 +28,7 @@ $(document).ready(function(){
     $("#back").click(function(){
         $.ajax({
         type: 'GET',
-        url: "class_composition/" + "<%= @school_class.id %>", 
+        url: "/officers/<%= @officer.id %>/class_composition/" + "<%= @school_class.id %>", 
         contentType: "text/javascript",
         }).done(function(){
             $("#back").css("display", "none");
@@ -44,7 +44,7 @@ $(document).ready(function(){
         }).done(function(response){
             $.ajax({
                 type: 'GET',
-                url: "class_composition/" + "<%= @school_class.id %>", 
+                url: "/officers/" + "<%= @officer.id %>" +"/class_composition/" + "<%= @school_class.id %>", 
                 contentType: "text/javascript",
             }).done(function(response){
                     $("#back").css("display", "none");
