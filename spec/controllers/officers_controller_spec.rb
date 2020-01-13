@@ -75,6 +75,16 @@ RSpec.describe OfficersController, type: :controller do
         assert_response :success
       end
 
+      it "should return students" do
+        get :students, params: {id: user.officer.id, class: sc.id}
+        assert_response :success
+      end
+
+      it "should return timetables" do
+        get :timetables, params: {id: user.officer.id}
+        assert_response :success
+      end
+
       it "should destroy an officer" do
         o = Officer.first
         delete :destroy, params: {id: o.id}

@@ -70,6 +70,22 @@ RSpec.describe TeachersController, type: :controller do
         get :assignments, params: {id: teacher.id, school_class_id: sc.id}
         assert_response :success
       end
+
+      it "should return notes" do
+        get :notes, params: {id: teacher.id}
+        assert_response :success
+      end
+
+      it "should return materials" do
+        get :materials, params: {id: teacher.id}
+        assert_response :success
+      end
+
+      it "should return timetables" do
+        get :timetables, params: {id: teacher.id, school_class_id: sc.id}
+        assert_response :success
+      end
+
     end
 
     context "Teacher NOT logged" do
