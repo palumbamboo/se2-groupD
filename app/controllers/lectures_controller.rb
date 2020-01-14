@@ -87,12 +87,12 @@ class LecturesController < ApplicationController
       late = Student.where(id: late_ids)
       late.map do |l|
         att_destroy = Attendance.where('date BETWEEN ? AND ?', date.beginning_of_day, Time.now+1.hour).find_by(student: l)
-        Attendance.destroy(att_destroy.id)
+        if Attendance.destroy(att_destroy.id)
+          arr = late_times[l.id].split(':')
+          time = date.beginning_of_day + arr[0].to_i.hour + arr[1].to_i.minute
 
-        arr = late_times[l.id].split(':')
-        time = date.beginning_of_day + arr[0].to_i.hour + arr[1].to_i.minute
-
-        Attendance.create(date: Time.now+1.hour, absence_type: 'Late', enters_at: time, student: l, school_class: school_class)
+          Attendance.create(date: Time.now+1.hour, absence_type: 'Late', enters_at: time, student: l, school_class: school_class)
+        end
       end
     end
 
