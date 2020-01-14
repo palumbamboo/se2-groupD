@@ -345,6 +345,7 @@ function execute() {
               data: { "school_class_id": "<%= @lecture.school_class_id %>", "students_ids": students_ids},
               success: function (data) {
                   console.log(data);
+                  location.reload();
               }
           })
       }
