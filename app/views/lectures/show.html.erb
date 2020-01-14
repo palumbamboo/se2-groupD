@@ -184,6 +184,7 @@ function execute() {
                 $('[data-toggle="popover"][id=' + buttonID + ']').popover('disable'); // disable popover on the toggle, so that if the user clicks again on the toggle
                                                                                       // it will simply return in original state (see later lines 189+)
                 students_ids['absents'].push(buttonID); // add studentID in absent array
+                students_ids['early'].splice(students_ids['early'].indexOf(buttonID), 1); // remove from the early students array
 
                 togglePressed = closedPressed = false; // restore initial values for system state
                 toggleID = -1;
@@ -331,6 +332,7 @@ function execute() {
       }
 
       function update_attendances(){ // send data about attendances changes
+          console.log(students_ids);
           $.ajax({
               type: 'POST',
               url: "/lectures/<%= @lecture.id %>/attendances",
