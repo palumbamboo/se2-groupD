@@ -163,9 +163,11 @@ function execute() {
                 let studentName = $('td#' + buttonID)[0].innerHTML; // retrieve student name
                 let tooltip = document.createElement('a'); // create a tooltip icon
                 tooltip.setAttribute('data-toggle', 'tooltip');
-                tooltip.setAttribute('data-placement', 'right');
+                tooltip.setAttribute('data-placement', 'bottom');
                 tooltip.setAttribute('title', '' + studentName + ' was absent since the first hour'); // set tooltip text to be shown
                 let infoIcon = document.createElement('i');
+                infoIcon.style.setProperty('position', 'fixed');
+                infoIcon.style.setProperty('padding-left', '19.5px');
                 infoIcon.classList = "fa fa-info-circle"; // create info icon
                 let infoButton = document.createElement('button').appendChild(infoIcon);
                 tooltip.appendChild(infoButton);
@@ -259,7 +261,7 @@ function execute() {
                                                                                     // inserted time information and if the toggle was pressed before the event
                 let tooltip = document.createElement('a'); // create a tooltip icon
                 tooltip.setAttribute('data-toggle', 'tooltip');
-                tooltip.setAttribute('data-placement', 'right');
+                tooltip.setAttribute('data-placement', 'bottom');
                 let time = $('input[type="time"][id=' + id + ']')[0].value; // set tooltip text to be shown
                 let studentName = $('td#' + id)[0].innerHTML; // set tooltip text to be shown
                 let enterExitVerb;
@@ -273,6 +275,8 @@ function execute() {
                 tooltip.setAttribute('title', '' + studentName + ' ' + enterExitVerb + ' class at ' + time);
                 let infoIcon = document.createElement('i');
                 infoIcon.classList = "fa fa-info-circle";
+                infoIcon.style.setProperty('position', 'fixed');
+                infoIcon.style.setProperty('padding-left', '19.5px');
                 let infoButton = document.createElement('button').appendChild(infoIcon);
                 tooltip.appendChild(infoButton);
 
