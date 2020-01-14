@@ -86,7 +86,7 @@ class LecturesController < ApplicationController
       end
       late = Student.where(id: late_ids)
       late.map do |l|
-        att_destroy = Attendance.where('date BETWEEN ? AND ?', date.beginning_of_day, date+1.hour).find_by(student: l)
+        att_destroy = Attendance.where('date BETWEEN ? AND ?', date.beginning_of_day, Time.now+1.hour).find_by(student: l)
         Attendance.destroy(att_destroy.id)
 
         arr = late_times[l.id].split(':')
