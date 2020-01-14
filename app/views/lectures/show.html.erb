@@ -129,7 +129,6 @@
 <script type="text/javascript">
     var togglePressed = false;
     var toggleID;
-    var timeChanged = false;
     var previousState;
     var closedPressed = false;
     var students_ids = {
@@ -186,7 +185,7 @@ function execute() {
                                                                                       // it will simply return in original state (see later lines 189+)
                 students_ids['absents'].push(buttonID); // add studentID in absent array
 
-                togglePressed = timeChanged = closedPressed = false; // restore initial values for system state
+                togglePressed = closedPressed = false; // restore initial values for system state
                 toggleID = -1;
             }
         }
@@ -218,16 +217,11 @@ function execute() {
             $('[data-toggle="popover"]').popover('hide'); // hide the popover
             togglePressed = false; // restore initial values for system state
             toggleID = -1;
-            timeChanged = false;
         } else { // if the user clicks on a toggle
             togglePressed = true; // change system state accordingly
         }
 
         toggleID = e.target.parentElement.parentElement.parentElement.id; // retrieve studentID related to the pressed toggle
-
-        $('input[type="time"]').change(function () { // when the user inserts data about entrance time or exit time
-            timeChanged = true; // change system state accordingly
-        });
     });
 
     $(document).click(function (e) { // whenever the user clicks on the page
@@ -237,16 +231,14 @@ function execute() {
 
         if (($('[data-toggle="popover"]').has(e.target).length == 0) && ($('[role="tooltip"]').has(e.target).length == 0)) { // if the click was not on a toggle nor on the related popover
             // (so he/she wants the popover to disappear and save the changes)
-            if (timeChanged == true) { // if the user has inserted data about time entrance or time exit
-                $('[data-toggle="popover"]').popover('hide'); // allow popover hiding
-            }
-            else if(togglePressed == false) {
+            if(togglePressed == false) {
                 // ignore click because togglePressed = false
             }
-            else { // otherwise
-                $('#lecture-error-modal').modal('show'); // don't allow popover hiding and show error modal page
+            else {
+                $('[data-toggle="popover"]').popover('hide'); // allow popover hiding
             }
-        } else if ($(e.target).is('.close')) { // if the click was on the x icon in the top right corner of the popover
+        }
+        else if ($(e.target).is('.close')) { // if the click was on the x icon in the top right corner of the popover
             let id = e.target.id; // retrieve studentID related to the pressed toggle
             $('input[type="checkbox"][id=' + id + ']').prop('checked', previousState).change(); // restore previous toggle state previously saved
             closedPressed = true; // change system state accordingly
@@ -257,7 +249,7 @@ function execute() {
     for (let i = 0; i < $('[data-toggle="popover"]').length; i++) { // for each toggle in the page
         let id = $('[data-toggle="popover"]')[i].id; // retrieve studentID related to the toggle
         $('[data-toggle="popover"][id=' + id + ']').on('hide.bs.popover', function () { // when the event about hiding its popover is fired
-            if (id == toggleID && !closedPressed && timeChanged && togglePressed) { // if the toggle previously pressed was its own, if there was no x icon clicked, if the user correctly
+            if (id == toggleID && !closedPressed && togglePressed) { // if the toggle previously pressed was its own, if there was no x icon clicked, if the user correctly
                                                                                     // inserted time information and if the toggle was pressed before the event
                 let tooltip = document.createElement('a'); // create a tooltip icon
                 tooltip.setAttribute('data-toggle', 'tooltip');
@@ -293,10 +285,10 @@ function execute() {
 
                 $('[data-toggle="popover"][id=' + id + ']').popover('disable'); // disable popover on the toggle, so that if the user clicks again on the toggle
                                                                                 // it will simply return in original state (see later lines 189+)
-                togglePressed = timeChanged = closedPressed = false; // restore initial values for system state
+                togglePressed = closedPressed = false; // restore initial values for system state
                 toggleID = -1;
             } else if (closedPressed == true) { // if the user fired the popover hide event by clicking on x icon in the top right corner of the popover
-                togglePressed = timeChanged = closedPressed = false; // restore initial values for system state
+                togglePressed = closedPressed = false; // restore initial values for system state
                 toggleID = -1;
             }
         });
