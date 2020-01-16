@@ -84,7 +84,7 @@ We can say that, on average, the task estimation was accurate, since the total t
 * Unit Testing:
 	- Total hours estimated: 1.45
 	- Total hours spent: 1.45
-	- Nr of automated unit tests: ?
+	- Nr of automated unit tests: 15
 	- Coverage (if available): 88.24%
 
 * E2E testing:
