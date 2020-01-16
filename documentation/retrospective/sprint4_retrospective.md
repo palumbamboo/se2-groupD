@@ -161,7 +161,7 @@ Looking at ratios, actual times are more coherent with estimated story points th
 ## ASSESSMENT
 
 * What caused your errors in estimation (if any)?
-	* _Story #18_: this story was a little overestimated since it required less work to implement it than expected. This could be explained why we have adopted an existing template made for other stories to implement this story. Hence using a well known template helped us in implement this story faster.
+	* _Story #18_: this story was a little overestimated since it required less work to implement it than expected because we have adopted an existing template made for other stories to implement this story. Hence using a well known template helped us in implement this story faster.
 	* _Story #28_: this story was a little underestimated. It could have been a 5 point story. This happened because initially we didn't take into account some details of the teacher view of the timetables, which has a slightly different logic in respect to the one of the parent view.
 	* _Story #15_: also this story could be of 5 story points. This was mainly because additional logic had to be added to the application, more than expected.
 	* _Story#docker_: we took more time than expected in making all docker components work because of our initial lack of knowledge in using this technology.
