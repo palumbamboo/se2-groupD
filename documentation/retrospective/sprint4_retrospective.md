@@ -69,8 +69,8 @@ Standard deviation hours actual: 2.05
 
 * story#0style is related to make a uniform interface style.
 * story#0responsiveness is related to make forms responsive.
-* story#0bug is related to major bug fixing.
-* story#0validation is related to have input validation for all forms.
+* story#0bug is related to major bugs fixing.
+* story#0validation is related to have inputs validation for all forms.
 * story#sonarqube is related to improve our technical debt.
 * story#docker is related to both release1 and release2.
  
@@ -161,7 +161,7 @@ Looking at ratios, actual times are more coherent with estimated story points th
 ## ASSESSMENT
 
 * What caused your errors in estimation (if any)?
-	* _Story #18_: this story was a little overestimated since it required less work to implement it than expected. This could be explained because we adopted an already existing template implemented for other stories to implement this story. Using a predefined template helped us in implement this story faster.
+	* _Story #18_: this story was a little overestimated since it required less work to implement it than expected. This could be explained why we have adopted an existing template made for other stories to implement this story. Hence using a well known template helped us in implement this story faster.
 	* _Story #28_: this story was a little underestimated. It could have been a 5 point story. This happened because initially we didn't take into account some details of the teacher view of the timetables, which has a slightly different logic in respect to the one of the parent view.
 	* _Story #15_: also this story could be of 5 story points. This was mainly because additional logic had to be added to the application, more than expected.
 	* _Story#docker_: we took more time than expected in making all docker components work because of our initial lack of knowledge in using this technology.
@@ -170,8 +170,8 @@ Looking at ratios, actual times are more coherent with estimated story points th
 
 	Positive:
 
-	* Dedicating the last days of the sprint in finding and fixing bugs lead to a better-working product.
-	* Having both backend and frontend validations helps in finding bugs.
+	* Taking the last few days of the sprint to find and fix bugs leads to a better-working product.
+	* Having both backend and frontend validations helps in finding bugs and improves consistency.
 
 	Negative:
 	
