@@ -75,7 +75,7 @@ MailSpons can be found at the following link: https://mailspons.com/. This happe
         docker pull se2polito/team-d:db2
         ```
 
-    - download the **se2polito-team-d-docker-release2.zip** from the link --insert link--
+    - download the **se2polito-team-d-docker-release2.zip** from the link https://drive.google.com/open?id=1ILURAdHoeNJagpQXw2UFCzfXA5POaL-E
     - unzip it: it should create a folder called "Prova-release2"
     - with your terminal, go inside this directory and launch our application with the command:
         ```
