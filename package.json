@@ -10,7 +10,7 @@
     "bootstrap-toggle": "^2.2.2",
     "channels": "^0.0.4",
     "custom": "^0.0.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.16.0",
     "turbolinks": "^5.2.0"
   },
