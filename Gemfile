@@ -37,7 +37,7 @@ gem 'devise'
 
 gem "rack-cors", ">= 1.0.4"
 
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 
 gem 'simplecov', require: false, group: :test
 
